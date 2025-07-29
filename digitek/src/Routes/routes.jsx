@@ -2,7 +2,7 @@ import {Routes, Route } from "react-router-dom";
 
 import LandingPage from "../Pages/LandingPage";
 import Auth from "../Pages/Auth";
-import UserPage from "../Pages/UserPage";
+import HomePage from "../Pages/HomePage";
 import CartPage from "../Pages/CartPage";
 import PaymentPage from "../Pages/PaymentPage";
 import ProfilePage from "../Pages/ProfilePage";
@@ -15,7 +15,7 @@ const MyRoutes = () => {
     <Routes>
       <Route path="/" element={<LandingPage/>}/>
       <Route path="/auth" element={<Auth/>}/>
-      <Route path="/userPage" element={<UserPage/>}/>
+      <Route path="/home" element={<HomePage/>}/>
       <Route path="/cart" element={<CartPage/>}/>
       <Route path="/payment" element={<PaymentPage/>}/>
       <Route path="/profile" element={<ProfilePage/>}/>
