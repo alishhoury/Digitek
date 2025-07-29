@@ -1,0 +1,88 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.landing-body {
+    background-color: lightcyan;
+    min-height: 100vh;
+}
+
+.landing-main {
+    display: flex;
+    align-items: center;
+    gap: 200px;
+    padding: 64px;
+    min-height: 100vh;
+}
+
+.landing-section {
+    text-align: left;
+}
+
+.landing-text {
+    margin-bottom: 32px;
+}
+
+.landing-title {
+    font-size: 45px;
+    font-weight: 600;
+    margin-bottom: 24px;
+    color: black;
+}
+
+.landing-subtitle {
+    font-size: 19px;
+    font-weight: 400;
+    color: #333;
+    max-width: 550px;
+}
+
+.landing-buttons {
+    display: flex;
+    gap: 16px;
+    justify-content: flex-start;
+}
+
+.landing-btn-primary {
+    background-color: #181819;
+    color: white;
+    padding: 12px 30px;
+    font-size: 18px;
+    border-radius: 5px;
+    margin-top: 20px;
+}
+
+.landing-btn-primary:hover {
+    background-color: #545459;
+    cursor: pointer;
+}
+
+.landing-btn-secondary {
+    background-color: #116466;
+    color: white;
+    padding: 12px 30px;
+    font-size: 18px;
+    border-radius: 5px;
+    margin-top: 20px;
+}
+
+.landing-btn-secondary:hover {
+    background-color: #2b9496;
+    cursor: pointer;
+}
+
+.landing-aside {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.landing-image {
+    height: 300px;
+    width: 300px;
+    object-fit: cover;
+    border-style: solid;
+    border-radius: 10px;
+}
