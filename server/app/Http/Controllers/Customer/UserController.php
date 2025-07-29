@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers\Shared;
+namespace App\Http\Controllers\Customer;
 
+use App\Http\Controllers\Shared\Controller;
 use Illuminate\Http\Request;
 
 class UserController extends Controller {
