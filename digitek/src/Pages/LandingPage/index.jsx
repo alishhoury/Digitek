@@ -23,7 +23,7 @@ const LandingPage = () => {
                             text={"Shop Now"}
                             className="landing-btn-primary"
                             onClickListener={() => {
-                                navigate("/userPage");
+                                navigate("/home");
                             }}
                         />
                         <Button
