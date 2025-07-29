@@ -1,6 +1,8 @@
 import React from "react";
 import { useNavigate, useLocation } from 'react-router-dom';
-import "./style.css";
+import Logo from "../../assets/Digitek.svg";
+import "./style.css"
+
 
 const NavBar = ({}) => {
     const navigate = useNavigate();
@@ -47,8 +49,33 @@ const NavBar = ({}) => {
   };
 
     return (
-        <div className="SideBar">
+        <div className="NavBar">
 
+            <div className="bar-content">
+
+                <div className="logo">
+                    <img src={Logo} alt="Digitek" />
+                </div>
+
+               <div className="nav-buttons">
+                    <button onClick={home} className={isActive('/home') ? 'navbar-btn active' : 'navbar-btn'}>
+                        Home
+                    </button>
+                    <button onClick={cart} className={isActive('/cart') ? 'navbar-btn active' : 'navbar-btn'}>
+                        Cart
+                    </button>
+                    <button onClick={payment} className={isActive('/payment') ? 'navbar-btn active' : 'navbar-btn'}>
+                        Payment
+                    </button>
+                    <button onClick={profile} className={isActive('/profile') ? 'navbar-btn active' : 'navbar-btn'}>
+                        Profile
+                    </button>
+                    <button onClick={logout} className={isLoged() ? 'logout-btn' : 'logout-btn'}>
+                        Logout
+                    </button>
+                </div>
+
+            </div>
 
 
         </div>
