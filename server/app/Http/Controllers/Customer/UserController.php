@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Customer;
 
 use App\Http\Controllers\Shared\Controller;
+use App\Http\Requests\UpdateUserRequest;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class UserController extends Controller {
@@ -32,7 +34,7 @@ class UserController extends Controller {
   /**
    * Update the specified resource in storage.
    */
-  public function update(Request $request, string $id) {
+  public function update(UpdateUserRequest $request, User $user) {
     //
   }
 
