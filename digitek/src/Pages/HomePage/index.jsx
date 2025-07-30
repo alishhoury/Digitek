@@ -1,4 +1,3 @@
-import "../../Components/Navbar"
 import NavBar from "../../Components/Navbar";
 
 

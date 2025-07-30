@@ -1,8 +1,14 @@
+import NavBar from "../../Components/Navbar";
+
+
 const ProfilePage = () => {
 
   return (
-    <div>Test Profile</div>
-  );
+    <div className="payment-page">
+
+      <NavBar />
+      <div>Test Profile</div>
+    </div>    );
 };
 
 export default ProfilePage;

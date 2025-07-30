@@ -1,8 +1,15 @@
+import NavBar from "../../Components/Navbar";
+
+
 const PaymentPage = () => {
 
   return (
-    <div>Test Payment</div>
-  );
+    <div className="payment-page">
+
+      <NavBar />
+      <div>Test Payment</div>
+    </div>  
+    );
 };
 
 export default PaymentPage;

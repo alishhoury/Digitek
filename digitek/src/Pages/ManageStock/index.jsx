@@ -1,8 +1,14 @@
+import NavBar from "../../Components/Navbar";
+
+
 const ManageStock = () => {
 
   return (
-    <div>Test Stock</div>
-  );
+    <div className="Manage-stock-page">
+
+      <NavBar />
+      <div>Test ManageStock</div>
+    </div>   );
 };
 
 export default ManageStock;
