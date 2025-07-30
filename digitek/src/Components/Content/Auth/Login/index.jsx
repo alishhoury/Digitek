@@ -14,22 +14,21 @@ const LoginForm = ({ toggle }) => {
 
     const handleLogin = async () => {
         try {
-            const response = await axios.post("", { //api call
+            const response = await axios.post("http://127.0.0.1:8000/api/v0.1/auth/login", {
                 email,
                 password,
             });
 
-            const token = response.data.payload.token;
-
-            if (!token) {
+            const user = response.data.payload;
+            if (!user) {
                 setErrorMessage("You are not able to login.");
                 return;
             }
 
             setErrorMessage("");
-            localStorage.setItem("token", token);
+            localStorage.setItem("user", JSON.stringify(user));
 
-            navigate("/UserPage");
+            navigate("/home");
 
         } catch (error) {
             const message = error.response?.data?.message || "Login failed. Please check your credentials.";

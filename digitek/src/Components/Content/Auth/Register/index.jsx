@@ -14,7 +14,7 @@ const SignUpForm = ({ toggle }) => {
 
     const handleRegister = async () => {
         try {
-        const response = await axios.post("", { // also api call
+        const response = await axios.post("http://127.0.0.1:8000/api/v0.1/auth/register", {
             name,
             email,
             password,

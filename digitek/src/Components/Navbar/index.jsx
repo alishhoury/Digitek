@@ -9,34 +9,34 @@ const NavBar = ({}) => {
     const location = useLocation();
 
     const isActive = (path) => location.pathname === path;
-    const isLoged = () => {
-        const token = localStorage.getItem('token');
-        return token !== null && token !== undefined && token !== '';
+    const isLogged = () => {
+        const user = localStorage.getItem('user');
+        return user !== null && user !== undefined && user !== '';
     }
 
     const home = () => {
-        if (isLoged()) {
+        if (isLogged()) {
             navigate('/home');
         } else {
             navigate('/auth');
         }
     };
     const cart = () => {
-        if (isLoged()) {
+        if (isLogged()) {
             navigate('/cart');
         } else {
             navigate('/auth');
         }
     };
     const payment = () => {
-        if (isLoged()) {
+        if (isLogged()) {
             navigate('/payment');
         } else {
             navigate('/auth');
         }
     };
     const profile = () => {
-        if (isLoged()) {
+        if (isLogged()) {
             navigate('/profile');
         } else {
             navigate('/auth');
@@ -44,7 +44,7 @@ const NavBar = ({}) => {
     };
 
       const logout = () => {
-        localStorage.removeItem('token');
+        localStorage.removeItem('user');
          navigate('/');
   };
 
@@ -70,7 +70,7 @@ const NavBar = ({}) => {
                     <button onClick={profile} className={isActive('/profile') ? 'navbar-btn active' : 'navbar-btn'}>
                         Profile
                     </button>
-                    <button onClick={logout} className={isLoged() ? 'logout-btn' : 'logout-btn hidden'}>
+                    <button onClick={logout} className={isLogged() ? 'logout-btn' : 'logout-btn hidden'}>
                         Logout
                     </button>
                 </div>
