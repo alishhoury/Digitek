@@ -19,6 +19,10 @@ const LoginForm = ({ toggle }) => {
       });
 
       const user = response.data.payload;
+<<<<<<< HEAD
+=======
+      console.log(user);
+>>>>>>> 9c08c1368409c44288fa4046dd6deee121cc8bed
       if (!user) {
         setErrorMessage("You are not able to login.");
         return;
