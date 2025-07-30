@@ -18,19 +18,11 @@ const LoginForm = ({ toggle }) => {
         password,
       });
 
-<<<<<<< Updated upstream
-      const user = response.data.payload;
-      if (!user) {
-        setErrorMessage("You are not able to login.");
-        return;
-      }
-=======
             const user = response.data.payload;
             if (!user) {
                 setErrorMessage("You are not able to login.");
                 return;
             }
->>>>>>> Stashed changes
 
       setErrorMessage("");
       localStorage.setItem("user", JSON.stringify(user));
