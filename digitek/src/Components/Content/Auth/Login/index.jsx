@@ -20,6 +20,7 @@ const LoginForm = ({ toggle }) => {
             });
 
             const user = response.data.payload;
+            console.log(user);
             if (!user) {
                 setErrorMessage("You are not able to login.");
                 return;

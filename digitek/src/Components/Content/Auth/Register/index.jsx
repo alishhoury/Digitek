@@ -19,15 +19,15 @@ const SignUpForm = ({ toggle }) => {
             email,
             password,
         });
-        const token = response.data.payload.token;
+        const user = response.data.payload.user;
 
-        if (!token) {
+        if (!user) {
             setErrorMessage("You are Not able to register.");
             return;
         }
         setErrorMessage("");
 
-        localStorage.setItem("token", token);
+        localStorage.setItem("user", user);
         navigate("/UserPage");
 
         } catch (error) {
