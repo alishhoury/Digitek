@@ -5,7 +5,6 @@ const CartPage = () => {
   return (
     <div className="cart-page">
 
-      <NavBar />
       <div>Test Cart</div>
     </div>  );
 };

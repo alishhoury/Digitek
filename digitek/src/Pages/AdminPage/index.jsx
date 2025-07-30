@@ -6,7 +6,6 @@ const AdminPage = () => {
   return (
     <div className="admin-page">
 
-      <NavBar />
       <div>Test Admin</div>
     </div>
   );

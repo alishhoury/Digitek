@@ -6,7 +6,6 @@ const ProfilePage = () => {
   return (
     <div className="payment-page">
 
-      <NavBar />
       <div>Test Profile</div>
     </div>    );
 };

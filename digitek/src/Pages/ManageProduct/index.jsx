@@ -6,7 +6,6 @@ const ManageProduct = () => {
   return (
     <div className="product-page">
 
-      <NavBar />
       <div>Test Product</div>
     </div>    
     );
