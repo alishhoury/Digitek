@@ -7,7 +7,7 @@ import axios from "axios";
 const SignUpForm = ({ toggle }) => {
     const navigate = useNavigate();
 
-    const [name, setName] = useState("");
+    const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [errorMessage, setErrorMessage] = useState("");
@@ -15,7 +15,7 @@ const SignUpForm = ({ toggle }) => {
     const handleRegister = async () => {
         try {
         const response = await axios.post("http://127.0.0.1:8000/api/v0.1/auth/register", {
-            name,
+            username,
             email,
             password,
         });
@@ -60,7 +60,7 @@ const SignUpForm = ({ toggle }) => {
                         hint={"Example"}
                         required={true}
                         className="register-form-input"
-                        onChangeListener={(e) => setName(e.target.value)}
+                        onChangeListener={(e) => setUsername(e.target.value)}
                     />
                 </div>
 
