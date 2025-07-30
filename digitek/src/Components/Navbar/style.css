@@ -56,3 +56,9 @@
 .logout-btn.hidden {
     display: none;
 }
+
+@media screen and (max-width: 360px) {
+    .navbar-btn.active {
+        display: none;
+    }
+}
