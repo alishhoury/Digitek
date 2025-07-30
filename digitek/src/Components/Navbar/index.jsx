@@ -5,15 +5,14 @@ import "./style.css";
 import api from "../../services/axios";
 
 const NavBar = () => {
-  const navigate = useNavigate();
-  const location = useLocation();
+    const navigate = useNavigate();
+    const location = useLocation();
 
-  const isActive = path => location.pathname === path;
-  const isLogged = () => {
-    const user = localStorage.getItem("user");
-    return user !== null && user !== undefined && user !== "";
-  };
-
+    const isActive = (path) => location.pathname === path;
+    const isLogged = () => {
+        const user = localStorage.getItem('user');
+        return user !== null && user !== undefined && user !== '';
+    }
   const home = () => {
     if (isLogged()) {
       navigate("/home");
