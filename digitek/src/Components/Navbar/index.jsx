@@ -70,7 +70,7 @@ const NavBar = ({}) => {
                     <button onClick={profile} className={isActive('/profile') ? 'navbar-btn active' : 'navbar-btn'}>
                         Profile
                     </button>
-                    <button onClick={logout} className={isLoged() ? 'logout-btn' : 'logout-btn'}>
+                    <button onClick={logout} className={isLoged() ? 'logout-btn' : 'logout-btn hidden'}>
                         Logout
                     </button>
                 </div>
