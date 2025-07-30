@@ -1,0 +1,137 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.login-body,
+.register-body {
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.left-button {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: black;
+  padding: 5px;
+}
+
+.left-button:hover {
+  color: #116466;
+}
+
+.login-container,
+.register-container {
+  background-color: #D1E8E2;
+  padding: 40px;
+  border-radius: 15px;
+  width: 100%;
+  max-width: 420px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.login-h1,
+.register-h1 {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 15px;
+  font-size: 28px;
+  font-weight: 600;
+  color: #111827;
+  margin-bottom: 30px;
+}
+
+.login-form,
+.register-form {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  gap: 20px;
+}
+
+.login-form > div,
+.register-form > div {
+  position: relative;
+  width: 100%;
+}
+
+.login-label,
+.register-label {
+  font-weight: bold;
+  font-size: 18px;
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+  color: #181819;
+}
+
+.login-form-input,
+.register-form-input {
+  width: 100%;
+  padding: 15px 15px 15px 15px;
+  font-size: 16px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  background-color: white;
+  color: #374151;
+  text-align: left;
+}
+
+.login-form input::placeholder,
+.register-form input::placeholder {
+  color: gray;
+}
+
+.login-button,
+.register-button {
+  width: 100%;
+  padding: 15px;
+  background-color: #181819;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.login-button:hover,
+.register-button:hover {
+  background-color: #343442;
+}
+
+.register-link,
+.login-link {
+  font-size: 16px;
+  margin-top: 25px;
+  color: #343442;
+}
+
+.register-link-span,
+.login-link-span {
+  color: darkblue;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.register-link-span:hover,
+.login-link-span:hover {
+  color: #02102d;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.login-error,
+.register-error {
+  color: red;
+  margin-top: 10px;
+  font-size: 14px;
+}
