@@ -1,5 +1,6 @@
 import NavBar from "../../Components/Navbar";
 import "./style.css";
+import Statistic from "../../Components/Statistics";
 
 import { LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 
@@ -13,7 +14,7 @@ const AdminPage = () => {
         { name: "Phone Case", quantity: 2, price: 20 }
       ],
       totalPrice: 80.99,
-      status: "Paid"
+      status: "paid"
     },
     {
       id: 2,
@@ -22,7 +23,7 @@ const AdminPage = () => {
         { name: "Ear buds", quantity: 1, price: 60.99 }
       ],
       totalPrice: 60.99,
-      status: "Packed"
+      status: "packed"
     },
     {
       id: 3,
@@ -31,7 +32,7 @@ const AdminPage = () => {
         { name: "Phone Case", quantity: 1, price: 10 }
       ],
       totalPrice: 10,
-      status: "Shipped"
+      status: "shipped"
     }
   ]
 
@@ -51,6 +52,7 @@ const AdminPage = () => {
 
   return (
     <div className="admin-page">
+      <Statistic orders = {orders}/>
       <h3>Orders per Hour</h3>
       <div className="chart-container">
         <ResponsiveContainer>
