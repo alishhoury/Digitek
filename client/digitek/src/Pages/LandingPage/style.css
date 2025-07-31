@@ -4,6 +4,26 @@
     box-sizing: border-box;
 }
 
+.landing-nav {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 10px;
+    min-height: 60px;
+    box-sizing: border-box;
+}
+
+.landing-logo {
+    display: flex;
+    align-items: center;
+}
+
+.-landing-logo img {
+    max-height: clamp(25px, 6vw, 40px);
+}
+
 .landing-body {
     background-color: lightcyan;
     min-height: 100vh;
