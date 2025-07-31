@@ -15,11 +15,11 @@ body {
 .checkout-grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 1.5rem;
+  gap: 2rem;
 }
 @media (min-width: 1024px) {
   .checkout-grid {
-    grid-template-columns: 1.5fr 1.5fr;
+    grid-template-columns: 1.6fr 1.4fr;
   }
 }
 .right-section {
