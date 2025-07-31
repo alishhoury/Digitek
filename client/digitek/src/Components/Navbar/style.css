@@ -41,6 +41,7 @@
     cursor: pointer;
     font-size: clamp(12px, 2.5vw, 16px);
     transition: all 0.3s ease;
+    text-decoration: none;
 }
 
 .navbar-btn:hover, .logout-btn:hover {

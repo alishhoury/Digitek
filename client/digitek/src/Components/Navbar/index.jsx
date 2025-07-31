@@ -1,56 +1,23 @@
 import React from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import Logo from "../../assets/Digitek.svg";
 import "./style.css";
 import api from "../../services/axios";
 
 const NavBar = () => {
-    const navigate = useNavigate();
-    const location = useLocation();
+  const navigate = useNavigate();
+  const location = useLocation();
 
-    const user = JSON.parse(localStorage.getItem('user'));
+  const user = JSON.parse(localStorage.getItem('user'));
 
-    const isActive = (path) => location.pathname === path;
-    const isLogged = () => {
-        const user = localStorage.getItem('user');
-        return user !== null && user !== undefined && user !== '';
-    }
+  const isActive = (path) => location.pathname === path;
+  const isLogged = () => {
+    const user = localStorage.getItem('user');
+    return user !== null && user !== undefined && user !== '';
+  };
 
   const isAdmin = () => {
     return isLogged() && user.role === "admin";
-  };
-  
-  const admin = () => {
-    navigate("/adminPage");
-  };
-
-  const home = () => {
-    if (isLogged()) {
-      navigate("/home");
-    } else {
-      navigate("/auth");
-    }
-  };
-  const cart = () => {
-    if (isLogged()) {
-      navigate("/cart");
-    } else {
-      navigate("/auth");
-    }
-  };
-  const payment = () => {
-    if (isLogged()) {
-      navigate("/payment");
-    } else {
-      navigate("/auth");
-    }
-  };
-  const profile = () => {
-    if (isLogged()) {
-      navigate("/profile");
-    } else {
-      navigate("/auth");
-    }
   };
 
   const logout = async () => {
@@ -67,42 +34,41 @@ const NavBar = () => {
         </div>
 
         <div className="nav-buttons">
-          <button
-            onClick={home}
+          <Link
+            to={isLogged() ? "/home" : "/auth"}
             className={isActive("/home") ? "navbar-btn active" : "navbar-btn"}
           >
             Home
-          </button>
-          <button
-            onClick={cart}
+          </Link>
+
+          <Link
+            to={isLogged() ? "/cart" : "/auth"}
             className={isActive("/cart") ? "navbar-btn active" : "navbar-btn"}
           >
             Cart
-          </button>
-          <button
-            onClick={payment}
-            className={
-              isActive("/payment") ? "navbar-btn active" : "navbar-btn"
-            }
+          </Link>
+
+          <Link
+            to={isLogged() ? "/payment" : "/auth"}
+            className={isActive("/payment") ? "navbar-btn active" : "navbar-btn"}
           >
             Payment
-          </button>
-          <button
-            onClick={profile}
-            className={
-              isActive("/profile") ? "navbar-btn active" : "navbar-btn"
-            }
+          </Link>
+
+          <Link
+            to={isLogged() ? "/profile" : "/auth"}
+            className={isActive("/profile") ? "navbar-btn active" : "navbar-btn"}
           >
             Profile
-          </button>
+          </Link>
 
           {isAdmin() && (
-            <button
-              onClick={admin}
+            <Link
+              to="/adminPage"
               className={isActive("/adminPage") ? "navbar-btn active" : "navbar-btn"}
             >
               Admin Panel
-            </button>
+            </Link>
           )}
 
           <button
