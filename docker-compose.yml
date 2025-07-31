@@ -1,5 +1,3 @@
-version: "3.8"
-
 services:
   # Laravel Backend (PHP)
   app:
@@ -7,14 +5,16 @@ services:
       context: ./docker/php
     volumes:
       - ./server:/var/www
-      - ./server/.env:/var/www/.env # Optional: make .env persistent
+      - ./server/.env:/var/www/.env
     depends_on:
       - mysql
+      - redis
     working_dir: /var/www
     command: >
       sh -c "
         if [ ! -f .env ]; then cp .env.example .env; fi &&
         php artisan config:clear &&
+        php artisan cache:clear &&
         php artisan key:generate &&
         php artisan jwt:secret --force &&
         php artisan migrate --force &&
@@ -40,6 +40,19 @@ services:
     networks:
       - app-network
 
+  # Redis Cache
+  redis:
+    image: redis:7-alpine
+    container_name: redis
+    restart: always
+    ports:
+      - "6379:6379"
+    command: redis-server --appendonly yes
+    volumes:
+      - redis-data:/data
+    networks:
+      - app-network
+
   # Nginx Server
   nginx:
     image: nginx:alpine
@@ -56,7 +69,7 @@ services:
 
   # React Frontend (Vite)
   frontend:
-    image: node:20
+    image: node:20-alpine
     working_dir: /app
     volumes:
       - ./client/digitek:/app
@@ -82,6 +95,7 @@ services:
 
 volumes:
   db-data:
+  redis-data:
 
 networks:
   app-network:
