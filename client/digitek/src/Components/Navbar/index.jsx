@@ -1,19 +1,23 @@
 import React from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import Logo from "../../assets/Digitek.svg";
+import Profile from "../../assets/Profile.svg";
+import { useState } from "react";
 import "./style.css";
 import api from "../../services/axios";
 
 const NavBar = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  const [dropdownOpen, setDropdownOpen] = useState(false);
 
-  const user = JSON.parse(localStorage.getItem('user'));
+  const user = JSON.parse(localStorage.getItem("user"));
 
   const isActive = (path) => location.pathname === path;
+
   const isLogged = () => {
-    const user = localStorage.getItem('user');
-    return user !== null && user !== undefined && user !== '';
+    const user = localStorage.getItem("user");
+    return user !== null && user !== undefined && user !== "";
   };
 
   const isAdmin = () => {
@@ -26,6 +30,10 @@ const NavBar = () => {
     navigate("/");
   };
 
+  const toggleDropdown = () => {
+    setDropdownOpen(!dropdownOpen);
+  };
+
   return (
     <div className="NavBar">
       <div className="bar-content">
@@ -34,6 +42,33 @@ const NavBar = () => {
         </div>
 
         <div className="nav-buttons">
+          {isAdmin() && (
+            <Link
+              to="/adminPage"
+              className={isActive("/adminPage") ? "navbar-btn active" : "navbar-btn"}
+            >
+              Dashboard
+            </Link>
+          )}
+
+          {isAdmin() && (
+            <Link
+              to="/manageStock"
+              className={isActive("/manageStock") ? "navbar-btn active" : "navbar-btn"}
+            >
+              Edit Stock
+            </Link>
+          )}
+
+          {isAdmin() && (
+            <Link
+              to="/manageProduct"
+              className={isActive("/manageProduct") ? "navbar-btn active" : "navbar-btn"}
+            >
+              Add Product
+            </Link>
+          )}
+
           <Link
             to={isLogged() ? "/home" : "/auth"}
             className={isActive("/home") ? "navbar-btn active" : "navbar-btn"}
@@ -48,35 +83,25 @@ const NavBar = () => {
             Cart
           </Link>
 
-          <Link
-            to={isLogged() ? "/payment" : "/auth"}
-            className={isActive("/payment") ? "navbar-btn active" : "navbar-btn"}
-          >
-            Payment
-          </Link>
+          {isLogged() && (
+            <div className="user-menu">
+              <button onClick={toggleDropdown} className = "navbar-btn"><img src={Profile} alt="profile"/></button>
 
-          <Link
-            to={isLogged() ? "/profile" : "/auth"}
-            className={isActive("/profile") ? "navbar-btn active" : "navbar-btn"}
-          >
-            Profile
-          </Link>
-
-          {isAdmin() && (
-            <Link
-              to="/adminPage"
-              className={isActive("/adminPage") ? "navbar-btn active" : "navbar-btn"}
-            >
-              Admin Panel
-            </Link>
+              {dropdownOpen && (
+                <div className="dropdown">
+                  <Link to="/payment" className="dropdown-item">
+                    Payment
+                  </Link>
+                  <Link to="/profile" className="dropdown-item">
+                    Profile
+                  </Link>
+                  <button onClick={logout} className="dropdown-item">
+                    Logout
+                  </button>
+                </div>
+              )}
+            </div>
           )}
-
-          <button
-            onClick={logout}
-            className={isLogged() ? "logout-btn" : "logout-btn hidden"}
-          >
-            Logout
-          </button>
         </div>
       </div>
     </div>
