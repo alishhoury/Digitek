@@ -27,7 +27,7 @@ const SignUpForm = ({ toggle }) => {
       setErrorMessage("");
 
       localStorage.setItem("user", JSON.stringify(user));
-      navigate("/UserPage");
+      navigate("/home");
     } catch (error) {
       const message =
         error.response?.data?.message ||

@@ -1,4 +1,5 @@
 import "./style.css";
+import Logo from "../../assets/Digitek.svg";
 import Button from "../../Components/Button";
 import landingImg from "../../assets/TechImg.jpeg";
 import Footer from "../../Components/Footer";
@@ -8,6 +9,11 @@ const LandingPage = () => {
     const navigate = useNavigate();
     return (
         <body className="landing-body">
+            <nav className="landing-nav">
+                <div className="landing-logo">
+                    <img src={Logo} alt="Digitek" />
+                </div>
+            </nav>
             <main className="landing-main">
                 <section className="landing-section">
                     <div className="landing-text">

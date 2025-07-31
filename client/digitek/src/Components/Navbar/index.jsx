@@ -8,11 +8,22 @@ const NavBar = () => {
     const navigate = useNavigate();
     const location = useLocation();
 
+    const user = JSON.parse(localStorage.getItem('user'));
+
     const isActive = (path) => location.pathname === path;
     const isLogged = () => {
         const user = localStorage.getItem('user');
         return user !== null && user !== undefined && user !== '';
     }
+
+  const isAdmin = () => {
+    return isLogged() && user.role === "admin";
+  };
+  
+  const admin = () => {
+    navigate("/adminPage");
+  };
+
   const home = () => {
     if (isLogged()) {
       navigate("/home");
@@ -84,6 +95,16 @@ const NavBar = () => {
           >
             Profile
           </button>
+
+          {isAdmin() && (
+            <button
+              onClick={admin}
+              className={isActive("/adminPage") ? "navbar-btn active" : "navbar-btn"}
+            >
+              Admin Panel
+            </button>
+          )}
+
           <button
             onClick={logout}
             className={isLogged() ? "logout-btn" : "logout-btn hidden"}
