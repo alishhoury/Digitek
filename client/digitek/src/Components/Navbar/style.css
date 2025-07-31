@@ -66,6 +66,7 @@
   border: 1px solid;
   border-radius: 6px;
   min-width: 140px;
+  z-index: 1000;
 }
 
 .dropdown-item {
