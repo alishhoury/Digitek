@@ -94,7 +94,7 @@ export default function CheckoutPage() {
           <section className="left-section">
             {!showShippingDetails ? (
               <>
-                <h2>Shipping Address</h2>
+                <h2 className="section-title">Shipping Address</h2>
                 <form className="shipping-form" onSubmit={handleAddShipping}>
                   <div className="form-row">
                     <label htmlFor="firstName">First name</label>
@@ -165,7 +165,7 @@ export default function CheckoutPage() {
               </>
             ) : (
               <>
-                <h2>Shipping Details</h2>
+                <h2 className="section-title">Shipping Details</h2>
                 <p className="shipping-info">
                   <strong>First Name:</strong>{" "}
                   {formData.firstName || dummyShippingAddress.firstName}
@@ -192,7 +192,7 @@ export default function CheckoutPage() {
 
           {/* Right side: Order Summary */}
           <section className="right-section">
-            <h2>Order Summary</h2>
+            <h2 className="section-title">Order Summary</h2>
             <div className="order-summary-box">
               <ul>
                 {dummyCartItems.map(item => (
