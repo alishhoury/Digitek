@@ -4,37 +4,26 @@ import Statistic from "../../Components/Statistics";
 
 import { LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 
+import { useState, useEffect } from 'react';
+import api from "../../services/axios";
+
 const AdminPage = () => {
-  const orders = [
-    {
-      id: 1,
-      customer: "Ali Al Saghir",
-      products: [
-        { name: "Ear buds", quantity: 1, price: 60.99 },
-        { name: "Phone Case", quantity: 2, price: 20 }
-      ],
-      totalPrice: 80.99,
-      status: "paid"
-    },
-    {
-      id: 2,
-      customer: "Ali Shhoury",
-      products: [
-        { name: "Ear buds", quantity: 1, price: 60.99 }
-      ],
-      totalPrice: 60.99,
-      status: "packed"
-    },
-    {
-      id: 3,
-      customer: "Maroun Ghaya",
-      products: [
-        { name: "Phone Case", quantity: 1, price: 10 }
-      ],
-      totalPrice: 10,
-      status: "shipped"
-    }
-  ]
+  const [orders, setOrders] = useState([]);
+
+  useEffect(() => {
+    const getOrders = async () => {
+      try {
+        const response = await api.get("/orders", {
+          withCredentials: true
+        });
+        setOrders(response.data);
+      } catch (error) {
+        console.error("Error: ", error);
+      }
+    };
+
+    getOrders();
+  }, []);
 
   const ordersPerHour = [
     { id: 1, hour: 9, order_count: 10, revenue: 145.5 },
@@ -85,25 +74,24 @@ const AdminPage = () => {
           {orders.map((order) => (
             <tr key={order.id}>
               <td>{order.id}</td>
-              <td>{order.customer}</td>
+              <td>{order.user?.username || "Customer"}</td>
               <td>
-                {order.products.map((product, index) => (
+                {order.products?.map((product, index) => (
                   <div key={index}>
-                    {product.name} (x{product.quantity}){" "}
-                    <strong>${product.price}</strong>
+                    {product.name} (x{product.pivot?.quantity}) - <strong>${product.pivot?.price}</strong>
                   </div>
                 ))}
               </td>
               <td>
-                <strong>${order.totalPrice}</strong>
+                <strong>${order.total_price}</strong>
               </td>
               <td>{order.status}</td>
               <td>
-                <select className="admin-select">
-                  <option value="">Status</option>
-                  <option value="Paid">Paid</option>
-                  <option value="Packed">Packed</option>
-                  <option value="Shipped">Shipped</option>
+                <select className="admin-select" defaultValue="">
+                  <option value="">status</option>
+                  <option value="paid">paid</option>
+                  <option value="packed">packed</option>
+                  <option value="shipped">shipped</option>
                 </select>
               </td>
             </tr>
