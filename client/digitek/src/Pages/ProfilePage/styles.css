@@ -139,7 +139,8 @@ body {
 /* Shipping Card */
 .shipping-card {
   width: 100%;
-  min-height: 460px;
+  min-height: 400px;
+  max-height: 420px;
   position: relative;
   background-color: white;
   border-radius: 12px;
@@ -215,7 +216,7 @@ body {
 
 @media (min-width: 1024px) {
   .shipping-details {
-    padding: 48px;
+    padding: 30px 48px;
   }
 }
 
@@ -233,7 +234,7 @@ body {
 }
 
 .shipping-info p {
-  margin-bottom: 1rem;
+  margin-bottom: 0.4rem;
 }
 
 /* Orders Section */
@@ -253,7 +254,7 @@ body {
 }
 
 .order-card {
-  padding: 32px;
+  padding: 24px 32px;
   background-color: white;
   border: 1px solid #e5e7eb;
   border-radius: 16px;
