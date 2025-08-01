@@ -12,7 +12,10 @@ class ProductController extends Controller {
    * Display a listing of the resource.
    */
   public function index() {
-    //
+    
+    $products = Product::take(20)->get();
+    return self::responseJSON($products, 'success', 200);
+
   }
 
 
@@ -23,12 +26,17 @@ class ProductController extends Controller {
     //
   }
 
-  /**
+  /*
    * Display the specified resource.
    */
   public function show(Product $product) {
-    //
-  }
+    return self::responseJSON($product, 'success', 200);
+}
+
+    
+
+
+  
 
 
   /**

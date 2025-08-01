@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import removeFromCart from "../../assets/removeFromcart.svg";
-import addToCart from "../../assets/addTocart.svg";
 import "./style.css";
+
 
 const dummyProductItems = [
   {
@@ -29,7 +28,8 @@ const dummyProductItems = [
     description: "MagSafe compatible wireless charging station",
     price: 50,
     total_quantity: 51,
-    image: "https://www.belkin.com/dw/image/v2/BGBH_PRD/on/demandware.static/-/Sites-master-product-catalog-blk/default/dw6aa126fb/images/hi-res/3/3c5b1b904592bc64_belkin-WIZ029ttBK-Magnetic-Foldable-Charger-webgallery-hero01-v01-us.jpg?sfrm=png",
+    image:
+      "https://www.belkin.com/dw/image/v2/BGBH_PRD/on/demandware.static/-/Sites-master-product-catalog-blk/default/dw6aa126fb/images/hi-res/3/3c5b1b904592bc64_belkin-WIZ029ttBK-Magnetic-Foldable-Charger-webgallery-hero01-v01-us.jpg?sfrm=png",
   },
   {
     id: 4,
@@ -48,23 +48,14 @@ const dummyProductItems = [
     price: 599,
     total_quantity: 12,
     image: "https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?w=300",
-  }
+  },
 ];
 
 const ProductCard = ({ product }) => {
   const [quantity, setQuantity] = useState(0);
 
-
-
-  const handleIncrement = () => {
-    if (quantity < product.total_quantity) {
-      setQuantity(quantity + 1);
-    }
-  };
-
-
   const handleAddToCart = () => {
-        if (quantity < product.total_quantity) {
+    if (quantity < product.total_quantity) {
       setQuantity(quantity + 1);
     }
     console.log(`Added ${quantity} ${product.name} to cart`);
@@ -77,23 +68,19 @@ const ProductCard = ({ product }) => {
           <img src={product.image} alt={product.name} />
         </div>
         <div className="card-content">
-            
           <div className="product-info">
             <h3 className="product-name">{product.name}</h3>
           </div>
-          
+
           <div className="price-stock">
             <p className="price">${product.price}</p>
             <p className="stock">{product.total_quantity} pieces left</p>
           </div>
-          
+
           <div className="quantity">
-            
-              <span className="quantity-display">{quantity}</span>
-              
-            </div>
-          
-          
+            <span className="quantity-display">{quantity}</span>
+          </div>
+
           <button className="add-to-cart-btn" onClick={handleAddToCart}>
             Add to Cart
           </button>
@@ -106,7 +93,7 @@ const ProductCard = ({ product }) => {
 const ProductGrid = () => {
   return (
     <div className="product-grid">
-      {dummyProductItems.map(product => (
+      {dummyProductItems.map((product) => (
         <ProductCard key={product.id} product={product} />
       ))}
     </div>

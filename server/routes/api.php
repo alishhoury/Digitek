@@ -7,6 +7,8 @@ use App\Http\Controllers\Admin\ProductController as AdminProductController;
 use App\Http\Controllers\Customer\UserController;
 use App\Http\Controllers\Shared\AuthController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Shared\Controller;
 
 Route::group(['prefix' => 'v0.1'], function () {
 
