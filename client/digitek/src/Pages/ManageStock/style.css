@@ -1,0 +1,64 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.stock-products-page h1 {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.product-table-container {
+    padding: 20px;
+    margin: 60px;
+}
+
+.product-table-container h3 {
+    margin-bottom: 16px;
+    text-align: center;
+}
+
+.stock-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0 auto;
+}
+
+.stock-table th,
+.stock-table td {
+    border: 1px solid black;
+    padding: 10px;
+    text-align: center;
+}
+
+.stock-table th {
+    background-color: lightgray;
+}
+
+.in-stock {
+    color: green;
+    font-weight: 500;
+}
+
+.out-of-stock {
+    color: red;
+    font-weight: 500;
+}
+
+.icon-btn {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    align-items: center;
+}
+
+.action-icon {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
+
+.action-icon:hover {
+    transform: scale(1.1);
+}
