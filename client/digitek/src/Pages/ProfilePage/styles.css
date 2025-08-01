@@ -254,6 +254,8 @@ body {
 }
 
 .order-card {
+  width: 1140px;
+  align-self: center;
   padding: 24px 32px;
   background-color: white;
   border: 1px solid #e5e7eb;
