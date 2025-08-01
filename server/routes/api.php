@@ -26,7 +26,7 @@ Route::group(['prefix' => 'v0.1'], function () {
   Route::get('products/{product}', [ProductController::class, 'show']);
 
   Route::middleware('cookie.auth')->group(function () {
-    Route::put('users/{user}', [UserController::class], 'update');
+    Route::put('users/{user}', [UserController::class, 'update']);
 
     Route::get('getUserOrders', [OrderController::class, 'getUserOrders']);
     Route::put('payOrder/{order}', [OrderController::class, 'payOrder']);
