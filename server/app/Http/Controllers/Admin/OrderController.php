@@ -12,7 +12,12 @@ class OrderController extends Controller {
    * Display a listing of the resource.
    */
   public function index() {
-    //
+    $orders = Order::with([
+      'user:id,username',
+      'products:id,name'
+    ])->get();
+
+    return response()->json($orders);
   }
 
 
