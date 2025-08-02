@@ -9,6 +9,7 @@ class OrderResource extends JsonResource {
   public function toArray(Request $request): array {
     return [
       'id' => $this->id,
+      'order_number' => $this->order_number,
       'user_id' => $this->user_id,
       'total_price' => round($this->total_price, 2),
       'status' => $this->status,
