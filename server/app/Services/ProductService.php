@@ -45,4 +45,24 @@ class ProductService
             'image' => $imagePath,
         ]);
     }
+
+    public static function updateProduct(int $id, array $data){
+        $product = Product::find($id);
+
+        if (!$product) {
+            return null;
+        }
+
+        $product->name = $data['name'] ?? $product->name;
+        $product->price = $data['price'] ?? $product->price;
+        $product->total_quantity = $data['total_quantity'] ?? $product->total_quantity;
+        $product->cost = $data['cost'] ?? $product->cost;
+        $product->brand = $data['brand'] ?? $product->brand;
+        $product->description = $data['description'] ?? $product->description;
+        $product->image = $data['image'] ?? $product->image;
+
+        $product->save();
+
+        return $product;
+    }
 }
