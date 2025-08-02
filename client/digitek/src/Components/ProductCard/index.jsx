@@ -4,32 +4,33 @@ import { addToCart } from "../../features/cart/cartSlice";
 import "./style.css";
 import api from "../../services/axios";
 
-
 const ProductCard = ({ product }) => {
   const dispatch = useDispatch();
   const cartItems = useSelector(state => state.cart.cartItems);
-  
+
   const cartItem = cartItems.find(item => item.id === product.id);
   const quantity = cartItem ? cartItem.quantity : 0;
 
   useEffect(() => {
-  if (quantity > 0) {
-    console.log(`Current quantity of ${product.name}: ${quantity}`);
-  }
-}, [quantity, product.name]);
-
+    if (quantity > 0) {
+      console.log(`Current quantity of ${product.name}: ${quantity}`);
+    }
+  }, [quantity, product.name]);
 
   const handleAddToCart = () => {
     if (quantity < product.total_quantity) {
-      dispatch(addToCart({ 
-        product: {
-          id: product.id,
-          name: product.name,
-          brand: product.brand,
-          price: product.price,
-          image: product.image
-        }
-      }));
+      dispatch(
+        addToCart({
+          product: {
+            id: product.id,
+            name: product.name,
+            brand: product.brand,
+            price: product.price,
+            image: product.image,
+            total_quantity: product.total_quantity,
+          },
+        })
+      );
     }
   };
 
@@ -68,19 +69,20 @@ const ProductGrid = ({ currentPage }) => {
   useEffect(() => {
     window.scrollTo(0, 0);
 
-    api.get(`/products?page=${currentPage}`)
+    api
+      .get(`/products?page=${currentPage}`)
       .then(response => {
         setProducts(response.data.payload.data);
       })
       .catch(error => {
-        console.log('API Error:', error);
+        console.log("API Error:", error);
         setProducts([]);
       });
   }, [currentPage]);
 
   return (
     <div className="product-grid">
-      {products.map((product) => (
+      {products.map(product => (
         <ProductCard key={product.id} product={product} />
       ))}
     </div>

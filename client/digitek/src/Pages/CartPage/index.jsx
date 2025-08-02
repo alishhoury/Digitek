@@ -1,15 +1,57 @@
 // src/components/Cart.jsx
 import React from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { BsFillCartPlusFill, BsFillCartDashFill } from "react-icons/bs";
 import "./styles.css";
+import {
+  decrementQuantity,
+  incrementQuantity,
+  removeFromCart,
+  clearCart,
+} from "../../features/cart/cartSlice";
+import api from "../../services/axios";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const Cart = () => {
   const cartProducts = useSelector(state => state.cart.cartItems);
-
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const subtotal = cartProducts.reduce(
     (total, item) => total + item.price * item.quantity,
     0
   );
+
+  const handleSubmit = async () => {
+    if (cartProducts.length === 0) {
+      toast.warn("Your cart is empty.");
+      return;
+    }
+
+    const formattedData = {
+      products: cartProducts.map(item => ({
+        product_id: item.id,
+        quantity: item.quantity,
+      })),
+    };
+
+    try {
+      const response = await api.post("/orders", formattedData);
+
+      const { status, payload } = response.data;
+
+      if (status === "success") {
+        dispatch(clearCart());
+        toast.success("Order created successfully!");
+        navigate(`/payment/${payload.order_number}`);
+      } else {
+        toast.error("Failed to place order. Try again.");
+      }
+    } catch (error) {
+      console.error("Order submission error:", error);
+      toast.error("An error occurred while submitting the order.");
+    }
+  };
 
   return (
     <>
@@ -20,7 +62,11 @@ const Cart = () => {
             <ul>
               {cartProducts.map(item => (
                 <li className="cart-item" key={item.id}>
-                  <button className="remove-btn" aria-label="Remove item">
+                  <button
+                    className="remove-btn"
+                    aria-label="Remove item"
+                    onClick={() => dispatch(removeFromCart(item.id))}
+                  >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       fill="none"
@@ -35,6 +81,7 @@ const Cart = () => {
                       />
                     </svg>
                   </button>
+
                   <div className="product-image">
                     <img src={item.image} alt={item.name} />
                   </div>
@@ -46,10 +93,22 @@ const Cart = () => {
                     <p className="product-price">
                       ${item.price} × {item.quantity}
                     </p>
-                    <div className="quantity-select">
-                      <select disabled>
-                        <option value={item.quantity}>{item.quantity}</option>
-                      </select>
+                    <div className="quantity-select custom-qty-controls">
+                      <button
+                        onClick={() => dispatch(decrementQuantity(item.id))}
+                        className="qty-btn"
+                        disabled={item.quantity <= 1}
+                      >
+                        <BsFillCartDashFill />
+                      </button>
+                      <span className="qty-number">{item.quantity}</span>
+                      <button
+                        onClick={() => dispatch(incrementQuantity(item.id))}
+                        className="qty-btn"
+                        disabled={item.quantity >= item.total_quantity}
+                      >
+                        <BsFillCartPlusFill />
+                      </button>
                     </div>
                   </div>
                 </li>
@@ -69,7 +128,9 @@ const Cart = () => {
                 <strong>${subtotal.toFixed(2)}</strong>
               </div>
             </div>
-            <button className="submit-btn">Submit Order</button>
+            <button className="submit-btn" onClick={handleSubmit}>
+              Submit Order
+            </button>
           </section>
         </div>
       </main>
