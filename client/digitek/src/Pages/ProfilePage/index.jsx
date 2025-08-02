@@ -1,4 +1,5 @@
 import "./styles.css";
+import shippingImage from "../../assets/Shipping.jpeg";
 
 function CustomerProfile() {
   return (
@@ -61,10 +62,7 @@ function CustomerProfile() {
           {/* Shipping Address Card */}
           <div className="shipping-card">
             <div className="shipping-image">
-              <img
-                src="https://images.pexels.com/photos/6348105/pexels-photo-6348105.jpeg"
-                alt="Shipping"
-              />
+              <img src={shippingImage} alt="Shipping" />
             </div>
 
             <div className="shipping-details">
