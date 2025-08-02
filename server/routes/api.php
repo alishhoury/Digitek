@@ -38,7 +38,8 @@ Route::group(['prefix' => 'v0.1'], function () {
       Route::get('orders', [AdminOrderController::class, 'index']);
       Route::put('orders/{order}', [AdminOrderController::class, 'update']);
 
-
+      Route::get('products', [AdminProductController::class, 'index']);
+      Route::get('products/{product}', [AdminProductController::class, 'show']);
       Route::post('products', [AdminProductController::class, 'store']);
       Route::put('products/{product}', [AdminProductController::class, 'update']);
       Route::delete('products/{product}', [AdminProductController::class, 'destroy']);

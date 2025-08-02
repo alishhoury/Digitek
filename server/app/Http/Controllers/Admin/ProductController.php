@@ -13,7 +13,8 @@ class ProductController extends Controller {
    * Display a listing of the resource.
    */
   public function index() {
-    //
+      $products = Product::all();
+      return response()->json($products);
   }
 
 
@@ -35,8 +36,15 @@ class ProductController extends Controller {
   /**
    * Display the specified resource.
    */
-  public function show(Product $product) {
-    //
+  public function show($id) {
+    $product = Product::find($id);
+    if (!$product) {
+      return response()->json(['message' => 'Product not found'], 404);
+    }
+    return response()->json([
+      'success' => true,
+      'product' => $product
+    ]);
   }
 
 
@@ -44,13 +52,27 @@ class ProductController extends Controller {
    * Update the specified resource in storage.
    */
   public function update(UpdateProductRequest $request, Product $product) {
-    //
+    $data = $request->all();
+    $upProduct = ProductService::updateProduct($product->id, $data);
+
+    if (!$upProduct) {
+        return response()->json([
+            'success' => false,
+            'message' => 'Product not found.'
+        ], 404);
+    }
+
+    return response()->json([
+        'success' => true,
+        'product' => $upProduct,
+    ]);
   }
 
   /**
    * Remove the specified resource from storage.
    */
-  public function destroy(Product $product) {
-    //
+  public function delete(Product $product) {
+    $product->delete();
+    return response()->json(['message' => 'Product deleted successfully.']);
   }
 }
