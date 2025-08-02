@@ -107,8 +107,8 @@ function CustomerProfile() {
               </div>
 
               <div>
-                <p className="order-meta">Total Amount</p>
-                <p className="order-amount">$3397.00</p>
+                <p className="order-meta">Total price</p>
+                <p className="order-price">$3397.00</p>
               </div>
             </div>
 
@@ -116,11 +116,6 @@ function CustomerProfile() {
               <div className="status-item">
                 <span className="status-label">Status:</span>
                 <span className="status-badge pending">Pending</span>
-              </div>
-
-              <div className="status-item">
-                <span className="status-label">Payment Status:</span>
-                <span className="status-badge unpaid">Unpaid</span>
               </div>
 
               <div className="pay-button-container">
@@ -143,8 +138,8 @@ function CustomerProfile() {
               </div>
 
               <div>
-                <p className="order-meta">Total Amount</p>
-                <p className="order-amount">$1699.00</p>
+                <p className="order-meta">Total price</p>
+                <p className="order-price">$1699.00</p>
               </div>
             </div>
 
