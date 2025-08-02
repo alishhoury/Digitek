@@ -52,16 +52,17 @@ const ProductGrid = ({ currentPage }) => {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
-    const page = '1'
-    api.get(`/products?page=${page}`)
+    window.scrollTo(0, 0);
+
+    api.get(`/products?page=${currentPage}`)
       .then(response => {
         setProducts(response.data.payload.data);
       })
       .catch(error => {
         console.log('API Error:', error);
-        setProducts([currentPage]);
+        setProducts([]);
       });
-  }, []);
+  }, [currentPage]);
 
   return (
     <div className="product-grid">

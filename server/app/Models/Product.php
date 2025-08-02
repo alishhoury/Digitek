@@ -20,6 +20,7 @@ class Product extends Model {
     'brand',
     'description',
     'image',
+    'quantity_sold'
   ];
 
   public function orders() {
@@ -27,6 +28,5 @@ class Product extends Model {
       ->withPivot('quantity', 'price')
       ->withTimestamps();
   }
-  protected $fillable = ['name', 'brand','description', 'price', 'cost', 'total_quantity', 'image', 'quantity_sold'];
 
 }

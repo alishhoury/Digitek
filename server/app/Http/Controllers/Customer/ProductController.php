@@ -15,7 +15,7 @@ class ProductController extends Controller {
 
     $products = Product::simplePaginate(10);
 
-    return $this->responseJSON($products);
+    return self::responseJSON($products);
 
   }
 
@@ -31,6 +31,7 @@ class ProductController extends Controller {
    * Display the specified resource.
    */
   public function show(Product $product) {
+    return $this->responseJSON($product);
   }
 
     

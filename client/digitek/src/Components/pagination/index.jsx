@@ -7,7 +7,7 @@ import { useEffect, useState ,createContext} from "react";
 
 
 
-const Pagination = (page) => {
+const Pagination = ({ onPageChange }) => {
   const [Currentpage, setCurrentpage] = useState(1)
   const Prevpage = () => {
     Currentpage > 1 ? setCurrentpage(Currentpage-1) :Currentpage
@@ -18,8 +18,10 @@ const Pagination = (page) => {
 
    useEffect(() =>{
     console.log("page:",{Currentpage})
-    page = Currentpage
-   })
+    if (onPageChange) {
+      onPageChange(Currentpage)
+    }
+   }, [Currentpage, onPageChange])
 
   return (
     <div className="pagination-container">
