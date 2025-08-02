@@ -1,61 +1,63 @@
 .NavBar {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    padding: 10px;
-    min-height: 60px;
-    box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 10px;
+  min-height: 60px;
+  box-sizing: border-box;
 }
 
 .bar-content {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
 }
 
 .logo {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
 
 .logo img {
-    max-height: clamp(25px, 6vw, 40px);
+  max-height: clamp(25px, 6vw, 40px);
 }
 
 .nav-buttons {
-    display: flex;
-    align-items: center;
-    gap: clamp(3px, 0.8vw, 15px);
-    justify-content: flex-end;
+  display: flex;
+  align-items: center;
+  gap: clamp(3px, 0.8vw, 15px);
+  justify-content: flex-end;
 }
 
-.navbar-btn, .logout-btn {
-    background: none;
-    border: 2px solid transparent;
-    color: #000000;
-    padding: clamp(3px, 0.8vw, 8px) clamp(4px, 1vw, 12px);
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: clamp(12px, 2.5vw, 16px);
-    transition: all 0.3s ease;
-    text-decoration: none;
+.navbar-btn,
+.logout-btn {
+  background: none;
+  border: 2px solid transparent;
+  color: #000000;
+  padding: clamp(3px, 0.8vw, 8px) clamp(4px, 1vw, 12px);
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: clamp(12px, 2.5vw, 16px);
+  transition: all 0.3s ease;
+  text-decoration: none;
 }
 
-.navbar-btn:hover, .logout-btn:hover {
-    background-color: rgba(0, 0, 0, 0.1);
-    border-color: #000000;
+.navbar-btn:hover,
+.logout-btn:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+  border-color: #000000;
 }
 
 .navbar-btn.active {
-    background-color: #000000;
-    color: white;
+  background-color: #000000;
+  color: white;
 }
 
 .logout-btn.hidden {
-    display: none;
+  display: none;
 }
 
 .dropdown {
@@ -87,7 +89,7 @@
 }
 
 @media screen and (max-width: 360px) {
-    .navbar-btn.active {
-        display: none;
-    }
+  .navbar-btn.active {
+    display: none;
+  }
 }

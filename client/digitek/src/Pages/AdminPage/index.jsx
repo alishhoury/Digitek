@@ -1,12 +1,126 @@
 import NavBar from "../../Components/Navbar";
+import "./style.css";
+import Statistic from "../../Components/Statistics";
 
+import {
+  LineChart,
+  Line,
+  CartesianGrid,
+  XAxis,
+  YAxis,
+  Tooltip,
+  Legend,
+  ResponsiveContainer,
+} from "recharts";
+
+import { useState, useEffect } from "react";
+import api from "../../services/axios";
 
 const AdminPage = () => {
+  const [orders, setOrders] = useState([]);
+
+  useEffect(() => {
+    const getOrders = async () => {
+      try {
+        const response = await api.get("/orders", {
+          withCredentials: true,
+        });
+        setOrders(response.data);
+      } catch (error) {
+        console.error("Error: ", error);
+      }
+    };
+
+    getOrders();
+  }, []);
+
+  const ordersPerHour = [
+    { id: 1, hour: 9, order_count: 10, revenue: 145.5 },
+    { id: 2, hour: 12, order_count: 9, revenue: 134.5 },
+    { id: 3, hour: 15, order_count: 14, revenue: 215.75 },
+    { id: 4, hour: 18, order_count: 9, revenue: 140.25 },
+    { id: 5, hour: 21, order_count: 4, revenue: 70.0 },
+  ];
+
+  const chartData = ordersPerHour.map(({ hour, order_count, revenue }) => ({
+    hour: `${hour}:00`,
+    orders: order_count,
+    revenue,
+  }));
 
   return (
     <div className="admin-page">
+      <Statistic orders={orders} />
+      <h3>Orders per Hour</h3>
+      <div className="chart-container">
+        <ResponsiveContainer>
+          <LineChart
+            data={chartData}
+            margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
+          >
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis dataKey="hour" />
+            <YAxis yAxisId="left" orientation="left" stroke="#8884d8" />
+            <YAxis yAxisId="right" orientation="right" stroke="#82ca9d" />
+            <Tooltip />
+            <Legend />
+            <Line
+              yAxisId="left"
+              type="monotone"
+              dataKey="orders"
+              stroke="#8884d8"
+            />
+            <Line
+              yAxisId="right"
+              type="monotone"
+              dataKey="revenue"
+              stroke="#82ca9d"
+            />
+          </LineChart>
+        </ResponsiveContainer>
+      </div>
 
-      <div>Test Admin</div>
+      <h3>Incoming Orders</h3>
+      <table className="admin-table">
+        <thead>
+          <tr>
+            <th>Order ID</th>
+            <th>Customer</th>
+            <th>Products</th>
+            <th>Total Price</th>
+            <th>Status</th>
+            <th>Update</th>
+          </tr>
+        </thead>
+        <tbody>
+          {orders.map((order) => (
+            <tr key={order.id}>
+              <td>{order.id}</td>
+              <td>{order.user?.username || "Customer"}</td>
+              <td>
+                {order.products?.map((product, index) => (
+                  <div key={index}>
+                    {product.name} (x{product.pivot?.quantity}) -{" "}
+                    <strong>${product.pivot?.price}</strong>
+                  </div>
+                ))}
+              </td>
+              <td>
+                <strong>${order.total_price}</strong>
+              </td>
+              <td>{order.status}</td>
+              <td>
+                <select className="admin-select" defaultValue="">
+                  <option value="">status</option>
+                  <option value="paid">paid</option>
+                  <option value="packed">packed</option>
+                  <option value="shipped">shipped</option>
+                </select>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 };

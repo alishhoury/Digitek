@@ -12,6 +12,16 @@ class Product extends Model {
   /**
    * The orders that include this product (many-to-many).
    */
+  protected $fillable = [
+    'name',
+    'price',
+    'total_quantity',
+    'cost',
+    'brand',
+    'description',
+    'image',
+  ];
+
   public function orders() {
     return $this->belongsToMany(Order::class)
       ->withPivot('quantity', 'price')
