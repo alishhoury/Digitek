@@ -1,10 +1,34 @@
+import { useEffect, useState } from "react";
 import "./styles.css";
+
 const UserInfo = () => {
+  const [user, setUser] = useState({
+    username: "Guest",
+    email: "Not Available",
+    created_at: null,
+  });
+
+  useEffect(() => {
+    const storedUser = localStorage.getItem("user");
+    if (storedUser) {
+      try {
+        const parsedUser = JSON.parse(storedUser);
+        setUser(parsedUser);
+      } catch (error) {
+        console.error("Failed to parse user from localStorage", error);
+      }
+    }
+  }, []);
+
+  const formattedDate = user.created_at
+    ? new Date(user.created_at).toDateString()
+    : "N/A";
+
   return (
     <div className="customer-card">
       <div className="customer-header">
         <h2 className="customer-title">
-          Welcome, <span className="customer-name">Ali Al Saghir</span>!
+          Welcome, <span className="customer-name">{user.username}</span>!
         </h2>
         <p className="customer-subtitle">
           We're delighted to have you on board.
@@ -27,7 +51,7 @@ const UserInfo = () => {
           </svg>
           <div>
             <p className="info-label">Email</p>
-            <p className="info-value">ali@example.com</p>
+            <p className="info-value">{user.email}</p>
           </div>
         </div>
 
@@ -46,7 +70,7 @@ const UserInfo = () => {
           </svg>
           <div>
             <p className="info-label">Date Joined</p>
-            <p className="info-value">Mon Jul 15 2024</p>
+            <p className="info-value">{formattedDate}</p>
           </div>
         </div>
       </div>
