@@ -254,7 +254,7 @@ body {
 }
 
 .order-card {
-  width: 1140px;
+  width: 1040px;
   align-self: center;
   padding: 24px 32px;
   background-color: white;
@@ -300,12 +300,12 @@ body {
 }
 
 .order-date,
-.order-amount {
+.order-price {
   font-size: 16px;
   margin: 0;
 }
 
-.order-amount {
+.order-price {
   font-weight: 600;
 }
 
@@ -347,11 +347,6 @@ body {
   background-color: #fef3c7;
 }
 
-.unpaid {
-  color: #b91c1c;
-  background-color: #fee2e2;
-}
-
 .completed {
   color: #065f46;
   background-color: #d1fae5;
@@ -382,7 +377,7 @@ body {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 10px 20px;
+  padding: 12px 16px;
   font-size: 15px;
   font-weight: 600;
   letter-spacing: 0.5px;
