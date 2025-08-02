@@ -44,8 +44,7 @@ export default function ShippingSection() {
       return;
     }
 
-    setLoading(true); // <-- START LOADING
-
+    setLoading(true);
     try {
       const payload = {
         first_name: formData.firstName,
@@ -59,7 +58,7 @@ export default function ShippingSection() {
       const updatedUser = { ...response.data.payload };
 
       localStorage.setItem("user", JSON.stringify(updatedUser));
-      toast.success("Shipping Info is Saved");
+      toast.success("Shipping info is set Successfully.");
       setUser(updatedUser);
       setShowShippingDetails(true);
     } catch (error) {
@@ -67,7 +66,7 @@ export default function ShippingSection() {
         error?.response?.data?.message || "Failed to update shipping address"
       );
     } finally {
-      setLoading(false); // <-- STOP LOADING
+      setLoading(false);
     }
   }
 
