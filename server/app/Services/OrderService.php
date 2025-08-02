@@ -40,7 +40,11 @@ class OrderService {
   }
 
   public function getOrderByOrderNumber(string $orderNumber) {
-    return Order::where('order_number', $orderNumber)->first();
+    $order = Order::where('order_number', $orderNumber)->first();
+    if (!$order) {
+      abort(404, 'Order not found');
+    }
+    return $order;
   }
 
   private function getProducts(array $items) {

@@ -75,10 +75,6 @@ class OrderController extends Controller {
     $service = new OrderService();
     $order = $service->getOrderByOrderNumber($order_number);
 
-    if (!$order) {
-      return response()->json(['message' => 'Order not found'], 404);
-    }
-
     return $this->responseJSON(new OrderResource($order));
   }
 }
