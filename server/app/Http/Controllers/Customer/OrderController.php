@@ -63,4 +63,11 @@ class OrderController extends Controller {
     $order = $service->payOrder($order);
     return $this->responseJSON($order);
   }
+
+  public function getUserOrders() {
+    $service = new OrderService();
+    $orders = $service->getUserOrders(auth('api')->id());
+
+    return $this->responseJSON($orders);
+  }
 }

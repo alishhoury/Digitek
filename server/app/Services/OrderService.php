@@ -33,6 +33,12 @@ class OrderService {
     return $order;
   }
 
+  public function getUserOrders(int $userId) {
+    return Order::where('user_id', $userId)
+      ->latest()
+      ->get();
+  }
+
   private function getProducts(array $items) {
     $productIds = array_column($items, 'product_id');
     return Product::whereIn('id', $productIds)->lockForUpdate()->get();
