@@ -8,6 +8,7 @@ use App\Http\Requests\StoreOrderRequest;
 use App\Http\Requests\UpdateOrderRequest;
 use App\Http\Resources\OrderResource;
 use App\Services\OrderService;
+use Illuminate\Http\Request;
 
 class OrderController extends Controller {
   /**
@@ -55,5 +56,11 @@ class OrderController extends Controller {
    */
   public function destroy(Order $order) {
     //
+  }
+
+  public function payOrder(Order $order) {
+    $service = new OrderService();
+    $order = $service->payOrder($order);
+    return $this->responseJSON($order);
   }
 }

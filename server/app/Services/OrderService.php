@@ -22,6 +22,17 @@ class OrderService {
     });
   }
 
+  public function payOrder(Order $order) {
+    if ($order->status !== 'pending') {
+      abort(400, 'Order is already paid or processed');
+    }
+
+    $order->status = 'paid';
+    $order->save();
+
+    return $order;
+  }
+
   private function getProducts(array $items) {
     $productIds = array_column($items, 'product_id');
     return Product::whereIn('id', $productIds)->lockForUpdate()->get();
