@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import "./style.css";
 import api from "../../services/axios";
 
@@ -49,17 +48,18 @@ const ProductCard = ({ product }) => {
   );
 };
 
-const ProductGrid = () => {
+const ProductGrid = ({ currentPage }) => {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
-    api.get('/products')
+    const page = '1'
+    api.get(`/products?page=${page}`)
       .then(response => {
         setProducts(response.data.payload.data);
       })
       .catch(error => {
         console.log('API Error:', error);
-        setProducts([]);
+        setProducts([currentPage]);
       });
   }, []);
 
