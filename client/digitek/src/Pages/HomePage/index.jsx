@@ -1,11 +1,11 @@
-import NavBar from "../../Components/Navbar";
+import ProductCard from "../../Components/ProductCard";
 
 
 const HomePage = () => {
 
   return (
     <div className="home-page">
-      <div>test home</div>
+      <ProductCard />
     </div>
   );
 };

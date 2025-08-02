@@ -6,6 +6,7 @@ use App\Http\Controllers\Shared\Controller;
 use App\Models\Product;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
+use App\Services\ProductService;
 
 class ProductController extends Controller {
   /**
@@ -21,7 +22,14 @@ class ProductController extends Controller {
    * Store a newly created resource in storage.
    */
   public function store(StoreProductRequest $request) {
-    //
+    $data = $request->all();
+
+    $product = ProductService::addProduct($data);
+
+    return response()->json([
+      'success' => true,
+      'product' => $product,
+    ]);
   }
 
   /**
