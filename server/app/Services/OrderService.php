@@ -39,6 +39,10 @@ class OrderService {
       ->get();
   }
 
+  public function getOrderByOrderNumber(string $orderNumber) {
+    return Order::where('order_number', $orderNumber)->first();
+  }
+
   private function getProducts(array $items) {
     $productIds = array_column($items, 'product_id');
     return Product::whereIn('id', $productIds)->lockForUpdate()->get();

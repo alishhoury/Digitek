@@ -31,6 +31,7 @@ Route::group(['prefix' => 'v0.1'], function () {
 
     Route::post('orders', [OrderController::class, 'store']);
     Route::get('getUserOrders', [OrderController::class, 'getUserOrders']);
+    Route::get('getByOrderNumber/{order_number}', [OrderController::class, 'getByOrderNumber']);
     Route::post('payOrder/{order}', [OrderController::class, 'payOrder']);
     Route::get('orders/{order}', [OrderController::class, 'show']);
 
