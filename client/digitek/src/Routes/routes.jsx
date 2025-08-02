@@ -21,6 +21,7 @@ const MyRoutes = () => {
         <Route path="/profile" element={<ProfilePage />} />
         <Route path="/adminPage" element={<AdminPage />} />
         <Route path="/manageProduct" element={<ManageProduct />} />
+        <Route path="/manageProduct/:id" element={<ManageProduct />} />
         <Route path="/manageStock" element={<ManageStock />} />
       </Route>
 

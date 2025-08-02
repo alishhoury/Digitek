@@ -3,9 +3,23 @@ import api from "../../services/axios";
 import "./style.css";
 import EditIcon from "../../assets/EditIcon.svg";
 import DeleteIcon from "../../assets/DeleteIcon.svg";
+import { useNavigate } from "react-router-dom";
 
 const ManageStock = () => {
   const [products, setProducts] = useState([]);
+  const [message, setMessage] = useState("");
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (message) {
+      const timer = setTimeout(() => {
+        setMessage("");
+      }, 3000);
+
+      return () => clearTimeout(timer);
+    }
+  }, [message]);
 
   useEffect(() => {
     const getProducts = async () => {
@@ -22,8 +36,26 @@ const ManageStock = () => {
     getProducts();
   }, []);
 
+  const handleDelete = async (product) => {
+    try {
+      await api.delete(`/products/${product.id}`, {
+        withCredentials: true,
+      });
+      setProducts((prev) => prev.filter((p) => p.id !== product.id));
+      setMessage(`Deleted "${product.name}" successfully.`);
+    } catch (error) {
+      console.error("Delete failed:", error);
+      setMessage(`Failed to delete "${product.name}".`);
+    }
+  };
+
+  const handleEdit = (productId) => {
+    navigate(`/manageProduct/${productId}`);
+  };
+
   return (
     <div className="stock-products-page">
+      {message && <div className="floating-message">{message}</div>}
       <h1>All Products</h1>
       <div className="product-table-container">
         <table className="stock-table">
@@ -66,11 +98,13 @@ const ManageStock = () => {
                         src={EditIcon}
                         alt="Edit"
                         className="action-icon edit-icon"
+                        onClick={() => handleEdit(product.id)}
                       />
                       <img
                         src={DeleteIcon}
                         alt="Delete"
                         className="action-icon delete-icon"
+                        onClick={() => handleDelete(product)}
                       />
                     </div>
                   </td>

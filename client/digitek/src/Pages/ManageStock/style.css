@@ -62,3 +62,16 @@
 .action-icon:hover {
   transform: scale(1.1);
 }
+
+.floating-message {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #181819;
+  color: white;
+  padding: 10px 16px;
+  border-radius: 6px;
+  font-size: 14px;
+  z-index: 1000;
+}

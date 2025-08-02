@@ -5,8 +5,10 @@ import ImageIcon from "../../assets/ImageIcon.svg";
 import "./style.css";
 import { useState, useEffect } from "react";
 import api from "../../services/axios";
+import { useParams } from "react-router-dom";
 
 const ManageProduct = () => {
+  const { id } = useParams();
   const [image, setImage] = useState(null);
   const [imageName, setImageName] = useState("");
   const [name, setName] = useState("");
@@ -17,7 +19,6 @@ const ManageProduct = () => {
   const [description, setDescription] = useState("");
   const [message, setMessage] = useState("");
 
-  // Clear message after 4 seconds
   useEffect(() => {
     if (message) {
       const timer = setTimeout(() => {
@@ -47,43 +48,69 @@ const ManageProduct = () => {
     }
   };
 
+  useEffect(() => {
+    const fetchProduct = async () => {
+      try {
+        const response = await api.get(`/products/${id}`);
+        const product = response.data.product;
+
+        setName(product.name);
+        setPrice(product.price);
+        setTotalQuantity(product.total_quantity);
+        setCost(product.cost);
+        setBrand(product.brand);
+        setDescription(product.description);
+        setImage(product.image);
+        setImageName("Existing Image");
+      } catch (err) {
+        console.error("Error fetching product:", err);
+        setMessage("Error fetching product data.");
+      }
+    };
+
+    if (id) {
+      fetchProduct();
+    }
+  }, [id]);
+
   const handleAddProduct = async (e) => {
     e.preventDefault();
 
+    const payload = {
+      name,
+      price: Number(price),
+      total_quantity: Number(total_quantity),
+      cost: Number(cost),
+      brand,
+      description,
+      image: image || "",
+    };
+
     try {
-      await api.post(
-        "/products",
-        {
-          name,
-          price: Number(price),
-          total_quantity: Number(total_quantity),
-          cost: Number(cost),
-          brand,
-          description,
-          image: image || "",
-        },
-        { withCredentials: true }
-      );
+      if (id) {
+        await api.put(`/products/${id}`, payload, { withCredentials: true });
+        setMessage("Product updated successfully!");
+      } else {
+        await api.post("/products", payload, { withCredentials: true });
+        setMessage("Product added successfully!");
 
-      setMessage("Product added successfully!");
-
-      // Clear form fields
-      setName("");
-      setPrice("");
-      setTotalQuantity("");
-      setCost("");
-      setBrand("");
-      setDescription("");
-      setImage(null);
-      setImageName("");
+        setName("");
+        setPrice("");
+        setTotalQuantity("");
+        setCost("");
+        setBrand("");
+        setDescription("");
+        setImage(null);
+        setImageName("");
+      }
     } catch (error) {
       setMessage(
         "Error: " +
           (error.response?.data?.message ||
             error.message ||
-            "Failed to add product")
+            "Failed to save product")
       );
-      console.error("Error adding product:", error);
+      console.error("Error saving product:", error);
     }
   };
 
@@ -194,7 +221,7 @@ const ManageProduct = () => {
 
           <div className="add-p-btn-cont">
             <Button
-              text={"Add Product"}
+              text={id ? "Update Product" : "Add Product"}
               className={"add-p-btn"}
               type="submit"
             />
