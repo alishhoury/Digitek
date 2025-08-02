@@ -2,9 +2,18 @@ import NavBar from "../../Components/Navbar";
 import "./style.css";
 import Statistic from "../../Components/Statistics";
 
-import { LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import {
+  LineChart,
+  Line,
+  CartesianGrid,
+  XAxis,
+  YAxis,
+  Tooltip,
+  Legend,
+  ResponsiveContainer,
+} from "recharts";
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 import api from "../../services/axios";
 
 const AdminPage = () => {
@@ -14,7 +23,7 @@ const AdminPage = () => {
     const getOrders = async () => {
       try {
         const response = await api.get("/orders", {
-          withCredentials: true
+          withCredentials: true,
         });
         setOrders(response.data);
       } catch (error) {
@@ -30,9 +39,9 @@ const AdminPage = () => {
     { id: 2, hour: 12, order_count: 9, revenue: 134.5 },
     { id: 3, hour: 15, order_count: 14, revenue: 215.75 },
     { id: 4, hour: 18, order_count: 9, revenue: 140.25 },
-    { id: 5, hour: 21, order_count: 4, revenue: 70.0 }
+    { id: 5, hour: 21, order_count: 4, revenue: 70.0 },
   ];
-  
+
   const chartData = ordersPerHour.map(({ hour, order_count, revenue }) => ({
     hour: `${hour}:00`,
     orders: order_count,
@@ -41,19 +50,32 @@ const AdminPage = () => {
 
   return (
     <div className="admin-page">
-      <Statistic orders = {orders}/>
+      <Statistic orders={orders} />
       <h3>Orders per Hour</h3>
       <div className="chart-container">
         <ResponsiveContainer>
-          <LineChart data={chartData} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
+          <LineChart
+            data={chartData}
+            margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
+          >
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis dataKey="hour" />
             <YAxis yAxisId="left" orientation="left" stroke="#8884d8" />
             <YAxis yAxisId="right" orientation="right" stroke="#82ca9d" />
             <Tooltip />
             <Legend />
-            <Line yAxisId="left" type="monotone" dataKey="orders" stroke="#8884d8" />
-            <Line yAxisId="right" type="monotone" dataKey="revenue" stroke="#82ca9d" />
+            <Line
+              yAxisId="left"
+              type="monotone"
+              dataKey="orders"
+              stroke="#8884d8"
+            />
+            <Line
+              yAxisId="right"
+              type="monotone"
+              dataKey="revenue"
+              stroke="#82ca9d"
+            />
           </LineChart>
         </ResponsiveContainer>
       </div>
@@ -78,7 +100,8 @@ const AdminPage = () => {
               <td>
                 {order.products?.map((product, index) => (
                   <div key={index}>
-                    {product.name} (x{product.pivot?.quantity}) - <strong>${product.pivot?.price}</strong>
+                    {product.name} (x{product.pivot?.quantity}) -{" "}
+                    <strong>${product.pivot?.price}</strong>
                   </div>
                 ))}
               </td>
