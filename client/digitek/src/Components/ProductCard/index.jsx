@@ -1,10 +1,16 @@
 import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { addToCart } from "../../features/cart/cartSlice";
 import "./style.css";
 import api from "../../services/axios";
 
 
 const ProductCard = ({ product }) => {
-  const [quantity, setQuantity] = useState(0);
+  const dispatch = useDispatch();
+  const cartItems = useSelector(state => state.cart.cartItems);
+  
+  const cartItem = cartItems.find(item => item.id === product.id);
+  const quantity = cartItem ? cartItem.quantity : 0;
 
   useEffect(() => {
   if (quantity > 0) {
@@ -15,7 +21,15 @@ const ProductCard = ({ product }) => {
 
   const handleAddToCart = () => {
     if (quantity < product.total_quantity) {
-      setQuantity(quantity + 1);
+      dispatch(addToCart({ 
+        product: {
+          id: product.id,
+          name: product.name,
+          brand: product.brand,
+          price: product.price,
+          image: product.image
+        }
+      }));
     }
   };
 

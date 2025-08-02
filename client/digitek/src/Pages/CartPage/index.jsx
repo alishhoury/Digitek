@@ -1,38 +1,12 @@
 // src/components/Cart.jsx
 import React from "react";
+import { useSelector } from "react-redux";
 import "./styles.css";
 
-const dummyCartItems = [
-  {
-    id: 1,
-    name: "iPhone 13 Pro Max",
-    brand: "Apple",
-    price: 999,
-    quantity: 1,
-    image:
-      "https://fdn2.gsmarena.com/vv/pics/apple/apple-iphone-13-pro-max-1.jpg",
-  },
-  {
-    id: 2,
-    name: "Galaxy S24 Ultra",
-    brand: "Samsung",
-    price: 1199,
-    quantity: 2,
-    image:
-      "https://fdn2.gsmarena.com/vv/pics/apple/apple-iphone-13-pro-max-1.jpg",
-  },
-  {
-    id: 3,
-    name: "Xiaomi 13 Ultra",
-    brand: "Xiaomi",
-    price: 799,
-    quantity: 1,
-    image: "https://fdn2.gsmarena.com/vv/pics/xiaomi/xiaomi-13-ultra-1.jpg",
-  },
-];
-
 const Cart = () => {
-  const subtotal = dummyCartItems.reduce(
+  const cartProducts = useSelector(state => state.cart.cartItems);
+
+  const subtotal = cartProducts.reduce(
     (total, item) => total + item.price * item.quantity,
     0
   );
@@ -44,7 +18,7 @@ const Cart = () => {
         <div className="cart-container">
           <section className="cart-items">
             <ul>
-              {dummyCartItems.map(item => (
+              {cartProducts.map(item => (
                 <li className="cart-item" key={item.id}>
                   <button className="remove-btn" aria-label="Remove item">
                     <svg
