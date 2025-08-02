@@ -1,3 +1,4 @@
+import Button from "../../Button";
 import "./styles.css";
 const OrderList = () => {
   const orders = [
@@ -53,7 +54,13 @@ const OrderList = () => {
                 </div>
               ) : (
                 <div className="pay-button-container">
-                  <button className="pay-button">Pay Now</button>
+                  <Button
+                    text="Pay Now"
+                    className="pay-button"
+                    onClickListener={() =>
+                      console.log(`Paying for order ${order.number}`)
+                    }
+                  />
                 </div>
               )}
             </div>
