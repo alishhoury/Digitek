@@ -12,8 +12,8 @@ class ProductController extends Controller {
    * Display a listing of the resource.
    */
   public function index() {
-    
-    $products = Product::take(20)->get();
+
+    $products = Product::all();
     return self::responseJSON($products, 'success', 200);
 
   }
