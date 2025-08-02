@@ -1,7 +1,8 @@
 import React from "react";
 import "./style.css";
+import Button from "../../Button";
 
-export default function PaymentBox({ cartItems, subtotal }) {
+export default function PaymentBox({ cartItems, subtotal, onConfirm }) {
   return (
     <section className="right-section">
       <h2 className="section-title">Order Summary</h2>
@@ -32,9 +33,11 @@ export default function PaymentBox({ cartItems, subtotal }) {
           </div>
         </dl>
 
-        <button className="btn-primary confirm-btn">
-          Confirm Payment – ${subtotal.toFixed(2)}
-        </button>
+        <Button
+          text={`Confirm Payment – $${subtotal.toFixed(2)}`}
+          onClickListener={onConfirm}
+          className="btn-primary confirm-btn"
+        />
       </div>
     </section>
   );

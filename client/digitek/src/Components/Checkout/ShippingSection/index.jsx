@@ -1,5 +1,8 @@
 import React from "react";
 import "./style.css";
+import Button from "../../Button";
+import Input from "../../Input";
+
 export default function ShippingSection({
   showShippingDetails,
   formData,
@@ -15,68 +18,70 @@ export default function ShippingSection({
           <form className="shipping-form" onSubmit={onSubmit}>
             <div className="form-row">
               <label htmlFor="firstName">First name</label>
-              <input
+              <Input
                 type="text"
-                id="firstName"
                 name="firstName"
-                placeholder="Ali"
                 value={formData.firstName}
-                onChange={onChange}
+                hint="Ali"
                 required
+                className="input"
+                onChangeListener={onChange}
               />
             </div>
             <div className="form-row">
               <label htmlFor="lastName">Last name</label>
-              <input
+              <Input
                 type="text"
-                id="lastName"
                 name="lastName"
-                placeholder="Al Saghir"
                 value={formData.lastName}
-                onChange={onChange}
+                hint="Al Saghir"
                 required
+                className="input"
+                onChangeListener={onChange}
               />
             </div>
             <div className="form-row full-width">
               <label htmlFor="city">City</label>
-              <input
+              <Input
                 type="text"
-                id="city"
                 name="city"
-                placeholder="Beirut"
                 value={formData.city}
-                onChange={onChange}
+                hint="Beirut"
                 required
+                className="input"
+                onChangeListener={onChange}
               />
             </div>
             <div className="form-row full-width">
               <label htmlFor="address">Address</label>
-              <input
+              <Input
                 type="text"
-                id="address"
                 name="address"
-                placeholder="Hamra Street"
                 value={formData.address}
-                onChange={onChange}
+                hint="Hamra Street"
                 required
+                className="input"
+                onChangeListener={onChange}
               />
             </div>
             <div className="form-row full-width">
               <label htmlFor="phone">Phone</label>
-              <input
+              <Input
                 type="text"
-                id="phone"
                 name="phone"
-                placeholder="+961 71 234 567"
                 value={formData.phone}
-                onChange={onChange}
+                hint="+961 71 234 567"
                 required
+                className="input"
+                onChangeListener={onChange}
               />
             </div>
             <div className="form-row full-width">
-              <button type="submit" className="btn-primary">
-                Add Shipping Address
-              </button>
+              <Button
+                text="Add Shipping Address"
+                className="btn-primary"
+                insiders={null}
+              />
             </div>
           </form>
         </>
