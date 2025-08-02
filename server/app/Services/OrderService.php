@@ -88,8 +88,18 @@ class OrderService {
       'user_id' => $userId,
       'total_price' => $totalPrice,
       'status' => 'pending',
+      'order_number' => $this->generateOrderNumber(),
     ]);
   }
+
+  private function generateOrderNumber(): string {
+    do {
+      $orderNumber = 'ORD' . random_int(100000, 999999);
+    } while (Order::where('order_number', $orderNumber)->exists());
+
+    return $orderNumber;
+  }
+
 
   private function attachProducts(Order $order, array $pivotData): void {
     $order->products()->attach($pivotData);
