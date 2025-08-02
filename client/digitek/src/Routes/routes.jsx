@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 
 import LandingPage from "../Pages/LandingPage";
 import Auth from "../Pages/Auth";
@@ -17,7 +17,7 @@ const MyRoutes = () => {
       <Route element={<Layout />}>
         <Route path="/home" element={<HomePage />} />
         <Route path="/cart" element={<CartPage />} />
-        <Route path="/payment" element={<PaymentPage />} />
+        <Route path="/payment/:order_number" element={<PaymentPage />} />
         <Route path="/profile" element={<ProfilePage />} />
         <Route path="/adminPage" element={<AdminPage />} />
         <Route path="/manageProduct" element={<ManageProduct />} />

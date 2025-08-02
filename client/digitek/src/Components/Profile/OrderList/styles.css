@@ -112,6 +112,16 @@
   background-color: #d1fae5;
 }
 
+.packed {
+  color: #1d4ed8;
+  background-color: #dbeafe;
+}
+
+.shipped {
+  color: #0369a1;
+  background-color: #e0f2fe;
+}
+
 .paid {
   color: #065f46;
   background-color: #ecfdf5;
@@ -148,6 +158,7 @@
   cursor: pointer;
   transition: all 0.2s ease-in-out;
   box-shadow: 0 4px 10px rgba(99, 102, 241, 0.3);
+  text-decoration: none;
 }
 
 .pay-button:hover {

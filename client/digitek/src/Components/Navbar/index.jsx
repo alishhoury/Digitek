@@ -13,7 +13,7 @@ const NavBar = () => {
 
   const user = JSON.parse(localStorage.getItem("user"));
 
-  const isActive = (path) => location.pathname === path;
+  const isActive = path => location.pathname === path;
 
   const isLogged = () => {
     const user = localStorage.getItem("user");
@@ -45,7 +45,9 @@ const NavBar = () => {
           {isAdmin() && (
             <Link
               to="/adminPage"
-              className={isActive("/adminPage") ? "navbar-btn active" : "navbar-btn"}
+              className={
+                isActive("/adminPage") ? "navbar-btn active" : "navbar-btn"
+              }
             >
               Dashboard
             </Link>
@@ -54,7 +56,9 @@ const NavBar = () => {
           {isAdmin() && (
             <Link
               to="/manageStock"
-              className={isActive("/manageStock") ? "navbar-btn active" : "navbar-btn"}
+              className={
+                isActive("/manageStock") ? "navbar-btn active" : "navbar-btn"
+              }
             >
               Edit Stock
             </Link>
@@ -63,7 +67,9 @@ const NavBar = () => {
           {isAdmin() && (
             <Link
               to="/manageProduct"
-              className={isActive("/manageProduct") ? "navbar-btn active" : "navbar-btn"}
+              className={
+                isActive("/manageProduct") ? "navbar-btn active" : "navbar-btn"
+              }
             >
               Add Product
             </Link>
@@ -85,13 +91,12 @@ const NavBar = () => {
 
           {isLogged() && (
             <div className="user-menu">
-              <button onClick={toggleDropdown} className = "navbar-btn"><img src={Profile} alt="profile"/></button>
+              <button onClick={toggleDropdown} className="navbar-btn">
+                <img src={Profile} alt="profile" />
+              </button>
 
               {dropdownOpen && (
                 <div className="dropdown">
-                  <Link to="/payment" className="dropdown-item">
-                    Payment
-                  </Link>
                   <Link to="/profile" className="dropdown-item">
                     Profile
                   </Link>

@@ -29,7 +29,6 @@ class CookieAuth {
 
       $user = $jwt->toUser();
 
-      // Set the user on the default auth guard (or api if you want)
       auth('api')->setUser($user);
     } catch (Exception $e) {
       return response()->json(['message' => 'Unauthorized'], 401);
