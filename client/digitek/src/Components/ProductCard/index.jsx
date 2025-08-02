@@ -55,7 +55,7 @@ const ProductGrid = () => {
   useEffect(() => {
     api.get('/products')
       .then(response => {
-        setProducts(response.data.payload);
+        setProducts(response.data.payload.data);
       })
       .catch(error => {
         console.log('API Error:', error);

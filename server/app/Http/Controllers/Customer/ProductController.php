@@ -12,9 +12,10 @@ class ProductController extends Controller {
    * Display a listing of the resource.
    */
   public function index() {
-    
-    $products = Product::take(20)->get();
-    return self::responseJSON($products, 'success', 200);
+
+    $products = Product::simplePaginate(10);
+
+    return $this->responseJSON($products);
 
   }
 
