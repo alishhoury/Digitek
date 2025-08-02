@@ -1,21 +1,82 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./style.css";
 import Button from "../../Button";
 import Input from "../../Input";
+import api from "../../../services/axios";
+import { toast } from "react-toastify";
 
-export default function ShippingSection({
-  showShippingDetails,
-  formData,
-  dummyShippingAddress,
-  onChange,
-  onSubmit,
-}) {
+export default function ShippingSection() {
+  const [showShippingDetails, setShowShippingDetails] = useState(false);
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
+    city: "",
+    address: "",
+    phone: "",
+  });
+
+  useEffect(() => {
+    const userData = localStorage.getItem("user");
+    if (userData) {
+      const parsedUser = JSON.parse(userData);
+      setUser(parsedUser);
+
+      if (parsedUser.address) {
+        setShowShippingDetails(true);
+      }
+    }
+  }, []);
+
+  function handleInputChange(e) {
+    setFormData(prev => ({
+      ...prev,
+      [e.target.name]: e.target.value,
+    }));
+  }
+
+  async function handleAddShipping(e) {
+    e.preventDefault();
+
+    if (!user?.id) {
+      toast.warn("User ID missing");
+      return;
+    }
+
+    setLoading(true); // <-- START LOADING
+
+    try {
+      const payload = {
+        first_name: formData.firstName,
+        last_name: formData.lastName,
+        address: formData.address,
+        city: formData.city,
+        phone: formData.phone,
+      };
+
+      const response = await api.put(`/users/${user.id}`, payload);
+      const updatedUser = { ...response.data.payload };
+
+      localStorage.setItem("user", JSON.stringify(updatedUser));
+      toast.success("Shipping Info is Saved");
+      setUser(updatedUser);
+      setShowShippingDetails(true);
+    } catch (error) {
+      toast.error(
+        error?.response?.data?.message || "Failed to update shipping address"
+      );
+    } finally {
+      setLoading(false); // <-- STOP LOADING
+    }
+  }
+
   return (
     <section className="left-section">
       {!showShippingDetails ? (
         <>
           <h2 className="section-title">Shipping Address</h2>
-          <form className="shipping-form" onSubmit={onSubmit}>
+          <form className="shipping-form" onSubmit={handleAddShipping}>
             <div className="form-row">
               <label htmlFor="firstName">First name</label>
               <Input
@@ -23,9 +84,8 @@ export default function ShippingSection({
                 name="firstName"
                 value={formData.firstName}
                 hint="Ali"
-                required
                 className="input"
-                onChangeListener={onChange}
+                onChangeListener={handleInputChange}
               />
             </div>
             <div className="form-row">
@@ -35,9 +95,8 @@ export default function ShippingSection({
                 name="lastName"
                 value={formData.lastName}
                 hint="Al Saghir"
-                required
                 className="input"
-                onChangeListener={onChange}
+                onChangeListener={handleInputChange}
               />
             </div>
             <div className="form-row full-width">
@@ -47,9 +106,8 @@ export default function ShippingSection({
                 name="city"
                 value={formData.city}
                 hint="Beirut"
-                required
                 className="input"
-                onChangeListener={onChange}
+                onChangeListener={handleInputChange}
               />
             </div>
             <div className="form-row full-width">
@@ -59,9 +117,8 @@ export default function ShippingSection({
                 name="address"
                 value={formData.address}
                 hint="Hamra Street"
-                required
                 className="input"
-                onChangeListener={onChange}
+                onChangeListener={handleInputChange}
               />
             </div>
             <div className="form-row full-width">
@@ -71,16 +128,16 @@ export default function ShippingSection({
                 name="phone"
                 value={formData.phone}
                 hint="+961 71 234 567"
-                required
                 className="input"
-                onChangeListener={onChange}
+                onChangeListener={handleInputChange}
               />
             </div>
             <div className="form-row full-width">
               <Button
                 text="Add Shipping Address"
+                loading={loading}
+                loadingText="Saving..."
                 className="btn-primary"
-                insiders={null}
               />
             </div>
           </form>
@@ -89,23 +146,19 @@ export default function ShippingSection({
         <>
           <h2 className="section-title">Shipping Details</h2>
           <p className="shipping-info">
-            <strong>First Name:</strong>{" "}
-            {formData.firstName || dummyShippingAddress.firstName}
+            <strong>First Name:</strong> {user?.first_name}
           </p>
           <p className="shipping-info">
-            <strong>Last Name:</strong>{" "}
-            {formData.lastName || dummyShippingAddress.lastName}
+            <strong>Last Name:</strong> {user?.last_name}
           </p>
           <p className="shipping-info">
-            <strong>Address:</strong>{" "}
-            {formData.address || dummyShippingAddress.address}
+            <strong>Address:</strong> {user?.address}
           </p>
           <p className="shipping-info">
-            <strong>City:</strong> {formData.city || dummyShippingAddress.city}
+            <strong>City:</strong> {user?.city}
           </p>
           <p className="shipping-info">
-            <strong>Phone:</strong>{" "}
-            {formData.phone || dummyShippingAddress.phone}
+            <strong>Phone:</strong> {user?.phone}
           </p>
         </>
       )}

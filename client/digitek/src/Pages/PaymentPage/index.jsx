@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import "./style.css";
 import ShippingSection from "../../Components/Checkout/ShippingSection";
 import PaymentBox from "../../Components/Checkout/PaymentBox";
@@ -23,7 +23,7 @@ const dummyCartItems = [
       "https://fdn2.gsmarena.com/vv/pics/apple/apple-iphone-13-pro-max-1.jpg",
   },
   {
-    id: 2,
+    id: 3,
     name: "Galaxy S24 Ultra",
     brand: "Samsung",
     price: 1199,
@@ -32,7 +32,7 @@ const dummyCartItems = [
       "https://fdn2.gsmarena.com/vv/pics/apple/apple-iphone-13-pro-max-1.jpg",
   },
   {
-    id: 2,
+    id: 4,
     name: "Galaxy S24 Ultra",
     brand: "Samsung",
     price: 1199,
@@ -41,7 +41,7 @@ const dummyCartItems = [
       "https://fdn2.gsmarena.com/vv/pics/apple/apple-iphone-13-pro-max-1.jpg",
   },
   {
-    id: 2,
+    id: 5,
     name: "Galaxy S24 Ultra",
     brand: "Samsung",
     price: 1199,
@@ -51,53 +51,18 @@ const dummyCartItems = [
   },
 ];
 
-const dummyShippingAddress = {
-  firstName: "Ali",
-  lastName: "Al Saghir",
-  city: "Beirut",
-  address: "Hamra Street",
-  phone: "+961 71 234 567",
-};
-
 export default function CheckoutPage() {
-  const [showShippingDetails, setShowShippingDetails] = useState(false);
-  const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
-    city: "",
-    address: "",
-    phone: "",
-  });
-
   const subtotal = dummyCartItems.reduce(
     (total, item) => total + item.price * item.quantity,
     0
   );
-
-  function handleInputChange(e) {
-    setFormData(prev => ({
-      ...prev,
-      [e.target.name]: e.target.value,
-    }));
-  }
-
-  function handleAddShipping(e) {
-    e.preventDefault();
-    setShowShippingDetails(true);
-  }
 
   return (
     <>
       <div className="header-bar"></div>
       <main className="container">
         <div className="checkout-grid">
-          <ShippingSection
-            showShippingDetails={showShippingDetails}
-            formData={formData}
-            dummyShippingAddress={dummyShippingAddress}
-            onChange={handleInputChange}
-            onSubmit={handleAddShipping}
-          />
+          <ShippingSection />
           <PaymentBox cartItems={dummyCartItems} subtotal={subtotal} />
         </div>
       </main>
