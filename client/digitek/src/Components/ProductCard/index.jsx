@@ -85,6 +85,7 @@ const ProductGrid = ({ currentPage, searchTerm }) => {
       apiUrl += `&search=${(searchTerm)}`
     }
 
+
     api
       .get(apiUrl)
       .then(response => {

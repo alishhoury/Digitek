@@ -1,7 +1,7 @@
 import ProductCard from "../../Components/ProductCard";
 import SearchBar from "../../Components/searchbar";
 import Pagination from "../../Components/pagination";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import ProductGrid from "../../Components/ProductCard";
 
 const HomePage = () => {
@@ -17,6 +17,11 @@ const HomePage = () => {
     setSearchTerm(term);
     setCurrentPage(1);
   }
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [searchTerm]);
+
+
 
   return (
     <div className="home-page">
