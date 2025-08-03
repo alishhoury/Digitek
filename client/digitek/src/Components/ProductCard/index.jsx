@@ -73,15 +73,19 @@ const ProductCard = ({ product }) => {
   );
 };
 
-const ProductGrid = ({ currentPage }) => {
+const ProductGrid = ({ currentPage, searchTerm }) => {
   const [products, setProducts] = useState([]);
   const dispatch = useDispatch();
 
   useEffect(() => {
     window.scrollTo(0, 0);
+    let apiUrl = `/products?page=${currentPage}`;
+    if (searchTerm) {
+      apiUrl += `&search=${encodeURIComponent(searchTerm)}`
+    }
 
     api
-      .get(`/products?page=${currentPage}`)
+      .get(apiUrl)
       .then(response => {
         setProducts(response.data.payload.data);
         const next_page_url = response.data.payload.next_page_url
@@ -95,7 +99,7 @@ const ProductGrid = ({ currentPage }) => {
         console.log("API Error:", error);
         setProducts([]);
       });
-  }, [currentPage]);
+  }, [currentPage, searchTerm, dispatch]);
 
 
   return (
