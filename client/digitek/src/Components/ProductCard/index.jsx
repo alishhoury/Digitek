@@ -81,7 +81,8 @@ const ProductGrid = ({ currentPage, searchTerm }) => {
     window.scrollTo(0, 0);
     let apiUrl = `/products?page=${currentPage}`;
     if (searchTerm) {
-      apiUrl += `&search=${encodeURIComponent(searchTerm)}`
+      
+      apiUrl += `&search=${(searchTerm)}`
     }
 
     api
