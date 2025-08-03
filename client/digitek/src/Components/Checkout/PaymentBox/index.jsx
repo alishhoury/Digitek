@@ -4,6 +4,7 @@ import "./style.css";
 import Button from "../../Button";
 import api from "../../../services/axios";
 import { toast } from "react-toastify";
+import fallbackImage from "../../../assets/ProductImage.jpg";
 
 export default function PaymentBox() {
   const { order_number } = useParams();
@@ -75,7 +76,14 @@ export default function PaymentBox() {
         <ul>
           {cartItems.map(item => (
             <li key={item.id} className="order-item">
-              <img src={item.image} alt={item.name} />
+              <img
+                src={item.image}
+                alt={item.name}
+                onError={e => {
+                  e.target.onerror = null;
+                  e.target.src = fallbackImage;
+                }}
+              />
               <div className="item-details">
                 <p className="item-name">{item.name}</p>
                 <p className="item-brand">Brand: {item.brand}</p>
