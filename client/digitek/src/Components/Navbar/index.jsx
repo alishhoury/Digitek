@@ -5,10 +5,14 @@ import Profile from "../../assets/Profile.svg";
 import { useState } from "react";
 import "./style.css";
 import api from "../../services/axios";
+import { clearCart } from "../../features/cart/cartSlice";
+import { persistor } from "../../app/store";
+import { useDispatch } from "react-redux";
 
 const NavBar = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  const dispatch = useDispatch();
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
   const user = JSON.parse(localStorage.getItem("user"));
@@ -25,9 +29,15 @@ const NavBar = () => {
   };
 
   const logout = async () => {
-    await api.post("/auth/logout");
-    localStorage.removeItem("user");
-    navigate("/");
+    try {
+      await api.post("/auth/logout");
+      localStorage.removeItem("user");
+      dispatch(clearCart());
+      await persistor.purge();
+      navigate("/");
+    } catch (error) {
+      console.error("Logout failed:", error);
+    }
   };
 
   const toggleDropdown = () => {
