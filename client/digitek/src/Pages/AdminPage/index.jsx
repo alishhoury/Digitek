@@ -18,6 +18,7 @@ import api from "../../services/axios";
 
 const AdminPage = () => {
   const [orders, setOrders] = useState([]);
+  const [updatingId, setUpdatingId] = useState(null);
 
   useEffect(() => {
     const getOrders = async () => {
@@ -34,6 +35,26 @@ const AdminPage = () => {
     getOrders();
   }, []);
 
+  const handleStatusChange = async (orderId, newStatus) => {
+    setUpdatingId(orderId);
+    try {
+      await api.put(
+        `/orders/${orderId}`,
+        { status: newStatus },
+        { withCredentials: true }
+      );
+      setOrders((prevOrders) =>
+        prevOrders.map((order) =>
+          order.id === orderId ? { ...order, status: newStatus } : order
+        )
+      );
+    } catch (error) {
+      console.error("Failed to update status", error);
+    } finally {
+      setUpdatingId(null);
+    }
+  };
+
   const ordersPerHour = [
     { id: 1, hour: 9, order_count: 10, revenue: 145.5 },
     { id: 2, hour: 12, order_count: 9, revenue: 134.5 },
@@ -47,6 +68,8 @@ const AdminPage = () => {
     orders: order_count,
     revenue,
   }));
+
+  const statusSteps = ["pending", "paid", "packed", "shipped"];
 
   return (
     <div className="admin-page">
@@ -93,32 +116,51 @@ const AdminPage = () => {
           </tr>
         </thead>
         <tbody>
-          {orders.map((order) => (
-            <tr key={order.id}>
-              <td>{order.id}</td>
-              <td>{order.user?.username || "Customer"}</td>
-              <td>
-                {order.products?.map((product, index) => (
-                  <div key={index}>
-                    {product.name} (x{product.pivot?.quantity}) -{" "}
-                    <strong>${product.pivot?.price}</strong>
-                  </div>
-                ))}
-              </td>
-              <td>
-                <strong>${order.total_price}</strong>
-              </td>
-              <td>{order.status}</td>
-              <td>
-                <select className="admin-select" defaultValue="">
-                  <option value="">status</option>
-                  <option value="paid">paid</option>
-                  <option value="packed">packed</option>
-                  <option value="shipped">shipped</option>
-                </select>
-              </td>
-            </tr>
-          ))}
+          {orders.map((order) => {
+            const currentIndex = statusSteps.indexOf(order.status);
+            const availableStatuses = statusSteps.slice(currentIndex);
+
+            return (
+              <tr key={order.id}>
+                <td>{order.id}</td>
+                <td>{order.user?.username || "Customer"}</td>
+                <td>
+                  {order.products?.map((product, index) => (
+                    <div key={index}>
+                      {product.name} (x{product.pivot?.quantity}) -{" "}
+                      <strong>${product.pivot?.price}</strong>
+                    </div>
+                  ))}
+                </td>
+                <td>
+                  <strong>${order.total_price}</strong>
+                </td>
+                <td>
+                  <span className="current-status">{order.status}</span>
+                </td>
+                <td>
+                  {order.status === "shipped" ? (
+                    <span className="final-label">Finalized</span>
+                  ) : (
+                    <select
+                      className="admin-select"
+                      value={order.status}
+                      disabled={updatingId === order.id}
+                      onChange={(e) =>
+                        handleStatusChange(order.id, e.target.value)
+                      }
+                    >
+                      {availableStatuses.map((status) => (
+                        <option key={status} value={status}>
+                          {status}
+                        </option>
+                      ))}
+                    </select>
+                  )}
+                </td>
+              </tr>
+            );
+          })}
         </tbody>
       </table>
     </div>
