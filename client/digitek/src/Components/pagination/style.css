@@ -19,3 +19,8 @@
     background-color: rgb(184, 184, 184);
     transition: ease-in-out 0.2s;
 }
+
+.off {
+
+    display: none;
+}

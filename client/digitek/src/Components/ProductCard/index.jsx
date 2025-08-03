@@ -4,10 +4,12 @@ import { addToCart } from "../../features/cart/cartSlice";
 import "./style.css";
 import fallbackImage from "../../assets/ProductImage.jpg";
 import api from "../../services/axios";
+import { setHasNext } from "../../features/pagination/paginationSlice"
 
 const ProductCard = ({ product }) => {
   const dispatch = useDispatch();
   const cartItems = useSelector(state => state.cart.cartItems);
+
 
   const cartItem = cartItems.find(item => item.id === product.id);
   const quantity = cartItem ? cartItem.quantity : 0;
@@ -74,6 +76,7 @@ const ProductCard = ({ product }) => {
 const ProductGrid = ({ currentPage }) => {
   const [products, setProducts] = useState([]);
   const dispatch = useDispatch();
+
   useEffect(() => {
     window.scrollTo(0, 0);
 
@@ -83,8 +86,8 @@ const ProductGrid = ({ currentPage }) => {
         setProducts(response.data.payload.data);
         const next_page_url = response.data.payload.next_page_url
         const hasNext = next_page_url !== null;
-        dispatch(sethasNext({
-          hasNext,currentPage,next_page_url
+        dispatch(setHasNext({
+          hasNext, currentPage, next_page_url
         }))
         
       })
@@ -93,6 +96,7 @@ const ProductGrid = ({ currentPage }) => {
         setProducts([]);
       });
   }, [currentPage]);
+
 
   return (
     <div className="product-grid">
