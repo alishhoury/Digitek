@@ -215,7 +215,6 @@ const ManageProduct = () => {
               onChange={(e) => setDescription(e.target.value)}
               className="add-p-textarea"
               placeholder="Apple latest phone"
-              required
             />
           </div>
 
