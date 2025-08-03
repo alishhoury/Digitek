@@ -65,7 +65,7 @@ const ProductCard = ({ product }) => {
 
 const ProductGrid = ({ currentPage }) => {
   const [products, setProducts] = useState([]);
-
+  const dispatch = useDispatch();
   useEffect(() => {
     window.scrollTo(0, 0);
 
@@ -73,6 +73,12 @@ const ProductGrid = ({ currentPage }) => {
       .get(`/products?page=${currentPage}`)
       .then(response => {
         setProducts(response.data.payload.data);
+        const next_page_url = response.data.payload.next_page_url
+        const hasNext = next_page_url !== null;
+        dispatch(sethasNext({
+          hasNext,currentPage,next_page_url
+        }))
+        
       })
       .catch(error => {
         console.log("API Error:", error);
