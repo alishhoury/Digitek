@@ -23,7 +23,7 @@ class ProductController extends Controller {
    * Store a newly created resource in storage.
    */
   public function store(StoreProductRequest $request) {
-    $data = $request->all();
+    $data = $request->validated();
 
     $product = ProductService::addProduct($data);
 
@@ -71,7 +71,7 @@ class ProductController extends Controller {
   /**
    * Remove the specified resource from storage.
    */
-  public function delete(Product $product) {
+  public function destroy(Product $product) {
     $product->delete();
     return response()->json(['message' => 'Product deleted successfully.']);
   }

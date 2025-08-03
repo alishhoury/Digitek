@@ -1,39 +1,55 @@
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 .admin-page {
-    padding: 20px;
+  padding: 20px;
 }
 
 .admin-page h3 {
-    margin-bottom: 20px;
+  margin-bottom: 20px;
 }
 
 .chart-container {
-    width: 100%;
-    height: 300px;
+  width: 100%;
+  height: 300px;
 }
 
 .admin-table {
-    width: 100%;
-    border-collapse: collapse;
+  width: 100%;
+  border-collapse: collapse;
 }
 
 .admin-table th,
 .admin-table td {
-    border: 1px solid black;
-    padding: 10px;
-    text-align: center;
+  border: 1px solid black;
+  padding: 10px;
+  text-align: center;
 }
 
 .admin-table th {
-    background-color: lightgray;
+  background-color: lightgray;
 }
 
 .admin-select {
-    padding: 5px;
-    font-size: 14px;
+  padding: 5px;
+  font-size: 14px;
+}
+
+.current-status {
+  padding: 4px 8px;
+  background-color: lightgray;
+  color: black;
+  border-radius: 4px;
+  font-weight: bold;
+}
+
+.final-label {
+  padding: 4px 8px;
+  background-color: lightgreen;
+  color: black;
+  border-radius: 4px;
+  font-weight: bold;
 }

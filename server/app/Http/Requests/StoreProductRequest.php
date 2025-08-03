@@ -19,10 +19,15 @@ class StoreProductRequest extends FormRequest
      *
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
-    public function rules(): array
-    {
+    public function rules(): array {
         return [
-            //
+            'name' => 'required|string|max:255',
+            'price' => 'required|numeric|min:0',
+            'total_quantity' => 'required|integer|min:0',
+            'cost' => 'required|numeric|min:0',
+            'brand' => 'required|string|max:255',
+            'description' => 'nullable|string',
+            'image' => 'nullable|regex:/^data:image\/(jpg|jpeg|png|gif);base64,/'
         ];
     }
 }

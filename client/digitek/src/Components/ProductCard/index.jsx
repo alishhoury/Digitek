@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../../features/cart/cartSlice";
 import "./style.css";
+import fallbackImage from "../../assets/ProductImage.jpg";
 import api from "../../services/axios";
 
 const ProductCard = ({ product }) => {
@@ -38,7 +39,14 @@ const ProductCard = ({ product }) => {
     <div className="product-card">
       <div className="card-container">
         <div className="card-image">
-          <img src={product.image} alt={product.name} />
+          <img
+            src={product.image}
+            alt={product.name}
+            onError={e => {
+              e.target.onerror = null;
+              e.target.src = fallbackImage;
+            }}
+          />
         </div>
         <div className="card-content">
           <div className="product-info">

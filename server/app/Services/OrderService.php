@@ -112,4 +112,16 @@ class OrderService {
   private function attachProducts(Order $order, array $pivotData): void {
     $order->products()->attach($pivotData);
   }
+  
+  public static function updateOrderStatus(int $id, array $data){
+    $order = Order::find($id);
+    
+    if (!$order) {
+      return null;
+    }
+    $order->status = $data['status'] ?? $order->status;
+    $order->save();
+
+    return $order;
+  }
 }
