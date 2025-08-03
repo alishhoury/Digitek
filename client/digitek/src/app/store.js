@@ -7,12 +7,14 @@ import { combineReducers } from "redux";
 import paginationReducer from "../features/pagination/paginationSlice";
 import productFormReducer from "../features/productForm/productFormSlice";
 import stockReducer from "../features/stock/stockSlice";
+import dashboardReducer from "../features/dashboard/dashboardSlice";
 
 const rootReducer = combineReducers({
   cart: cartReducer,
   pagination: paginationReducer,
   productForm: productFormReducer,
   stock: stockReducer,
+  dashboard: dashboardReducer,
 });
 
 const persistConfig = {
