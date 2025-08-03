@@ -51,7 +51,7 @@ const ManageProduct = () => {
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const response = await api.get(`/products/${id}`);
+        const response = await api.get(`/retrieveProducts/${id}`);
         const product = response.data.product;
 
         setName(product.name);

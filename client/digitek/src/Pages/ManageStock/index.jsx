@@ -24,7 +24,7 @@ const ManageStock = () => {
   useEffect(() => {
     const getProducts = async () => {
       try {
-        const response = await api.get("/products", {
+        const response = await api.get("/stock", {
           withCredentials: true,
         });
         setProducts(response.data);
