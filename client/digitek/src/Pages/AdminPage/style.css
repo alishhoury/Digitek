@@ -6,9 +6,11 @@
 
 .admin-page {
   padding: 20px;
+  margin: 60px;
 }
 
 .admin-page h3 {
+  margin-top: 20px;
   margin-bottom: 20px;
 }
 
