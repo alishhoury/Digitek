@@ -5,10 +5,12 @@ import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import { combineReducers } from "redux";
 import paginationReducer from "../features/pagination/paginationSlice";
+import productFormReducer from "../features/productForm/productFormSlice";
 
 const rootReducer = combineReducers({
   cart: cartReducer,
   pagination: paginationReducer,
+  productForm: productFormReducer,
 });
 
 const persistConfig = {

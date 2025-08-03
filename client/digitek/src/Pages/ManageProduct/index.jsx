@@ -3,30 +3,62 @@ import Input from "../../Components/Input";
 import Button from "../../Components/Button";
 import ImageIcon from "../../assets/ImageIcon.svg";
 import "./style.css";
-import { useState, useEffect } from "react";
-import api from "../../services/axios";
+import { useEffect } from "react";
 import { useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  setField,
+  setImage,
+  setAllFields,
+  resetForm,
+  setMessage,
+  clearMessage,
+} from "../../features/productForm/productFormSlice";
+
+import api from "../../services/axios";
 
 const ManageProduct = () => {
   const { id } = useParams();
-  const [image, setImage] = useState(null);
-  const [imageName, setImageName] = useState("");
-  const [name, setName] = useState("");
-  const [price, setPrice] = useState("");
-  const [total_quantity, setTotalQuantity] = useState("");
-  const [cost, setCost] = useState("");
-  const [brand, setBrand] = useState("");
-  const [description, setDescription] = useState("");
-  const [message, setMessage] = useState("");
+  const dispatch = useDispatch();
+
+  const {
+    name,
+    price,
+    total_quantity,
+    cost,
+    brand,
+    description,
+    image,
+    imageName,
+    message,
+  } = useSelector((global) => global.productForm);
+
+  useEffect(() => {
+    if (id) {
+      const fetchProduct = async () => {
+        try {
+          const response = await api.get(`/retrieveProducts/${id}`);
+          const product = response.data.product;
+          dispatch(setAllFields(product));
+        } catch (err) {
+          console.error("Error fetching product:", err);
+          dispatch(setMessage("Error fetching product data."));
+        }
+      };
+
+      fetchProduct();
+    }
+  }, [id, dispatch]);
 
   useEffect(() => {
     if (message) {
       const timer = setTimeout(() => {
-        setMessage("");
-      }, 4000);
+        dispatch(clearMessage());
+        dispatch(resetForm());
+      }, 3000);
       return () => clearTimeout(timer);
     }
-  }, [message]);
+  }, [message, dispatch]);
 
   const fileToBase64 = (file) =>
     new Promise((resolve, reject) => {
@@ -40,38 +72,11 @@ const ManageProduct = () => {
     if (e.target.files.length > 0) {
       const file = e.target.files[0];
       const base64 = await fileToBase64(file);
-      setImage(base64);
-      setImageName(file.name);
+      dispatch(setImage({ image: base64, name: file.name }));
     } else {
-      setImage(null);
-      setImageName("");
+      dispatch(setImage({ image: "", name: "" }));
     }
   };
-
-  useEffect(() => {
-    const fetchProduct = async () => {
-      try {
-        const response = await api.get(`/retrieveProducts/${id}`);
-        const product = response.data.product;
-
-        setName(product.name);
-        setPrice(product.price);
-        setTotalQuantity(product.total_quantity);
-        setCost(product.cost);
-        setBrand(product.brand);
-        setDescription(product.description);
-        setImage(product.image);
-        setImageName("Existing Image");
-      } catch (err) {
-        console.error("Error fetching product:", err);
-        setMessage("Error fetching product data.");
-      }
-    };
-
-    if (id) {
-      fetchProduct();
-    }
-  }, [id]);
 
   const handleAddProduct = async (e) => {
     e.preventDefault();
@@ -89,26 +94,19 @@ const ManageProduct = () => {
     try {
       if (id) {
         await api.put(`/products/${id}`, payload, { withCredentials: true });
-        setMessage("Product updated successfully!");
+        dispatch(setMessage("Product updated successfully!"));
       } else {
         await api.post("/products", payload, { withCredentials: true });
-        setMessage("Product added successfully!");
-
-        setName("");
-        setPrice("");
-        setTotalQuantity("");
-        setCost("");
-        setBrand("");
-        setDescription("");
-        setImage(null);
-        setImageName("");
+        dispatch(setMessage("Product added successfully!"));
       }
     } catch (error) {
-      setMessage(
-        "Error: " +
-          (error.response?.data?.message ||
-            error.message ||
-            "Failed to save product")
+      dispatch(
+        setMessage(
+          "Error: " +
+            (error.response?.data?.message ||
+              error.message ||
+              "Failed to save product")
+        )
       );
       console.error("Error saving product:", error);
     }
@@ -143,7 +141,9 @@ const ManageProduct = () => {
             hint="iPhone 15 Pro max"
             className="add-p-input"
             required={true}
-            onChangeListener={(e) => setName(e.target.value)}
+            onChangeListener={(e) =>
+              dispatch(setField({ field: "name", value: e.target.value }))
+            }
           />
 
           <div className="input-row">
@@ -156,7 +156,9 @@ const ManageProduct = () => {
                 hint="$865.00"
                 className="add-p-input"
                 required={true}
-                onChangeListener={(e) => setPrice(e.target.value)}
+                onChangeListener={(e) =>
+                  dispatch(setField({ field: "price", value: e.target.value }))
+                }
                 min="0"
                 step="0.01"
               />
@@ -171,7 +173,11 @@ const ManageProduct = () => {
                 hint="1"
                 className="add-p-input"
                 required={true}
-                onChangeListener={(e) => setTotalQuantity(e.target.value)}
+                onChangeListener={(e) =>
+                  dispatch(
+                    setField({ field: "total_quantity", value: e.target.value })
+                  )
+                }
                 min="0"
               />
             </div>
@@ -187,7 +193,9 @@ const ManageProduct = () => {
                 hint="$800.00"
                 className="add-p-input"
                 required={true}
-                onChangeListener={(e) => setCost(e.target.value)}
+                onChangeListener={(e) =>
+                  dispatch(setField({ field: "cost", value: e.target.value }))
+                }
                 min="0"
                 step="0.01"
               />
@@ -202,7 +210,9 @@ const ManageProduct = () => {
                 hint="Apple"
                 className="add-p-input"
                 required={true}
-                onChangeListener={(e) => setBrand(e.target.value)}
+                onChangeListener={(e) =>
+                  dispatch(setField({ field: "brand", value: e.target.value }))
+                }
               />
             </div>
           </div>
@@ -212,7 +222,11 @@ const ManageProduct = () => {
             <textarea
               name="description"
               value={description}
-              onChange={(e) => setDescription(e.target.value)}
+              onChange={(e) =>
+                dispatch(
+                  setField({ field: "description", value: e.target.value })
+                )
+              }
               className="add-p-textarea"
               placeholder="Apple latest phone"
             />
