@@ -27,7 +27,7 @@ const HomePage = () => {
     <div className="home-page">
       <SearchBar onSearch={handleSearch}/>
       <ProductGrid currentPage={currentPage} searchTerm={searchTerm}/>
-      <Pagination onPageChange={handlePageChange} />
+      <Pagination onPageChange={handlePageChange} currentPage={currentPage}/>
     </div>
   );
 };
