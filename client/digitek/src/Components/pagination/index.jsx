@@ -33,7 +33,7 @@ const Pagination = ({ onPageChange }) => {
 
   return (
     <div className="pagination-container">
-       <img src= {Prev} className="prev" onClick={Prevpage} />
+       <img src= {Prev} className={Currentpage === 1 ? "off" : "prev"} onClick={Prevpage} />
           <div className="current-page">{Currentpage}</div>
        <img src = {Next} className={on ? "next" : "off"} onClick={Nextpage}/>
         
