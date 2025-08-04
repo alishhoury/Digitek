@@ -20,40 +20,40 @@ services:
         condition: service_healthy
     # This command block is the most reliable for local development
     command: |
-        sh -c "
-        echo '🚀 Starting Laravel application...'
+      sh -c "
+      echo '🚀 Starting Laravel application...'
 
-        chown -R www-data:www-data /var/www/storage /var/www/bootstrap/cache
-        chmod -R ug+rwX /var/www/storage /var/www/bootstrap/cache
+      chown -R www-data:www-data /var/www/storage /var/www/bootstrap/cache
+      chmod -R ug+rwX /var/www/storage /var/www/bootstrap/cache
 
-        # Run composer install only if not already done
-        if [ ! -f vendor/autoload.php ]; then
-          echo '⚙️ Installing dependencies...'
-          composer install --dev --optimize-autoloader --no-interaction
-        fi
+      # Run composer install only if not already done
+      if [ ! -f vendor/autoload.php ]; then
+        echo '⚙️ Installing dependencies...'
+        composer install --dev --optimize-autoloader --no-interaction
+      fi
 
-        # Generate application key if it doesn't exist
-        if [ ! -f .env ]; then
-          echo '⚙️ Creating .env file...'
-          cp .env.example .env
-          php artisan key:generate --force
-        fi
+      # Generate application key if it doesn't exist
+      if [ ! -f .env ]; then
+        echo '⚙️ Creating .env file...'
+        cp .env.example .env
+        php artisan key:generate --force
+      fi
 
-        # Run migrations and seeders every time the container starts
-        echo '🔄 Running database migrations...'
-        php artisan migrate --force
+      # Run migrations and seeders every time the container starts
+      echo '🔄 Running database migrations...'
+      php artisan migrate --force
 
-        echo '🌱 Running database seeders...'
-        php artisan db:seed --force
+      echo '🌱 Running database seeders...'
+      php artisan db:seed --force
 
-        # Clear any application caches
-        php artisan config:clear
-        php artisan route:clear
-        php artisan view:clear
+      # Clear any application caches
+      php artisan config:clear
+      php artisan route:clear
+      php artisan view:clear
 
-        echo '🎯 Laravel ready! Starting PHP-FPM...'
-        php-fpm
-        "
+      echo '🎯 Laravel ready! Starting PHP-FPM...'
+      php-fpm
+      "
     environment:
       - DB_HOST=mysql
       - REDIS_HOST=redis
@@ -83,7 +83,15 @@ services:
       app:
         condition: service_healthy
     healthcheck:
-      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost/"]
+      test:
+        [
+          "CMD",
+          "wget",
+          "--no-verbose",
+          "--tries=1",
+          "--spider",
+          "http://localhost/",
+        ]
       timeout: 3s
       retries: 3
       interval: 10s
@@ -115,7 +123,8 @@ services:
       --skip-name-resolve
       --max_connections=200
     healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-proot"]
+      test:
+        ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-proot"]
       timeout: 10s
       retries: 10
       interval: 5s
