@@ -8,6 +8,7 @@ import api from "../../services/axios";
 import { clearCart } from "../../features/cart/cartSlice";
 import { persistor } from "../../app/store";
 import { useDispatch } from "react-redux";
+import NotificationBell from "../Bell";
 
 const NavBar = () => {
   const navigate = useNavigate();
@@ -47,8 +48,11 @@ const NavBar = () => {
   return (
     <div className="NavBar">
       <div className="bar-content">
-        <div className="logo">
-          <img src={Logo} alt="Digitek" />
+        <div className="bar-row">
+          <div className="logo">
+            <img src={Logo} alt="Digitek" />
+          </div>
+          <NotificationBell />
         </div>
 
         <div className="nav-buttons">

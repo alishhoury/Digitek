@@ -1,0 +1,103 @@
+.notBell-relative {
+  position: relative;
+  color: black;
+}
+
+.notBell-cursor-pointer {
+  cursor: pointer;
+}
+
+.notBell-select-none {
+  user-select: none;
+}
+
+.notBell-icon {
+  width: 24px;
+  height: 24px;
+}
+
+.notBell-badge {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  background-color: red;
+  color: white;
+  font-size: 10px;
+  padding: 2px 6px;
+  border-radius: 9999px;
+  font-weight: bold;
+  min-width: 18px;
+  text-align: center;
+  box-shadow: 0 0 0 2px white;
+}
+
+.notBell-dropdown {
+  position: absolute;
+  right: 20;
+  margin-top: 8px;
+  width: 288px;
+  background-color: whitesmoke;
+  border: 1px solid gray;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  max-height: 320px;
+  overflow-y: auto;
+}
+
+.notBell-header {
+  padding: 8px 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid whitesmoke;
+  background-color: lightgray;
+  font-weight: bold;
+}
+
+.notBell-clear-btn {
+  font-size: 14px;
+  color: red;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.notBell-clear-btn:hover {
+  text-decoration: underline;
+}
+
+.notBell-loading,
+.notBell-empty {
+  padding: 12px;
+  color: #6b7280;
+  text-align: center;
+}
+
+.notBell-item {
+  padding: 12px;
+  border-bottom: 1px solid lightgray;
+  background-color: white;
+}
+
+.notBell-item strong {
+  display: block;
+  margin-bottom: 4px;
+  color: black;
+}
+
+.notBell-item p {
+  margin: 0;
+  color: black;
+}
+
+.notBell-item small {
+  display: block;
+  margin-top: 4px;
+  color: gray;
+  font-size: 12px;
+}
+
+.notBell-item:last-child {
+  border-bottom: none;
+}

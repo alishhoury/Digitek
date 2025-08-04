@@ -5,10 +5,12 @@ use App\Http\Controllers\Customer\ProductController;
 use App\Http\Controllers\Admin\OrderController as AdminOrderController;
 use App\Http\Controllers\Admin\ProductController as AdminProductController;
 use App\Http\Controllers\Customer\UserController;
+use App\Http\Controllers\Customer\NotificationController;
 use App\Http\Controllers\Shared\AuthController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Shared\Controller;
+use Illuminate\Http\Request;
 
 Route::group(['prefix' => 'v0.1'], function () {
 
@@ -36,6 +38,9 @@ Route::group(['prefix' => 'v0.1'], function () {
     Route::get('getByOrderNumber/{order_number}', [OrderController::class, 'getByOrderNumber']);
     Route::post('payOrder/{order}', [OrderController::class, 'payOrder']);
     Route::get('orders/{order}', [OrderController::class, 'show']);
+
+    Route::get('notifications', [NotificationController::class, 'view']);
+    Route::delete('notifications/clear', [NotificationController::class, 'clear']);
 
     Route::middleware('role:admin')->group(function () {
       Route::get('orders', [AdminOrderController::class, 'index']);

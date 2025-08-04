@@ -4,11 +4,14 @@ namespace App\Http\Controllers\Customer;
 
 use App\Http\Controllers\Shared\Controller;
 use App\Models\Order;
+use App\Models\User;
 use App\Http\Requests\StoreOrderRequest;
 use App\Http\Requests\UpdateOrderRequest;
 use App\Http\Resources\OrderResource;
 use App\Services\OrderService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Notification;
+use App\Notifications\NewOrderNotification;
 
 class OrderController extends Controller {
   /**
@@ -30,6 +33,9 @@ class OrderController extends Controller {
       auth('api')->id(),
       $request->validated()['products']
     );
+
+    $admins = User::where('role', 'admin')->get();
+    Notification::send($admins, new NewOrderNotification($order));
 
     return $this->responseJSON(new OrderResource($order));
   }
