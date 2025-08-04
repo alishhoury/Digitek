@@ -97,8 +97,6 @@ services:
     environment:
       - MYSQL_DATABASE=digitek_db
       - MYSQL_ROOT_PASSWORD=root
-      - MYSQL_USER=laravel
-      - MYSQL_PASSWORD=laravel_password
       # Performance optimizations
       - MYSQL_INITDB_SKIP_TZINFO=1
     volumes:
