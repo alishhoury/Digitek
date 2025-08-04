@@ -1,61 +1,9 @@
-import { useEffect } from "react";
-import api from "../../services/axios";
 import "./style.css";
 import EditIcon from "../../assets/EditIcon.svg";
 import DeleteIcon from "../../assets/DeleteIcon.svg";
-import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { setProducts, setMessage } from "../../features/stock/stockSlice";
-
+import useManageStockLogic from "./logic.js";
 const ManageStock = () => {
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const { products, message } = useSelector((global) => global.stock);
-
-  useEffect(() => {
-    if (message) {
-      const timer = setTimeout(() => {
-        dispatch(setMessage(""));
-      }, 3000);
-
-      return () => clearTimeout(timer);
-    }
-  }, [message, dispatch]);
-
-  useEffect(() => {
-    const getProducts = async () => {
-      try {
-        const response = await api.get("/stock", {
-          withCredentials: true,
-        });
-        dispatch(setProducts(response.data));
-      } catch (error) {
-        console.error("Error: ", error);
-        dispatch(setMessage("Error fetching products."));
-      }
-    };
-
-    getProducts();
-  }, [dispatch]);
-
-  const handleDelete = async (product) => {
-    try {
-      await api.delete(`/products/${product.id}`, {
-        withCredentials: true,
-      });
-      const updatedProducts = products.filter((p) => p.id !== product.id);
-      dispatch(setProducts(updatedProducts));
-      dispatch(setMessage(`Deleted "${product.name}" successfully.`));
-    } catch (error) {
-      console.error("Delete failed:", error);
-      dispatch(setMessage(`Failed to delete "${product.name}".`));
-    }
-  };
-
-  const handleEdit = (productId) => {
-    navigate(`/manageProduct/${productId}`);
-  };
-
+  const { products, message, handleDelete, handleEdit } = useManageStockLogic();
   return (
     <div className="stock-products-page">
       {message && <div className="floating-message">{message}</div>}

@@ -27,7 +27,7 @@ class StoreProductRequest extends FormRequest
             'cost' => 'required|numeric|min:0',
             'brand' => 'required|string|max:255',
             'description' => 'nullable|string',
-            'image' => 'nullable|regex:/^data:image\/(jpg|jpeg|png|gif);base64,/'
+            'image' => ['nullable', 'regex:/^data:image\/(jpg|jpeg|png|gif);base64,/']
         ];
     }
 }
