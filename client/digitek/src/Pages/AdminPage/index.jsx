@@ -87,21 +87,21 @@ const AdminPage = () => {
           >
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis dataKey="hour" />
-            <YAxis yAxisId="left" orientation="left" stroke="#8884d8" />
-            <YAxis yAxisId="right" orientation="right" stroke="#82ca9d" />
+            <YAxis yAxisId="left" orientation="left" stroke="#116466" />
+            <YAxis yAxisId="right" orientation="right" stroke="#c95e12ff" />
             <Tooltip />
             <Legend />
             <Line
               yAxisId="left"
               type="monotone"
               dataKey="orders"
-              stroke="#8884d8"
+              stroke="#116466"
             />
             <Line
               yAxisId="right"
               type="monotone"
               dataKey="revenue"
-              stroke="#82ca9d"
+              stroke="#c95e12ff"
             />
           </LineChart>
         </ResponsiveContainer>

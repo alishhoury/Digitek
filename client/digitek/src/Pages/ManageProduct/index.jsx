@@ -3,114 +3,23 @@ import Input from "../../Components/Input";
 import Button from "../../Components/Button";
 import ImageIcon from "../../assets/ImageIcon.svg";
 import "./style.css";
-import { useEffect } from "react";
-import { useParams } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  setField,
-  setImage,
-  setAllFields,
-  resetForm,
-  setMessage,
-  clearMessage,
-} from "../../features/productForm/productFormSlice";
-
-import api from "../../services/axios";
+import useManageProductLogic from "./logic.js";
 
 const ManageProduct = () => {
-  const { id } = useParams();
-  const dispatch = useDispatch();
-
   const {
+    id,
     name,
     price,
     total_quantity,
     cost,
     brand,
     description,
-    image,
     imageName,
     message,
-  } = useSelector((global) => global.productForm);
-
-  useEffect(() => {
-    if (id) {
-      const fetchProduct = async () => {
-        try {
-          const response = await api.get(`/retrieveProducts/${id}`);
-          const product = response.data.product;
-          dispatch(setAllFields(product));
-        } catch (err) {
-          console.error("Error fetching product:", err);
-          dispatch(setMessage("Error fetching product data."));
-        }
-      };
-
-      fetchProduct();
-    }
-  }, [id, dispatch]);
-
-  useEffect(() => {
-    if (message) {
-      const timer = setTimeout(() => {
-        dispatch(clearMessage());
-        dispatch(resetForm());
-      }, 3000);
-      return () => clearTimeout(timer);
-    }
-  }, [message, dispatch]);
-
-  const fileToBase64 = (file) =>
-    new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = () => resolve(reader.result);
-      reader.onerror = (error) => reject(error);
-    });
-
-  const uploadImage = async (e) => {
-    if (e.target.files.length > 0) {
-      const file = e.target.files[0];
-      const base64 = await fileToBase64(file);
-      dispatch(setImage({ image: base64, name: file.name }));
-    } else {
-      dispatch(setImage({ image: "", name: "" }));
-    }
-  };
-
-  const handleAddProduct = async (e) => {
-    e.preventDefault();
-
-    const payload = {
-      name,
-      price: Number(price),
-      total_quantity: Number(total_quantity),
-      cost: Number(cost),
-      brand,
-      description,
-      image: image || "",
-    };
-
-    try {
-      if (id) {
-        await api.put(`/products/${id}`, payload, { withCredentials: true });
-        dispatch(setMessage("Product updated successfully!"));
-      } else {
-        await api.post("/products", payload, { withCredentials: true });
-        dispatch(setMessage("Product added successfully!"));
-      }
-    } catch (error) {
-      dispatch(
-        setMessage(
-          "Error: " +
-            (error.response?.data?.message ||
-              error.message ||
-              "Failed to save product")
-        )
-      );
-      console.error("Error saving product:", error);
-    }
-  };
+    uploadImage,
+    handleAddProduct,
+    handleFieldChange,
+  } = useManageProductLogic();
 
   return (
     <div className="product-page">
@@ -141,9 +50,7 @@ const ManageProduct = () => {
             hint="iPhone 15 Pro max"
             className="add-p-input"
             required={true}
-            onChangeListener={(e) =>
-              dispatch(setField({ field: "name", value: e.target.value }))
-            }
+            onChangeListener={(e) => handleFieldChange("name", e.target.value)}
           />
 
           <div className="input-row">
@@ -157,7 +64,7 @@ const ManageProduct = () => {
                 className="add-p-input"
                 required={true}
                 onChangeListener={(e) =>
-                  dispatch(setField({ field: "price", value: e.target.value }))
+                  handleFieldChange("price", e.target.value)
                 }
                 min="0"
                 step="0.01"
@@ -174,9 +81,7 @@ const ManageProduct = () => {
                 className="add-p-input"
                 required={true}
                 onChangeListener={(e) =>
-                  dispatch(
-                    setField({ field: "total_quantity", value: e.target.value })
-                  )
+                  handleFieldChange("total_quantity", e.target.value)
                 }
                 min="0"
               />
@@ -194,7 +99,7 @@ const ManageProduct = () => {
                 className="add-p-input"
                 required={true}
                 onChangeListener={(e) =>
-                  dispatch(setField({ field: "cost", value: e.target.value }))
+                  handleFieldChange("cost", e.target.value)
                 }
                 min="0"
                 step="0.01"
@@ -211,7 +116,7 @@ const ManageProduct = () => {
                 className="add-p-input"
                 required={true}
                 onChangeListener={(e) =>
-                  dispatch(setField({ field: "brand", value: e.target.value }))
+                  handleFieldChange("brand", e.target.value)
                 }
               />
             </div>
@@ -222,11 +127,7 @@ const ManageProduct = () => {
             <textarea
               name="description"
               value={description}
-              onChange={(e) =>
-                dispatch(
-                  setField({ field: "description", value: e.target.value })
-                )
-              }
+              onChange={(e) => handleFieldChange("description", e.target.value)}
               className="add-p-textarea"
               placeholder="Apple latest phone"
             />
