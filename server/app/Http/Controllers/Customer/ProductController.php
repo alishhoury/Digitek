@@ -6,14 +6,22 @@ use App\Http\Controllers\Shared\Controller;
 use App\Models\Product;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
-
+use Illuminate\Http\Request;
 class ProductController extends Controller {
   /**
    * Display a listing of the resource.
    */
-  public function index() {
+  public function index(Request $request) {
+    
+     $query = Product::query();
 
-    $products = Product::simplePaginate(10);
+    if ($request->has('search')) {
+        $search = $request->input('search');
+        $query->where('name', 'like', "%{$search}%")
+              ->orWhere('description', 'like', "%{$search}%");
+    }
+
+    $products = $query->simplePaginate(10);
 
     return self::responseJSON($products);
 

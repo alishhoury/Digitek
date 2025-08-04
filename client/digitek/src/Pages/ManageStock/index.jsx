@@ -1,25 +1,26 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import api from "../../services/axios";
 import "./style.css";
 import EditIcon from "../../assets/EditIcon.svg";
 import DeleteIcon from "../../assets/DeleteIcon.svg";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { setProducts, setMessage } from "../../features/stock/stockSlice";
 
 const ManageStock = () => {
-  const [products, setProducts] = useState([]);
-  const [message, setMessage] = useState("");
-
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { products, message } = useSelector((global) => global.stock);
 
   useEffect(() => {
     if (message) {
       const timer = setTimeout(() => {
-        setMessage("");
+        dispatch(setMessage(""));
       }, 3000);
 
       return () => clearTimeout(timer);
     }
-  }, [message]);
+  }, [message, dispatch]);
 
   useEffect(() => {
     const getProducts = async () => {
@@ -27,25 +28,27 @@ const ManageStock = () => {
         const response = await api.get("/stock", {
           withCredentials: true,
         });
-        setProducts(response.data);
+        dispatch(setProducts(response.data));
       } catch (error) {
         console.error("Error: ", error);
+        dispatch(setMessage("Error fetching products."));
       }
     };
 
     getProducts();
-  }, []);
+  }, [dispatch]);
 
   const handleDelete = async (product) => {
     try {
       await api.delete(`/products/${product.id}`, {
         withCredentials: true,
       });
-      setProducts((prev) => prev.filter((p) => p.id !== product.id));
-      setMessage(`Deleted "${product.name}" successfully.`);
+      const updatedProducts = products.filter((p) => p.id !== product.id);
+      dispatch(setProducts(updatedProducts));
+      dispatch(setMessage(`Deleted "${product.name}" successfully.`));
     } catch (error) {
       console.error("Delete failed:", error);
-      setMessage(`Failed to delete "${product.name}".`);
+      dispatch(setMessage(`Failed to delete "${product.name}".`));
     }
   };
 

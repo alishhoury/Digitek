@@ -1,15 +1,36 @@
 import React, { useState } from "react";
 import "./style.css";
-import Input from "../Input";
 
 
-const SearchBar = () => {
+const SearchBar = ({ onSearch }) => {
+  const [searchTerm, setSearchTerm] = useState("")
+
+  const handleInputChange = (e) => {
+    setSearchTerm(e.target.value)
+  }
+
+  const handleKeyPress = (e) => {
+    if (e.key === "Enter") {
+      onSearch(searchTerm)
+      
+    }
+  }
+
+  
 
       return (
     <div className="searchBar">
 
       <div>
-        <Input hint={"What are you looking for?"} className="Search-Bar"/>
+        <input 
+          type="text"
+          placeholder="What are you looking for?"
+          className="Search-Bar"
+          value={searchTerm}
+          onChange={handleInputChange}
+          onKeyDown={handleKeyPress}
+          
+        />
       </div>
 
     </div>    

@@ -13,12 +13,17 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import api from "../../services/axios";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  setOrders,
+  setUpdatingId,
+} from "../../features/dashboard/dashboardSlice";
 
 const AdminPage = () => {
-  const [orders, setOrders] = useState([]);
-  const [updatingId, setUpdatingId] = useState(null);
+  const dispatch = useDispatch();
+  const { orders, updatingId } = useSelector((global) => global.dashboard);
 
   useEffect(() => {
     const getOrders = async () => {
@@ -26,32 +31,31 @@ const AdminPage = () => {
         const response = await api.get("/orders", {
           withCredentials: true,
         });
-        setOrders(response.data);
+        dispatch(setOrders(response.data));
       } catch (error) {
         console.error("Error: ", error);
       }
     };
 
     getOrders();
-  }, []);
+  }, [dispatch]);
 
   const handleStatusChange = async (orderId, newStatus) => {
-    setUpdatingId(orderId);
+    dispatch(setUpdatingId(orderId));
     try {
       await api.put(
         `/orders/${orderId}`,
         { status: newStatus },
         { withCredentials: true }
       );
-      setOrders((prevOrders) =>
-        prevOrders.map((order) =>
-          order.id === orderId ? { ...order, status: newStatus } : order
-        )
+      const updatedOrders = orders.map((order) =>
+        order.id === orderId ? { ...order, status: newStatus } : order
       );
+      dispatch(setOrders(updatedOrders));
     } catch (error) {
       console.error("Failed to update status", error);
     } finally {
-      setUpdatingId(null);
+      dispatch(setUpdatingId(null));
     }
   };
 
@@ -83,21 +87,21 @@ const AdminPage = () => {
           >
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis dataKey="hour" />
-            <YAxis yAxisId="left" orientation="left" stroke="#8884d8" />
-            <YAxis yAxisId="right" orientation="right" stroke="#82ca9d" />
+            <YAxis yAxisId="left" orientation="left" stroke="#116466" />
+            <YAxis yAxisId="right" orientation="right" stroke="#c95e12ff" />
             <Tooltip />
             <Legend />
             <Line
               yAxisId="left"
               type="monotone"
               dataKey="orders"
-              stroke="#8884d8"
+              stroke="#116466"
             />
             <Line
               yAxisId="right"
               type="monotone"
               dataKey="revenue"
-              stroke="#82ca9d"
+              stroke="#c95e12ff"
             />
           </LineChart>
         </ResponsiveContainer>

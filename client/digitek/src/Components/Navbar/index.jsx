@@ -17,7 +17,7 @@ const NavBar = () => {
 
   const user = JSON.parse(localStorage.getItem("user"));
 
-  const isActive = path => location.pathname === path;
+  const isActive = (path) => location.pathname === path;
 
   const isLogged = () => {
     const user = localStorage.getItem("user");
