@@ -57,10 +57,12 @@ COPY ./docker/php/opcache.ini /usr/local/etc/php/conf.d/opcache.ini
 # Copy application code
 COPY --chown=www:www . /var/www
 
-# Set proper permissions
-RUN chown -R www:www /var/www \
-    && chmod -R 755 /var/www/storage \
-    && chmod -R 755 /var/www/bootstrap/cache
+# Set proper permissions for the application
+RUN chown -R www:www /var/www && \
+    find /var/www/storage -type d -print0 | xargs -0 chmod 775 && \
+    find /var/www/storage -type f -print0 | xargs -0 chmod 664 && \
+    find /var/www/bootstrap/cache -type d -print0 | xargs -0 chmod 775 && \
+    find /var/www/bootstrap/cache -type f -print0 | xargs -0 chmod 664
 
 # Switch to non-root user
 USER www

@@ -23,6 +23,9 @@ services:
         sh -c "
         echo '🚀 Starting Laravel application...'
 
+        chown -R www-data:www-data /var/www/storage /var/www/bootstrap/cache
+        chmod -R ug+rwX /var/www/storage /var/www/bootstrap/cache
+
         # Run composer install only if not already done
         if [ ! -f vendor/autoload.php ]; then
           echo '⚙️ Installing dependencies...'
