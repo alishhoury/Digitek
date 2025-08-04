@@ -26,19 +26,19 @@ const ShippingInfo = () => {
         <h2 className="shipping-title">Shipping Address Details</h2>
         <div className="shipping-info">
           <p>
-            <strong>Full Name:</strong> {user.first_name} {user.last_name}
+            <strong>Full Name:</strong> {user.first_name ? `${user.first_name} ${user.last_name}` : ' Not Specified'}
           </p>
           <p>
-            <strong>Address:</strong> {user.address}
+            <strong>Address:</strong> {user.address || ' Not Specified'}
           </p>
           <p>
-            <strong>City:</strong> {user.city}
+            <strong>City:</strong> {user.city || ' Not Specified'}
           </p>
           <p>
             <strong>Country:</strong> Lebanon
           </p>
           <p>
-            <strong>Phone:</strong> {user.phone}
+            <strong>Phone:</strong> {user.phone || ' Not Specified'}
           </p>
         </div>
       </div>
