@@ -7,6 +7,10 @@ use App\Models\Product;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Validation\ValidationException;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\OrderInvoiceMail;
+use App\Models\User;
+
 
 class OrderService {
   public function createOrder(int $userId, array $items) {
@@ -18,8 +22,16 @@ class OrderService {
       $order = $this->createOrderRecord($userId, $totalPrice);
       $this->attachProducts($order, $pivotData);
 
-      return $order->load('products');
+      $order->load('products');
+
+      $user = User::find($userId);
+      if ($user && $user->email){
+        Mail::to($user->email)->send(new OrderInvoiceMail($order));
+
+      }
+      return $order;
     });
+
   }
 
   public function payOrder(Order $order) {
