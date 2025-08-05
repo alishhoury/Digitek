@@ -43,10 +43,6 @@ RUN docker-php-ext-configure gd --with-freetype --with-jpeg \
 RUN pecl install redis \
     && docker-php-ext-enable redis
 
-# Create application user
-RUN groupadd -g 1000 www \
-    && useradd -u 1000 -ms /bin/bash -g www www
-
 # Set working directory
 WORKDIR /var/www
 
@@ -55,23 +51,20 @@ COPY ./docker/php/php.ini /usr/local/etc/php/conf.d/99-custom.ini
 COPY ./docker/php/opcache.ini /usr/local/etc/php/conf.d/opcache.ini
 
 # Copy application code
-COPY --chown=www:www . /var/www
+COPY --chown=www-data:www-data . /var/www
 
 # Set proper permissions for the application
-RUN chown -R www:www /var/www && \
+RUN chown -R www-data:www-data /var/www && \
     find /var/www/storage -type d -print0 | xargs -0 chmod 775 && \
     find /var/www/storage -type f -print0 | xargs -0 chmod 664 && \
     find /var/www/bootstrap/cache -type d -print0 | xargs -0 chmod 775 && \
     find /var/www/bootstrap/cache -type f -print0 | xargs -0 chmod 664
 
 # Switch to non-root user
-USER www
+USER www-data
 
 # Install composer dependencies
 RUN composer install --no-interaction --no-scripts --no-dev --optimize-autoloader
-
-# Switch back to root for the final setup
-USER root
 
 # Expose port 9000 and start php-fpm server
 EXPOSE 9000
