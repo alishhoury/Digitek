@@ -7,10 +7,8 @@ use App\Http\Controllers\Admin\ProductController as AdminProductController;
 use App\Http\Controllers\Customer\UserController;
 use App\Http\Controllers\Customer\NotificationController;
 use App\Http\Controllers\Shared\AuthController;
+use App\Http\Controllers\Shared\WebHookController;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\DB;
-use App\Http\Controllers\Shared\Controller;
-use Illuminate\Http\Request;
 
 Route::group(['prefix' => 'v0.1', 'middleware' => 'throttle:60,1'], function () {
 
@@ -43,7 +41,7 @@ Route::group(['prefix' => 'v0.1', 'middleware' => 'throttle:60,1'], function () 
     Route::delete('notifications/clear', [NotificationController::class, 'clear']);
 
     Route::middleware('role:admin')->group(function () {
-      Route::get('orders', [AdminOrderController::class, 'index']);
+      Route::get('order', [AdminOrderController::class, 'index']);
       Route::put('orders/{order}', [AdminOrderController::class, 'update']);
 
       Route::get('stock', [AdminProductController::class, 'index']);
@@ -54,3 +52,5 @@ Route::group(['prefix' => 'v0.1', 'middleware' => 'throttle:60,1'], function () 
     });
   });
 });
+
+Route::post('/mock/webhook', [WebHookController::class, 'handle']);
