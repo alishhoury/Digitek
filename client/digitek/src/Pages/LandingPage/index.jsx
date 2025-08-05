@@ -2,7 +2,6 @@ import "./style.css";
 import Logo from "../../assets/Digitek.svg";
 import Button from "../../Components/Button";
 import landingImg from "../../assets/TechImg.jpeg";
-import Footer from "../../Components/Footer";
 import { useNavigate } from "react-router-dom";
 
 const LandingPage = () => {
@@ -47,7 +46,6 @@ const LandingPage = () => {
           <img src={landingImg} alt="Landing Image" className="landing-image" />
         </aside>
       </main>
-      <Footer />
     </div>
   );
 };

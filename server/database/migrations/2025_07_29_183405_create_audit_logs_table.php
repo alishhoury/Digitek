@@ -9,10 +9,14 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up(): void
-    {
+    public function up(): void {
         Schema::create('audit_logs', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('admin_id');
+            $table->unsignedBigInteger('target_id');
+            $table->string('target');
+            $table->string('action');
+            $table->json('changes');
             $table->timestamps();
         });
     }
@@ -20,8 +24,7 @@ return new class extends Migration
     /**
      * Reverse the migrations.
      */
-    public function down(): void
-    {
+    public function down(): void {
         Schema::dropIfExists('audit_logs');
     }
 };
