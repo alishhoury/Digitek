@@ -6,26 +6,30 @@ use App\Http\Controllers\Shared\Controller;
 use App\Models\Product;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Http\Request;
 class ProductController extends Controller {
   /**
    * Display a listing of the resource.
    */
   public function index(Request $request) {
-    
-     $query = Product::query();
+    $page = $request->get('page', 1);
+    $search = $request->get('search', '');
+    $cacheKey = "products:page:$page:search:$search";
 
-    if ($request->has('search')) {
-        $search = $request->input('search');
-        $query->where('name', 'like', "%{$search}%")
-              ->orWhere('description', 'like', "%{$search}%");
-    }
+    $products = Cache::tags(['products'])->remember($cacheKey, 60, function () use ($search) {
+        $query = Product::query();
 
-    $products = $query->simplePaginate(10);
+        if (!empty($search)) {
+            $query->where('name', 'like', "%{$search}%")
+                  ->orWhere('description', 'like', "%{$search}%");
+        }
+
+        return $query->simplePaginate(10);
+    });
 
     return self::responseJSON($products);
-
-  }
+}
 
 
   /**
