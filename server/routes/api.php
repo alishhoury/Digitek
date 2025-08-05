@@ -41,7 +41,7 @@ Route::group(['prefix' => 'v0.1', 'middleware' => 'throttle:60,1'], function () 
     Route::delete('notifications/clear', [NotificationController::class, 'clear']);
 
     Route::middleware('role:admin')->group(function () {
-      Route::get('order', [AdminOrderController::class, 'index']);
+      Route::get('orders', [AdminOrderController::class, 'index']);
       Route::put('orders/{order}', [AdminOrderController::class, 'update']);
 
       Route::get('stock', [AdminProductController::class, 'index']);

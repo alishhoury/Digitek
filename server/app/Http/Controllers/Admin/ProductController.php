@@ -8,6 +8,8 @@ use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
 use App\Services\ProductService;
 use Illuminate\Support\Facades\Cache;
+use App\Models\AuditLog;
+use Illuminate\Support\Facades\Auth;
 
 class ProductController extends Controller {
   /**
@@ -86,6 +88,14 @@ class ProductController extends Controller {
    */
   public function destroy(Product $product) {
     $product->delete();
+
+    AuditLog::create([
+      'admin_id' => Auth::id(),
+      'target_id' => $product->id,
+      'target' => 'product',
+      'action' => 'product_delete',
+      'changes' => $product->toArray(),
+    ]);
 
     Cache::tags(['products'])->flush();
     return response()->json(['message' => 'Product deleted successfully.']);
