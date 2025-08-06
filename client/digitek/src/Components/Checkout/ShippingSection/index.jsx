@@ -93,7 +93,7 @@ export default function ShippingSection() {
                 type="text"
                 name="lastName"
                 value={formData.lastName}
-                hint="Al Saghir"
+                hint="Al Shhouri"
                 className="input"
                 onChangeListener={handleInputChange}
               />

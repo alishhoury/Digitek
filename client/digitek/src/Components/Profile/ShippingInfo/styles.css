@@ -12,7 +12,7 @@
 
 @media (min-width: 768px) {
   .shipping-card {
-    width: 67.667%;
+    flex: 1;
   }
 }
 

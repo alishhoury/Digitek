@@ -10,6 +10,8 @@ use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\OrderInvoiceMail;
 use App\Models\User;
+use App\Models\AuditLog;
+use Illuminate\Support\Facades\Auth;
 use App\Events\OrderPlaced;
 
 
@@ -136,6 +138,14 @@ class OrderService {
     }
     $order->status = $data['status'] ?? $order->status;
     $order->save();
+
+    AuditLog::create([
+      'admin_id' => Auth::id(),
+      'target_id' => $order->id,
+      'target' => 'order_status',
+      'action' => 'order_status_update',
+      'changes' => $order->toArray(),
+    ]);
 
     return $order;
   }

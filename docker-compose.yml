@@ -11,47 +11,17 @@ services:
       - ./server/.env
     volumes:
       - ./server:/var/www
-      - laravel-storage:/var/www/storage
-      - laravel-cache:/var/www/bootstrap/cache
     depends_on:
       mysql:
         condition: service_healthy
       redis:
         condition: service_healthy
-    # This command block is the most reliable for local development
     command: |
       sh -c "
-      echo '🚀 Starting Laravel application...'
-
-      chown -R www-data:www-data /var/www/storage /var/www/bootstrap/cache
-      chmod -R ug+rwX /var/www/storage /var/www/bootstrap/cache
-
-      # Run composer install only if not already done
-      if [ ! -f vendor/autoload.php ]; then
-        echo '⚙️ Installing dependencies...'
-        composer install --dev --optimize-autoloader --no-interaction
-      fi
-
-      # Generate application key if it doesn't exist
-      if [ ! -f .env ]; then
-        echo '⚙️ Creating .env file...'
-        cp .env.example .env
-        php artisan key:generate --force
-      fi
-
-      # Run migrations and seeders every time the container starts
-      echo '🔄 Running database migrations...'
+      php artisan optimize:clear
       php artisan migrate --force
-
-      echo '🌱 Running database seeders...'
       php artisan db:seed --force
-
-      # Clear any application caches
-      php artisan config:clear
-      php artisan route:clear
-      php artisan view:clear
-
-      echo '🎯 Laravel ready! Starting PHP-FPM...'
+      php artisan queue:work --verbose --tries=3 --delay=3 &
       php-fpm
       "
     environment:
@@ -75,8 +45,10 @@ services:
     ports:
       - "80:80"
       - "443:443"
+    # *** THIS IS THE CRITICAL FIX: The ':ro' flag has been removed. ***
+    # This allows Nginx to see all file changes from your local machine.
     volumes:
-      - ./server:/var/www:ro,cached
+      - ./server:/var/www
       - ./nginx/conf.d:/etc/nginx/conf.d:ro
       - nginx-logs:/var/log/nginx
     depends_on:
@@ -108,12 +80,10 @@ services:
     environment:
       - MYSQL_DATABASE=digitek_db
       - MYSQL_ROOT_PASSWORD=root
-      # Performance optimizations
       - MYSQL_INITDB_SKIP_TZINFO=1
     volumes:
       - mysql-data:/var/lib/mysql
       - ./mysql/init:/docker-entrypoint-initdb.d:ro
-      # MySQL performance config
       - ./mysql/conf.d:/etc/mysql/conf.d:ro
     command: >
       --default-authentication-plugin=mysql_native_password
@@ -142,9 +112,9 @@ services:
     volumes:
       - redis-data:/data
     command: >
-      redis-server 
-      --appendonly yes 
-      --maxmemory 256mb 
+      redis-server
+      --appendonly yes
+      --maxmemory 256mb
       --maxmemory-policy allkeys-lru
       --save 60 1000
     healthcheck:
@@ -183,7 +153,7 @@ services:
     container_name: react-app
     restart: unless-stopped
     volumes:
-      - ./client/digitek:/app:cached
+      - ./client/digitek:/app
       - node_modules:/app/node_modules
     ports:
       - "5173:5173"
@@ -212,10 +182,6 @@ volumes:
   redis-data:
     driver: local
   node_modules:
-    driver: local
-  laravel-storage:
-    driver: local
-  laravel-cache:
     driver: local
   nginx-logs:
     driver: local
