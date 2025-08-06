@@ -68,7 +68,7 @@ const AdminPage = () => {
     return () => {
       echo.leave("admin.orders");
     };
-  }, [dispatch, orders]);
+  }, [dispatch]);
 
   const handleStatusChange = async (orderId, newStatus) => {
     dispatch(setUpdatingId(orderId));
@@ -96,7 +96,6 @@ const AdminPage = () => {
       }
     )
 },[])
-
 
   const chartData = ordersPerHour.map(({ hour, order_count, revenue }) => ({
     hour: `${hour}:00`,
