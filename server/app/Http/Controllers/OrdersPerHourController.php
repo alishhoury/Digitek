@@ -14,7 +14,7 @@ class OrdersPerHourController extends Controller
     {
         try {
             $data = (new OrderPerHourService())->getOrdersPerHourData();
-            return response()->json($data);
+            return $this->responseJSON($data);
         } catch (\Exception $e) {
              echo $e->getMessage(); 
 }
