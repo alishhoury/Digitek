@@ -1,5 +1,5 @@
 .shipping-card {
-  width: 100%;
+  max-width: 800px;
   min-height: 400px;
   max-height: 420px;
   position: relative;

@@ -24,7 +24,7 @@ const OrderList = () => {
         const response = await api.get("/getUserOrders");
         const userOrders = response.data.payload;
 
-        const mappedOrders = userOrders.map(order => ({
+        const mappedOrders = userOrders.map((order) => ({
           id: order.id,
           number: `${order.order_number}`,
           date: new Date(order.created_at).toDateString(),
@@ -36,13 +36,13 @@ const OrderList = () => {
 
         const userId = response.data.payload[0]?.user_id;
         if (userId) {
-          echo.channel(`orders.${userId}`).listen(".order.updated", event => {
+          echo.channel(`orders.${userId}`).listen(".order.updated", (event) => {
             console.log("User order updated:", event);
 
             const updatedOrder = event.order;
 
-            setOrders(prev =>
-              prev.map(order =>
+            setOrders((prev) =>
+              prev.map((order) =>
                 order.id === updatedOrder.id
                   ? {
                       ...order,
@@ -114,7 +114,6 @@ const OrderList = () => {
 
                 {order.status.toLowerCase() != "pending" ? (
                   <div className="status-item">
-                    <span className="status-label">Payment Status:</span>
                     <span className="status-badge paid">Paid</span>
                   </div>
                 ) : (

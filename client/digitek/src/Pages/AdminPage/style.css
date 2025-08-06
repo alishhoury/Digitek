@@ -26,13 +26,15 @@
 
 .admin-table th,
 .admin-table td {
-  border: 1px solid black;
+  border: 1px solid gray;
   padding: 10px;
-  text-align: center;
+  text-align: left;
+  background-color: rgb(247, 244, 244);
 }
 
 .admin-table th {
-  background-color: lightgray;
+  background-color: #2c5aa0;
+  color: white;
 }
 
 .admin-select {

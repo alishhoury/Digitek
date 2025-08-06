@@ -21,7 +21,7 @@ export default function PaymentBox() {
         const response = await api.get(`/getByOrderNumber/${order_number}`);
 
         if (response.data.status === "success") {
-          const items = response.data.payload.products.map(product => ({
+          const items = response.data.payload.products.map((product) => ({
             id: product.id,
             name: product.name,
             brand: product.brand,
@@ -56,7 +56,7 @@ export default function PaymentBox() {
       return;
     }
 
-    setLoading(true); // Start loading
+    setLoading(true);
     try {
       await api.post(`/payOrder/${orderId}`);
       toast.success("Payment successful!");
@@ -65,7 +65,7 @@ export default function PaymentBox() {
       console.error("Payment failed:", error);
       toast.error("Payment failed. Please try again.");
     } finally {
-      setLoading(false); // Stop loading
+      setLoading(false);
     }
   };
 
@@ -74,12 +74,12 @@ export default function PaymentBox() {
       <h2 className="section-title">Order Summary</h2>
       <div className="order-summary-box">
         <ul>
-          {cartItems.map(item => (
+          {cartItems.map((item) => (
             <li key={item.id} className="order-item">
               <img
                 src={item.image}
                 alt={item.name}
-                onError={e => {
+                onError={(e) => {
                   e.target.onerror = null;
                   e.target.src = fallbackImage;
                 }}
@@ -107,7 +107,7 @@ export default function PaymentBox() {
         </dl>
 
         <Button
-          text={`Confirm Payment – $${subtotal.toFixed(2)}`}
+          text={`Confirm Payment $${subtotal.toFixed(2)}`}
           onClickListener={onConfirm}
           className="btn-primary confirm-btn"
           loading={loading}

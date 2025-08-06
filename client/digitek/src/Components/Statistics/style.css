@@ -11,7 +11,7 @@
   border-radius: 12px;
   text-align: center;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  min-width: 120px;
+  width: 200px;
 }
 
 .statistic-number {
