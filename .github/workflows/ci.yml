@@ -35,7 +35,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: 🐳 Set up Docker Compose
-        run: docker-compose -f docker-compose.yml up -d --build
+        run: docker compose -f docker-compose.yml up -d --build
 
       - name: ⏱️ Wait for Laravel to be healthy
         run: |
