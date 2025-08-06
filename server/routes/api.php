@@ -10,7 +10,7 @@ use App\Http\Controllers\Shared\AuthController;
 use App\Http\Controllers\Shared\WebHookController;
 use Illuminate\Support\Facades\Route;
 
-Route::group(['prefix' => 'v0.1', 'middleware' => 'throttle:60,1'], function () {
+Route::group(['prefix' => 'v0.1', 'middleware' => 'throttle:1000,1'], function () {
 
   Route::group(['prefix' => 'auth'], function () {
     Route::middleware('custom.guest')->group(function () {
