@@ -13,8 +13,9 @@ class OrderFactory extends Factory {
   public function definition(): array {
     return [
       'user_id' => User::inRandomOrder()->first()?->id ?? User::factory(),
-      'total_price' => 0, // Will be updated in afterCreating
+      'total_price' => 0,
       'status' => fake()->randomElement(['pending', 'paid', 'packed', 'shipped']),
+      'order_number' => 'ORD' . fake()->unique()->numberBetween(100000, 999999),
     ];
   }
 

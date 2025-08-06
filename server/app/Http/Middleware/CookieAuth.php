@@ -17,12 +17,18 @@ class CookieAuth {
   public function handle($request, Closure $next) {
     try {
       $token = $request->cookie('jwt');
-
-      if (!$token || !JWTAuth::setToken($token)->check()) {
+      if (!$token) {
         return response()->json(['message' => 'Unauthorized'], 401);
       }
 
-      $user = JWTAuth::setToken($token)->toUser();
+      $jwt = JWTAuth::setToken($token);
+
+      if (!$jwt->check()) {
+        return response()->json(['message' => 'Unauthorized'], 401);
+      }
+
+      $user = $jwt->toUser();
+
       auth('api')->setUser($user);
     } catch (Exception $e) {
       return response()->json(['message' => 'Unauthorized'], 401);

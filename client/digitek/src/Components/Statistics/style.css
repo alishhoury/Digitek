@@ -1,0 +1,25 @@
+.statistic-container {
+  display: flex;
+  justify-content: space-evenly;
+  gap: 20px;
+  padding: 20px;
+}
+
+.statistic-card {
+  background: #d1e8e2;
+  padding: 20px;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  min-width: 120px;
+}
+
+.statistic-number {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.statistic-label {
+  margin-top: 5px;
+  color: rgb(84, 83, 83);
+}

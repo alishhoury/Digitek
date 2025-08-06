@@ -1,41 +1,62 @@
-// src/components/Cart.jsx
-import React from "react";
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { BsFillCartPlusFill, BsFillCartDashFill } from "react-icons/bs";
+import fallbackImage from "../../assets/ProductImage.jpg";
 import "./styles.css";
-
-const dummyCartItems = [
-  {
-    id: 1,
-    name: "iPhone 13 Pro Max",
-    brand: "Apple",
-    price: 999,
-    quantity: 1,
-    image:
-      "https://fdn2.gsmarena.com/vv/pics/apple/apple-iphone-13-pro-max-1.jpg",
-  },
-  {
-    id: 2,
-    name: "Galaxy S24 Ultra",
-    brand: "Samsung",
-    price: 1199,
-    quantity: 2,
-    image:
-      "https://fdn2.gsmarena.com/vv/pics/apple/apple-iphone-13-pro-max-1.jpg",
-  },
-  {
-    id: 3,
-    name: "Xiaomi 13 Ultra",
-    brand: "Xiaomi",
-    price: 799,
-    quantity: 1,
-    image: "https://fdn2.gsmarena.com/vv/pics/xiaomi/xiaomi-13-ultra-1.jpg",
-  },
-];
+import {
+  decrementQuantity,
+  incrementQuantity,
+  removeFromCart,
+  clearCart,
+} from "../../features/cart/cartSlice";
+import api from "../../services/axios";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import Button from "../../Components/Button";
 
 const Cart = () => {
-  const subtotal = dummyCartItems.reduce(
+  const [loading, setLoading] = useState(false);
+  const cartProducts = useSelector(state => state.cart.cartItems);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const subtotal = cartProducts.reduce(
     (total, item) => total + item.price * item.quantity,
     0
   );
+
+  const handleSubmit = async () => {
+    if (cartProducts.length === 0) {
+      toast.warn("Your cart is empty.");
+      return;
+    }
+
+    setLoading(true);
+
+    const formattedData = {
+      products: cartProducts.map(item => ({
+        product_id: item.id,
+        quantity: item.quantity,
+      })),
+    };
+
+    try {
+      const response = await api.post("/orders", formattedData);
+      const { status, payload } = response.data;
+
+      if (status === "success") {
+        dispatch(clearCart());
+        toast.success("Order created successfully!");
+        navigate(`/payment/${payload.order_number}`);
+      } else {
+        toast.error("Failed to place order. Try again.");
+      }
+    } catch (error) {
+      console.error("Order submission error:", error);
+      toast.error("An error occurred while submitting the order.");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <>
@@ -44,9 +65,13 @@ const Cart = () => {
         <div className="cart-container">
           <section className="cart-items">
             <ul>
-              {dummyCartItems.map(item => (
+              {cartProducts.map(item => (
                 <li className="cart-item" key={item.id}>
-                  <button className="remove-btn" aria-label="Remove item">
+                  <button
+                    className="remove-btn"
+                    aria-label="Remove item"
+                    onClick={() => dispatch(removeFromCart(item.id))}
+                  >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       fill="none"
@@ -61,8 +86,16 @@ const Cart = () => {
                       />
                     </svg>
                   </button>
+
                   <div className="product-image">
-                    <img src={item.image} alt={item.name} />
+                    <img
+                      src={item.image}
+                      alt={item.name}
+                      onError={e => {
+                        e.target.onerror = null;
+                        e.target.src = fallbackImage;
+                      }}
+                    />
                   </div>
                   <div className="product-info">
                     <h3 className="product-name">{item.name}</h3>
@@ -72,10 +105,22 @@ const Cart = () => {
                     <p className="product-price">
                       ${item.price} × {item.quantity}
                     </p>
-                    <div className="quantity-select">
-                      <select disabled>
-                        <option value={item.quantity}>{item.quantity}</option>
-                      </select>
+                    <div className="quantity-select custom-qty-controls">
+                      <button
+                        onClick={() => dispatch(decrementQuantity(item.id))}
+                        className="qty-btn"
+                        disabled={item.quantity <= 1}
+                      >
+                        <BsFillCartDashFill />
+                      </button>
+                      <span className="qty-number">{item.quantity}</span>
+                      <button
+                        onClick={() => dispatch(incrementQuantity(item.id))}
+                        className="qty-btn"
+                        disabled={item.quantity >= item.total_quantity}
+                      >
+                        <BsFillCartPlusFill />
+                      </button>
                     </div>
                   </div>
                 </li>
@@ -95,7 +140,13 @@ const Cart = () => {
                 <strong>${subtotal.toFixed(2)}</strong>
               </div>
             </div>
-            <button className="submit-btn">Submit Order</button>
+            <Button
+              className="submit-btn"
+              text="Submit Order"
+              loadingText="Submitting..."
+              loading={loading}
+              onClickListener={handleSubmit}
+            />
           </section>
         </div>
       </main>

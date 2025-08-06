@@ -1,0 +1,26 @@
+.pagination-container{
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    padding: 1rem;
+    font-size: 1.5rem;
+    gap: 1rem;
+    width: 100%;
+    
+}
+
+.prev , .next{
+    cursor: pointer;
+    border-radius: 50%;
+    padding: 0.7rem;
+}
+
+.prev:hover ,.next:hover{
+    background-color: rgb(184, 184, 184);
+    transition: ease-in-out 0.2s;
+}
+
+.off {
+
+    display: none;
+}

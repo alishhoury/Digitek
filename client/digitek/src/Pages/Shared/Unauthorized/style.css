@@ -1,0 +1,16 @@
+.unauthorized-page {
+  background-color: #d1e8e2;
+  color: gray;
+}
+
+.left-button {
+  color: gray;
+}
+
+.unauth-label {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}

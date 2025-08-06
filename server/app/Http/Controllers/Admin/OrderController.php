@@ -6,13 +6,20 @@ use App\Http\Controllers\Shared\Controller;
 use App\Models\Order;
 use App\Http\Requests\StoreOrderRequest;
 use App\Http\Requests\UpdateOrderRequest;
+use App\Services\OrderService;
+use App\Events\OrderStatusUpdated;
 
 class OrderController extends Controller {
   /**
    * Display a listing of the resource.
    */
   public function index() {
-    //
+    $orders = Order::with([
+      'user:id,username',
+      'products:id,name'
+    ])->get();
+
+    return response()->json($orders);
   }
 
 
@@ -35,7 +42,23 @@ class OrderController extends Controller {
    * Update the specified resource in storage.
    */
   public function update(UpdateOrderRequest $request, Order $order) {
-    //
+    $data = $request->all();
+    $upOrder = OrderService::updateOrderStatus($order->id, $data);
+
+
+    if (!$upOrder) {
+      return response()->json([
+        'success' => false,
+        'message' => 'Order not found.'
+      ], 404);
+    }
+
+    broadcast(new OrderStatusUpdated($upOrder))->toOthers();
+
+    return response()->json([
+      'success' => true,
+      'order' => $upOrder,
+    ]);
   }
 
   /**

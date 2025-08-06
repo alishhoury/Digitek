@@ -1,0 +1,662 @@
+[
+    {
+        "name": "Galaxy S24 Ultra",
+        "brand": "Samsung",
+        "description": "Samsung 2024 flagship with 200 MP AI-enhanced camera & built-in S Pen",
+        "price": 1199.0,
+        "cost": 780.0,
+        "image": "https://s7d1.scene7.com/is/image/dmqualcommprod/galaxy-s24ultra-titaniumgray-device-spen-front?$QC_Responsive$&fmt=png-alpha",
+        "total_quantity": 600,
+        "quantity_sold": 320
+    },
+    {
+        "name": "iPhone 15 Pro Max",
+        "brand": "Apple",
+        "description": "Apple flagship with A17 Pro chip, titanium frame & 48 MP camera",
+        "price": 1299.0,
+        "cost": 850.0,
+        "image": "https://fdn2.gsmarena.com/vv/bigpic/apple-iphone-15-pro-max.jpg",
+        "total_quantity": 500,
+        "quantity_sold": 260
+    },
+    {
+        "name": "OnePlus 13",
+        "brand": "OnePlus",
+        "description": "OnePlus flagship with Snapdragon 8 Elite, 6000 mAh battery & Hasselblad camera",
+        "price": 899.0,
+        "cost": 620.0,
+        "image": "https://image01.oneplus.net/media/202412/16/399955a954e20157d61b72b9ae955d44.png",
+        "total_quantity": 450,
+        "quantity_sold": 260
+    },
+    {
+        "name": "Galaxy S25 Ultra",
+        "brand": "Samsung",
+        "description": "2025 flagship-level smartphone with AI‑enhanced pro camera",
+        "price": 1199.0,
+        "cost": 780.0,
+        "image": "https://www.att.com/scmsassets/global/devices/phones/samsung/samsung-galaxy-s25-ultra/carousel/titanium-whitesilver-1.png",
+        "total_quantity": 600,
+        "quantity_sold": 320
+    },
+    {
+        "name": "iPhone 16 Pro Max",
+        "brand": "Apple",
+        "description": "Flagship Apple phone with M5 chip and 3× optical zoom camera",
+        "price": 1199.0,
+        "cost": 800.0,
+        "image": "https://estore.jawwal.ps/storage/product/12919/F6o9YBluxfpcqJtc4drjf1lgRQWjJAtjieQJDhLl.png",
+        "total_quantity": 400,
+        "quantity_sold": 220
+    },
+    {
+        "name": "Redmi Note 14 Pro",
+        "brand": "Xiaomi",
+        "description": "Budget-premium phone with 108 MP AI camera",
+        "price": 399.0,
+        "cost": 260.0,
+        "image": "https://phonefinity.net/wp-content/uploads/redmi-note-14-pro-10.jpg",
+        "total_quantity": 1200,
+        "quantity_sold": 720
+    },
+    {
+        "name": "OnePlus 13s",
+        "brand": "OnePlus",
+        "description": "Flagship‑adjacent phone with ultra‑fast charging",
+        "price": 899.0,
+        "cost": 620.0,
+        "image": "https://image01.oneplus.net/media/202412/16/399955a954e20157d61b72b9ae955d44.png",
+        "total_quantity": 450,
+        "quantity_sold": 260
+    },
+    {
+        "name": "XPS 13 Snapdragon",
+        "brand": "Dell",
+        "description": "Ultralight laptop with Snapdragon X Elite chipset",
+        "price": 1099.0,
+        "cost": 680.0,
+        "image": "https://s7d1.scene7.com/is/image/dmqualcommprod/dell-13-xps?$QC_Responsive$&fmt=png-alpha",
+        "total_quantity": 350,
+        "quantity_sold": 140
+    },
+    {
+        "name": "MacBook Air M4 13″",
+        "brand": "Apple",
+        "description": "Ultra portable MacBook Air with M4 chip and long battery life",
+        "price": 1099.0,
+        "cost": 720.0,
+        "image": "https://theapplewiki.com/images/applewiki/thumb/1/11/MacBook_Air_%2813-inch%2C_M4%2C_2025%29_-_Sky_Blue.webp/300px-MacBook_Air_%2813-inch%2C_M4%2C_2025%29_-_Sky_Blue.webp.png",
+        "total_quantity": 500,
+        "quantity_sold": 300
+    },
+    {
+        "name": "MacBook Pro 16 M4 Pro",
+        "brand": "Apple",
+        "description": "High‑performance MacBook Pro for creators and professionals",
+        "price": 2499.0,
+        "cost": 1600.0,
+        "image": "https://cdsassets.apple.com/live/7WUAS350/images/tech-specs/mbp16-2024.png",
+        "total_quantity": 250,
+        "quantity_sold": 100
+    },
+    {
+        "name": "ThinkPad X1 Gen 13",
+        "brand": "Lenovo",
+        "description": "Premium business laptop with QHD webcam and high build reliability",
+        "price": 1399.0,
+        "cost": 900.0,
+        "image": "https://p2-ofp.static.pub//fes/cms/2024/08/28/fcd70qdguca5etsxhgazpeezkoam7p488088.png",
+        "total_quantity": 300,
+        "quantity_sold": 160
+    },
+    {
+        "name": "Spectre x360 14",
+        "brand": "HP",
+        "description": "HP premium convertible laptop with 3K OLED touchscreen",
+        "price": 1249.0,
+        "cost": 800.0,
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTOvOINUWr6wTAdH3e8a28OeqhT6V_RJuyL4Q&s",
+        "total_quantity": 220,
+        "quantity_sold": 110
+    },
+    {
+        "name": "ROG Zephyrus G14",
+        "brand": "ASUS",
+        "description": "Gaming ultrabook with RTX 48 GPU and QHD display",
+        "price": 1599.0,
+        "cost": 1000.0,
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcShb9qoGBKA6ZquP-TuhHHTeM15sZHrfGAd4w&s",
+        "total_quantity": 280,
+        "quantity_sold": 140
+    },
+    {
+        "name": "Galaxy Buds 3 Pro",
+        "brand": "Samsung",
+        "description": "Samsung high‑end earbuds with active noise cancellation",
+        "price": 199.0,
+        "cost": 110.0,
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRG4CouI_3ni6aJxWmq4kvkE4YStS3xwZdUww&s",
+        "total_quantity": 900,
+        "quantity_sold": 560
+    },
+    {
+        "name": "AirPods Pro 2nd Gen",
+        "brand": "Apple",
+        "description": "Noise‑canceling wireless earbuds with adaptive EQ",
+        "price": 249.0,
+        "cost": 125.0,
+        "image": "https://outgeeked.net/wp-content/uploads/2024/03/611pEx7220L._AC_SL1500_.jpg",
+        "total_quantity": 850,
+        "quantity_sold": 480
+    },
+    {
+        "name": "WH‑1000XM5",
+        "brand": "Sony",
+        "description": "Best‑in‑class over‑ear ANC wireless headphone",
+        "price": 399.0,
+        "cost": 220.0,
+        "image": "https://www.sony.com/image/6145c1d32e6ac8e63a46c912dc33c5bb?fmt=pjpeg&wid=330&bgcolor=FFFFFF&bgc=FFFFFF",
+        "total_quantity": 600,
+        "quantity_sold": 370
+    },
+    {
+        "name": "MagSafe Wireless Charger",
+        "brand": "Apple",
+        "description": "15 W official MagSafe wireless charger for iPhone",
+        "price": 39.0,
+        "cost": 18.0,
+        "image": "https://phonefinity.net/wp-content/uploads/iphone-magsafe-charger-3.jpg",
+        "total_quantity": 2000,
+        "quantity_sold": 1300
+    },
+    {
+        "name": "Anker 100 W GaN USB‑C Charger",
+        "brand": "Anker",
+        "description": "High‑speed dual‑port fast charger with GaN tech",
+        "price": 89.0,
+        "cost": 45.0,
+        "image": "https://m.media-amazon.com/images/I/71j613eZuhL._AC_SL1500_.jpg",
+        "total_quantity": 1700,
+        "quantity_sold": 950
+    },
+    {
+        "name": "Logitech MX Master 3S",
+        "brand": "Logitech",
+        "description": "Ergonomic wireless mouse with multi-device Flow support",
+        "price": 99.0,
+        "cost": 55.0,
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTiW9Xf2QhnGUV-ImJQ4ZMZ7cRfHcglXsQZmw&s",
+        "total_quantity": 1000,
+        "quantity_sold": 640
+    },
+    {
+        "name": "Logitech MX Keys Mini",
+        "brand": "Logitech",
+        "description": "Compact backlit mechanical keyboard for Minimalists",
+        "price": 99.0,
+        "cost": 45.0,
+        "image": "https://resource.logitech.com/w_544,h_466,ar_7:6,c_pad,q_auto,f_auto,dpr_1.0/d_transparent.gif/content/dam/logitech/en/products/keyboards/mx-keys-mini-for-mac/gallery/2024-update/mx-key-mini-for-mac-space-grey-gallery-2-us.png",
+        "total_quantity": 1100,
+        "quantity_sold": 720
+    },
+    {
+        "name": "TP‑Link Archer T4U USB Adapter",
+        "brand": "TP‑Link",
+        "description": "AC1200 dual‑band USB Wi‑Fi adapter with high gain antenna",
+        "price": 29.0,
+        "cost": 12.0,
+        "image": "https://via.placeholder.com/300x300?text=TP‑Link+Archer+T4U",
+        "total_quantity": 2100,
+        "quantity_sold": 1450
+    },
+    {
+        "name": "WD 1 TB Gaming SSD USB‑C",
+        "brand": "Western Digital",
+        "description": "Portable SSD optimized for gaming consoles",
+        "price": 149.0,
+        "cost": 70.0,
+        "image": "https://via.placeholder.com/300x300?text=WD+1TB+Gaming+SSD",
+        "total_quantity": 950,
+        "quantity_sold": 600
+    },
+    {
+        "name": "SanDisk Extreme 256GB micro‑SD",
+        "brand": "SanDisk",
+        "description": "High‑speed card for 4K video recording",
+        "price": 39.0,
+        "cost": 18.0,
+        "image": "https://via.placeholder.com/300x300?text=SanDisk+256GB+micro‑SD",
+        "total_quantity": 2500,
+        "quantity_sold": 1600
+    },
+    {
+        "name": "Seagate 4 TB HDD Portable",
+        "brand": "Seagate",
+        "description": "High-capacity 4 TB USB 3.2 hard drive for backup",
+        "price": 89.0,
+        "cost": 45.0,
+        "image": "https://via.placeholder.com/300x300?text=Seagate+4TB+HDD",
+        "total_quantity": 1200,
+        "quantity_sold": 780
+    },
+    {
+        "name": "Bose QuietComfort Ultra",
+        "brand": "Bose",
+        "description": "Premium ANC headphones with spatial audio",
+        "price": 379.0,
+        "cost": 210.0,
+        "image": "https://via.placeholder.com/300x300?text=Bose+QuietComfort+Ultra",
+        "total_quantity": 900,
+        "quantity_sold": 550
+    },
+    {
+        "name": "Belkin BoostCharge 3‑in‑1 Stand",
+        "brand": "Belkin",
+        "description": "3‑in‑1 stand to wirelessly charge phone, watch & earbuds",
+        "price": 149.0,
+        "cost": 80.0,
+        "image": "https://via.placeholder.com/300x300?text=Belkin+BoostCharge+Stand",
+        "total_quantity": 800,
+        "quantity_sold": 460
+    },
+    {
+        "name": "Mi 14 Ultra",
+        "brand": "Xiaomi",
+        "description": "Flagship-tier phone with Snapdragon Gen‑4 and QHD screen",
+        "price": 799.0,
+        "cost": 550.0,
+        "image": "https://via.placeholder.com/300x300?text=Mi+14+Ultra",
+        "total_quantity": 700,
+        "quantity_sold": 370
+    },
+    {
+        "name": "Vivo X90 Pro+",
+        "brand": "Vivo",
+        "description": "Vivo flagship with Zeiss optics and 120 W fast charging",
+        "price": 1199.0,
+        "cost": 760.0,
+        "image": "https://via.placeholder.com/300x300?text=Vivo+X90+Pro+%2B",
+        "total_quantity": 450,
+        "quantity_sold": 230
+    },
+    {
+        "name": "Poco F5 Pro",
+        "brand": "Poco",
+        "description": "Mid-high range phone with spec-enhanced international edition",
+        "price": 499.0,
+        "cost": 310.0,
+        "image": "https://via.placeholder.com/300x300?text=Poco+F5+Pro",
+        "total_quantity": 950,
+        "quantity_sold": 540
+    },
+    {
+        "name": "Oppo Reno 14 Pro",
+        "brand": "Oppo",
+        "description": "AI‑camera flagship with periscope zoom and O‑LED panel",
+        "price": 899.0,
+        "cost": 630.0,
+        "image": "https://via.placeholder.com/300x300?text=Oppo+Reno+14+Pro",
+        "total_quantity": 480,
+        "quantity_sold": 260
+    },
+    {
+        "name": "Motorola Edge 2025",
+        "brand": "Motorola",
+        "description": "New open-screen foldable-style design with super fast battery",
+        "price": 699.0,
+        "cost": 420.0,
+        "image": "https://via.placeholder.com/300x300?text=Motorola+Edge+2025",
+        "total_quantity": 550,
+        "quantity_sold": 300
+    },
+    {
+        "name": "Google Pixel Fold 2025",
+        "brand": "Google",
+        "description": "Google’s second-gen foldable with Tensor G4 and Android 15",
+        "price": 1799.0,
+        "cost": 1200.0,
+        "image": "https://via.placeholder.com/300x300?text=Pixel+Fold+2025",
+        "total_quantity": 200,
+        "quantity_sold": 90
+    },
+    {
+        "name": "ASUS ROG Phone 9",
+        "brand": "ASUS",
+        "description": "Gaming powerhouse smartphone with 165 Hz OLED & RGB lighting",
+        "price": 999.0,
+        "cost": 700.0,
+        "image": "https://via.placeholder.com/300x300?text=ROG+Phone+9",
+        "total_quantity": 300,
+        "quantity_sold": 170
+    },
+    {
+        "name": "Honor Magic 5 Pro",
+        "brand": "Honor",
+        "description": "IMX989 sensor flagship with 66 W fast charge support",
+        "price": 899.0,
+        "cost": 580.0,
+        "image": "https://via.placeholder.com/300x300?text=Honor+Magic+5+Pro",
+        "total_quantity": 470,
+        "quantity_sold": 240
+    },
+    {
+        "name": "HP Pavilion 15‑eg",
+        "brand": "HP",
+        "description": "Everyday-use 15‑inch laptop with Intel Ultra Core Gen",
+        "price": 799.0,
+        "cost": 500.0,
+        "image": "https://via.placeholder.com/300x300?text=HP+Pavilion+15‑eg",
+        "total_quantity": 700,
+        "quantity_sold": 450
+    },
+    {
+        "name": "Acer Swift 5",
+        "brand": "Acer",
+        "description": "Portable 14‑inch laptop with AI enhancements and lightweight design",
+        "price": 749.0,
+        "cost": 480.0,
+        "image": "https://via.placeholder.com/300x300?text=Acer+Swift+5",
+        "total_quantity": 550,
+        "quantity_sold": 310
+    },
+    {
+        "name": "Acer Predator Helios 18",
+        "brand": "Acer",
+        "description": "18‑inch gaming beast with RTX‑90 GPU and 360 Hz panel",
+        "price": 2299.0,
+        "cost": 1500.0,
+        "image": "https://via.placeholder.com/300x300?text=Acer+Helios+18",
+        "total_quantity": 180,
+        "quantity_sold": 75
+    },
+    {
+        "name": "Samsung Galaxy Book 4 2‑in‑1",
+        "brand": "Samsung",
+        "description": "Convertible PC with AMOLED display and S‑Pen support",
+        "price": 1199.0,
+        "cost": 800.0,
+        "image": "https://via.placeholder.com/300x300?text=Galaxy+Book+4+2‑in‑1",
+        "total_quantity": 260,
+        "quantity_sold": 130
+    },
+    {
+        "name": "MSI Modern 14",
+        "brand": "MSI",
+        "description": "Business laptop with Core Ultra Gen 2, OLED and fingerprint reader",
+        "price": 999.0,
+        "cost": 640.0,
+        "image": "https://via.placeholder.com/300x300?text=MSI+Modern+14",
+        "total_quantity": 420,
+        "quantity_sold": 210
+    },
+    {
+        "name": "Motorola Moto G52",
+        "brand": "Motorola",
+        "description": "Budget phone with AMOLED display and 5G support",
+        "price": 279.0,
+        "cost": 180.0,
+        "image": "https://via.placeholder.com/300x300?text=Moto+G52",
+        "total_quantity": 1800,
+        "quantity_sold": 1150
+    },
+    {
+        "name": "Realme P3 Ultra",
+        "brand": "Realme",
+        "description": "Mid-range AMOLED phone with 65 W fast charging and 120 Hz refresh",
+        "price": 329.0,
+        "cost": 190.0,
+        "image": "https://via.placeholder.com/300x300?text=Realme+P3+Ultra",
+        "total_quantity": 1300,
+        "quantity_sold": 820
+    },
+    {
+        "name": "Oppo A‑series Buds",
+        "brand": "Oppo",
+        "description": "Affordable wireless earbuds with IPX4 water resistance",
+        "price": 59.0,
+        "cost": 30.0,
+        "image": "https://via.placeholder.com/300x300?text=Oppo+A‑series+Buds",
+        "total_quantity": 2100,
+        "quantity_sold": 1600
+    },
+    {
+        "name": "Sony Xperia 1 VII",
+        "brand": "Sony",
+        "description": "4K HDR OLED smartphone with cinematic recording tools",
+        "price": 1199.0,
+        "cost": 760.0,
+        "image": "https://via.placeholder.com/300x300?text=Xperia+1+VII",
+        "total_quantity": 260,
+        "quantity_sold": 100
+    },
+    {
+        "name": "Transsion Camon 30",
+        "brand": "Tecno",
+        "description": "Affordable phone with AI-powered camera for emerging markets",
+        "price": 249.0,
+        "cost": 160.0,
+        "image": "https://via.placeholder.com/300x300?text=Camon+30",
+        "total_quantity": 1500,
+        "quantity_sold": 900
+    },
+    {
+        "name": "ASUS Edge Gaming Router",
+        "brand": "ASUS",
+        "description": "Tri-band router optimized for gaming traffic",
+        "price": 199.0,
+        "cost": 120.0,
+        "image": "https://via.placeholder.com/300x300?text=ASUS+Edge+Router",
+        "total_quantity": 530,
+        "quantity_sold": 310
+    },
+    {
+        "name": "Logitech Webcam C920",
+        "brand": "Logitech",
+        "description": "HD 1080p webcam ideal for streaming and video calls",
+        "price": 79.0,
+        "cost": 45.0,
+        "image": "https://via.placeholder.com/300x300?text=Logitech+C920+Webcam",
+        "total_quantity": 1200,
+        "quantity_sold": 700
+    },
+    {
+        "name": "Anker PowerLine USB‑C Cable (2m)",
+        "brand": "Anker",
+        "description": "Durable braided USB-C cable with fast charging support",
+        "price": 19.0,
+        "cost": 8.0,
+        "image": "https://via.placeholder.com/300x300?text=Anker+USB‑C+Cable+2m",
+        "total_quantity": 3200,
+        "quantity_sold": 1800
+    },
+    {
+        "name": "SanDisk 1 TB USB‑A Thumb Drive",
+        "brand": "SanDisk",
+        "description": "High-capacity USB 3.0 drive for file transfers and backups",
+        "price": 99.0,
+        "cost": 50.0,
+        "image": "https://via.placeholder.com/300x300?text=SanDisk+1TB+USB‑A",
+        "total_quantity": 1100,
+        "quantity_sold": 650
+    },
+    {
+        "name": "HyperX Cloud Alpha S",
+        "brand": "HyperX",
+        "description": "Gaming headset with custom-tuned HyperX drivers",
+        "price": 129.0,
+        "cost": 70.0,
+        "image": "https://via.placeholder.com/300x300?text=HyperX+Cloud+Alpha+S",
+        "total_quantity": 750,
+        "quantity_sold": 420
+    },
+    {
+        "name": "Creative Pebble V3",
+        "brand": "Creative",
+        "description": "Compact USB-C powered desktop speakers",
+        "price": 59.0,
+        "cost": 25.0,
+        "image": "https://via.placeholder.com/300x300?text=Creative+Pebble+V3",
+        "total_quantity": 1400,
+        "quantity_sold": 900
+    },
+    {
+        "name": "SteelSeries Apex 3 Keyboard",
+        "brand": "SteelSeries",
+        "description": "Whisper-quiet water-resistant gaming keyboard",
+        "price": 69.0,
+        "cost": 35.0,
+        "image": "https://via.placeholder.com/300x300?text=SteelSeries+Apex+3",
+        "total_quantity": 950,
+        "quantity_sold": 560
+    },
+    {
+        "name": "Razer BlackWidow V4",
+        "brand": "Razer",
+        "description": "Full-size mechanical keyboard with customizable RGB",
+        "price": 169.0,
+        "cost": 85.0,
+        "image": "https://via.placeholder.com/300x300?text=Razer+BlackWidow+V4",
+        "total_quantity": 700,
+        "quantity_sold": 430
+    },
+    {
+        "name": "Razer DeathAdder V3 Pro",
+        "brand": "Razer",
+        "description": "Wireless gaming mouse with ultra-light design",
+        "price": 129.0,
+        "cost": 75.0,
+        "image": "https://via.placeholder.com/300x300?text=Razer+DeathAdder+V3+Pro",
+        "total_quantity": 880,
+        "quantity_sold": 500
+    },
+    {
+        "name": "JBL Flip 6",
+        "brand": "JBL",
+        "description": "Portable Bluetooth speaker with deep bass",
+        "price": 129.0,
+        "cost": 65.0,
+        "image": "https://via.placeholder.com/300x300?text=JBL+Flip+6",
+        "total_quantity": 1100,
+        "quantity_sold": 680
+    },
+    {
+        "name": "Sennheiser CX 400BT",
+        "brand": "Sennheiser",
+        "description": "True wireless earbuds with sound customization app",
+        "price": 199.0,
+        "cost": 110.0,
+        "image": "https://via.placeholder.com/300x300?text=Sennheiser+CX+400BT",
+        "total_quantity": 920,
+        "quantity_sold": 520
+    },
+    {
+        "name": "Surface Laptop 7 15″",
+        "brand": "Microsoft",
+        "description": "AI-powered surface laptop with integrated 5G modem",
+        "price": 1299.0,
+        "cost": 850.0,
+        "image": "https://via.placeholder.com/300x300?text=Surface+Laptop+7+15",
+        "total_quantity": 330,
+        "quantity_sold": 160
+    },
+    {
+        "name": "Yealink MB30 UC",
+        "brand": "Yealink",
+        "description": "Portable collaborative speakerpatch for conferencing",
+        "price": 399.0,
+        "cost": 220.0,
+        "image": "https://via.placeholder.com/300x300?text=Yealink+MB30+UC",
+        "total_quantity": 420,
+        "quantity_sold": 220
+    },
+    {
+        "name": "TP-Link Deco X50 Wi‑Fi 6",
+        "brand": "TP‑Link",
+        "description": "Mesh system with AX3000 speeds for whole-home coverage",
+        "price": 199.0,
+        "cost": 110.0,
+        "image": "https://via.placeholder.com/300x300?text=Deco+X50",
+        "total_quantity": 730,
+        "quantity_sold": 470
+    },
+    {
+        "name": "WD Black SN770 SSD 1 TB",
+        "brand": "Western Digital",
+        "description": "Internal gaming SSD with NVMe Gen 4 performance",
+        "price": 119.0,
+        "cost": 60.0,
+        "image": "https://via.placeholder.com/300x300?text=WD+SN770+1TB",
+        "total_quantity": 800,
+        "quantity_sold": 520
+    },
+    {
+        "name": "Acer Nitro 5 17",
+        "brand": "Acer",
+        "description": "17‑inch gaming laptop with high-refresh display and RTX 4070",
+        "price": 1799.0,
+        "cost": 1150.0,
+        "image": "https://via.placeholder.com/300x300?text=Acer+Nitro+5+17",
+        "total_quantity": 310,
+        "quantity_sold": 150
+    },
+    {
+        "name": "Sony WH‑CH720N",
+        "brand": "Sony",
+        "description": "Collar-style wireless headphones with active noise cancel",
+        "price": 179.0,
+        "cost": 95.0,
+        "image": "https://via.placeholder.com/300x300?text=WH‑CH720N",
+        "total_quantity": 1050,
+        "quantity_sold": 700
+    },
+    {
+        "name": "Lenovo Legion Phone Duel 4",
+        "brand": "Lenovo",
+        "description": "Gaming smartphone with dual cooling fans and 144 Hz OLED screen",
+        "price": 899.0,
+        "cost": 620.0,
+        "image": "https://via.placeholder.com/300x300?text=Legion+Phone+Duel+4",
+        "total_quantity": 350,
+        "quantity_sold": 180
+    },
+    {
+        "name": "Honor Earbuds 4 Studio",
+        "brand": "Honor",
+        "description": "Compact wireless earbuds with studio-quality sound",
+        "price": 99.0,
+        "cost": 55.0,
+        "image": "https://via.placeholder.com/300x300?text=Honor+Earbuds+4+Studio",
+        "total_quantity": 1400,
+        "quantity_sold": 850
+    },
+    {
+        "name": "Razer Barracuda Pro",
+        "brand": "Razer",
+        "description": "Wireless headset for both PC and console",
+        "price": 249.0,
+        "cost": 130.0,
+        "image": "https://via.placeholder.com/300x300?text=Razer+Barracuda+Pro",
+        "total_quantity": 670,
+        "quantity_sold": 420
+    },
+    {
+        "name": "Asus TUF Dash F15",
+        "brand": "ASUS",
+        "description": "Slim gaming laptop with RTX 4060 & 144 Hz display",
+        "price": 1499.0,
+        "cost": 900.0,
+        "image": "https://via.placeholder.com/300x300?text=Asus+TUF+Dash+F15",
+        "total_quantity": 390,
+        "quantity_sold": 230
+    },
+    {
+        "name": "iPhone 16e",
+        "brand": "Apple",
+        "description": "Accessible entry‑level iPhone for 2025 with USB‑C and 5G",
+        "price": 749.0,
+        "cost": 500.0,
+        "image": "https://via.placeholder.com/300x300?text=iPhone+16e",
+        "total_quantity": 800,
+        "quantity_sold": 300
+    }
+]

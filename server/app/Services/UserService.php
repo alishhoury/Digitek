@@ -2,13 +2,11 @@
 
 namespace App\Services;
 
-class UserService
-{
-    /**
-     * Create a new class instance.
-     */
-    public function __construct()
-    {
-        //
-    }
+use App\Models\User;
+
+class UserService {
+  static function updateUser(User $user, $data) {
+    $user->update($data);
+    return $user;
+  }
 }
