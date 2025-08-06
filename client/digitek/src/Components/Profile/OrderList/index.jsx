@@ -99,7 +99,6 @@ const OrderList = () => {
 
               <div className="order-status-container">
                 <div className="status-item">
-                  <span className="status-label">Status:</span>
                   <span
                     className={`status-badge ${
                       order.status.toLowerCase() == "paid"
