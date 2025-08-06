@@ -12,7 +12,7 @@ use App\Services\OrderService;
 use Illuminate\Support\Facades\Notification;
 use App\Notifications\NewOrderNotification;
 use App\Events\OrderPlaced;
-
+use App\Events\OrderStatusUpdated;
 
 class OrderController extends Controller {
   /**
@@ -71,6 +71,9 @@ class OrderController extends Controller {
   public function payOrder(Order $order) {
     $service = new OrderService();
     $order = $service->payOrder($order);
+
+    broadcast(new OrderStatusUpdated($order));
+
     return $this->responseJSON($order);
   }
 

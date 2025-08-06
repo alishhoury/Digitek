@@ -7,6 +7,7 @@ use App\Models\Order;
 use App\Http\Requests\StoreOrderRequest;
 use App\Http\Requests\UpdateOrderRequest;
 use App\Services\OrderService;
+use App\Events\OrderStatusUpdated;
 
 class OrderController extends Controller {
   /**
@@ -43,15 +44,20 @@ class OrderController extends Controller {
   public function update(UpdateOrderRequest $request, Order $order) {
     $data = $request->all();
     $upOrder = OrderService::updateOrderStatus($order->id, $data);
+
+
     if (!$upOrder) {
       return response()->json([
         'success' => false,
         'message' => 'Order not found.'
       ], 404);
     }
+
+    broadcast(new OrderStatusUpdated($upOrder))->toOthers();
+
     return response()->json([
       'success' => true,
-      'product' => $upOrder,
+      'order' => $upOrder,
     ]);
   }
 
