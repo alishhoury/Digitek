@@ -2,6 +2,17 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "./styles.css";
 import api from "../../../services/axios";
+import Echo from "laravel-echo";
+import Pusher from "pusher-js";
+window.Pusher = Pusher;
+
+const echo = new Echo({
+  broadcaster: "pusher",
+  key: import.meta.env.VITE_PUSHER_APP_KEY,
+  cluster: import.meta.env.VITE_PUSHER_APP_CLUSTER,
+  forceTLS: true,
+  encrypted: true,
+});
 
 const OrderList = () => {
   const [orders, setOrders] = useState([]);
@@ -14,6 +25,7 @@ const OrderList = () => {
         const userOrders = response.data.payload;
 
         const mappedOrders = userOrders.map(order => ({
+          id: order.id,
           number: `${order.order_number}`,
           date: new Date(order.created_at).toDateString(),
           price: `$${parseFloat(order.total_price).toFixed(2)}`,
@@ -21,11 +33,38 @@ const OrderList = () => {
         }));
 
         setOrders(mappedOrders);
+
+        const userId = response.data.payload[0]?.user_id;
+        if (userId) {
+          echo.channel(`orders.${userId}`).listen(".order.updated", event => {
+            console.log("User order updated:", event);
+
+            const updatedOrder = event.order;
+
+            setOrders(prev =>
+              prev.map(order =>
+                order.id === updatedOrder.id
+                  ? {
+                      ...order,
+                      status:
+                        updatedOrder.status.charAt(0).toUpperCase() +
+                        updatedOrder.status.slice(1),
+                    }
+                  : order
+              )
+            );
+          });
+        }
       } catch (error) {
         console.error("Failed to fetch orders:", error);
       } finally {
         setLoading(false);
       }
+
+      return () => {
+        const userId = orders[0]?.user_id;
+        if (userId) echo.leave(`orders.${userId}`);
+      };
     };
 
     fetchOrders();

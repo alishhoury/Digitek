@@ -2,6 +2,9 @@ import NavBar from "../../Components/Navbar";
 import "./style.css";
 import Statistic from "../../Components/Statistics";
 
+import Echo from "laravel-echo";
+import Pusher from "pusher-js";
+
 import {
   LineChart,
   Line,
@@ -21,16 +24,24 @@ import {
   setUpdatingId,
 } from "../../features/dashboard/dashboardSlice";
 
+window.Pusher = Pusher;
+
+const echo = new Echo({
+  broadcaster: "pusher",
+  key: import.meta.env.VITE_PUSHER_APP_KEY,
+  cluster: import.meta.env.VITE_PUSHER_APP_CLUSTER,
+  forceTLS: true,
+  encrypted: true,
+});
+
 const AdminPage = () => {
   const dispatch = useDispatch();
-  const { orders, updatingId } = useSelector((global) => global.dashboard);
+  const { orders, updatingId } = useSelector(global => global.dashboard);
 
   useEffect(() => {
     const getOrders = async () => {
       try {
-        const response = await api.get("/orders", {
-          withCredentials: true,
-        });
+        const response = await api.get("/orders", { withCredentials: true });
         dispatch(setOrders(response.data));
       } catch (error) {
         console.error("Error: ", error);
@@ -38,7 +49,26 @@ const AdminPage = () => {
     };
 
     getOrders();
-  }, [dispatch]);
+
+    echo.channel("admin.orders").listen(".order.placed", event => {
+      dispatch(setOrders([event, ...orders]));
+    });
+
+    echo.channel("admin.orders").listen(".order.updated", event => {
+      console.log("Order status updated event received:", event);
+      dispatch(
+        setOrders(
+          orders.map(order =>
+            order.id === event.id ? { ...order, ...event } : order
+          )
+        )
+      );
+    });
+
+    return () => {
+      echo.leave("admin.orders");
+    };
+  }, [dispatch, orders]);
 
   const handleStatusChange = async (orderId, newStatus) => {
     dispatch(setUpdatingId(orderId));
@@ -48,7 +78,7 @@ const AdminPage = () => {
         { status: newStatus },
         { withCredentials: true }
       );
-      const updatedOrders = orders.map((order) =>
+      const updatedOrders = orders.map(order =>
         order.id === orderId ? { ...order, status: newStatus } : order
       );
       dispatch(setOrders(updatedOrders));
@@ -120,7 +150,7 @@ const AdminPage = () => {
           </tr>
         </thead>
         <tbody>
-          {orders.map((order) => {
+          {orders.map(order => {
             const currentIndex = statusSteps.indexOf(order.status);
             const availableStatuses = statusSteps.slice(currentIndex);
 
@@ -150,11 +180,11 @@ const AdminPage = () => {
                       className="admin-select"
                       value={order.status}
                       disabled={updatingId === order.id}
-                      onChange={(e) =>
+                      onChange={e =>
                         handleStatusChange(order.id, e.target.value)
                       }
                     >
-                      {availableStatuses.map((status) => (
+                      {availableStatuses.map(status => (
                         <option key={status} value={status}>
                           {status}
                         </option>
