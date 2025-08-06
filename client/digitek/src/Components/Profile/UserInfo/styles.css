@@ -53,7 +53,7 @@
 .info-item {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 14px;
   margin-left: 0.5rem;
 }
 
