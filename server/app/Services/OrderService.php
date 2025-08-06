@@ -10,6 +10,7 @@ use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\OrderInvoiceMail;
 use App\Models\User;
+use App\Events\OrderPlaced;
 
 
 class OrderService {
@@ -25,6 +26,8 @@ class OrderService {
       $order->load('products');
 
       $user = User::find($userId);
+      event(new OrderPlaced($order));
+
       if ($user && $user->email){
         Mail::to($user->email)->send(new OrderInvoiceMail($order));
 

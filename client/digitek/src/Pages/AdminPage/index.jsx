@@ -13,7 +13,7 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import api from "../../services/axios";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -58,14 +58,15 @@ const AdminPage = () => {
       dispatch(setUpdatingId(null));
     }
   };
+  const [ordersPerHour, setOrdersPerHours] = useState([])
+  useEffect(() => {
+    api.get('/analytics/orders-per-hour')
+      .then((response) => {
+        setOrdersPerHours(response.data.payload)
+      }
+    )
+},[])
 
-  const ordersPerHour = [
-    { id: 1, hour: 9, order_count: 10, revenue: 145.5 },
-    { id: 2, hour: 12, order_count: 9, revenue: 134.5 },
-    { id: 3, hour: 15, order_count: 14, revenue: 215.75 },
-    { id: 4, hour: 18, order_count: 9, revenue: 140.25 },
-    { id: 5, hour: 21, order_count: 4, revenue: 70.0 },
-  ];
 
   const chartData = ordersPerHour.map(({ hour, order_count, revenue }) => ({
     hour: `${hour}:00`,
