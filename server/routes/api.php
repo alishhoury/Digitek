@@ -9,20 +9,10 @@ use App\Http\Controllers\Customer\NotificationController;
 use App\Http\Controllers\Shared\AuthController;
 use App\Http\Controllers\Shared\WebHookController;
 use Illuminate\Support\Facades\Route;
-<<<<<<< HEAD
-use Illuminate\Support\Facades\DB;
-use App\Http\Controllers\Shared\Controller;
-use Illuminate\Http\Request;
 use App\Http\Controllers\OrdersPerHourController;
-
-
-Route::group(['prefix' => 'v0.1'], function () {
-  
-=======
 
 Route::group(['prefix' => 'v0.1', 'middleware' => 'throttle:1000,1'], function () {
 
->>>>>>> 66620b99f030938469d0840b8b5bb66196a5edb1
   Route::group(['prefix' => 'auth'], function () {
     Route::middleware('custom.guest')->group(function () {
       Route::post('login', [AuthController::class, 'login']);
