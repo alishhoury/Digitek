@@ -1,4 +1,5 @@
 name: Docker CI for Laravel + React
+
 on:
   push:
     branches:
@@ -7,6 +8,7 @@ on:
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
+
     services:
       mysql:
         image: mysql:8.0
@@ -20,6 +22,7 @@ jobs:
           --health-interval=10s
           --health-timeout=5s
           --health-retries=3
+
       redis:
         image: redis:7-alpine
         ports:
@@ -34,13 +37,22 @@ jobs:
       - name: 📥 Checkout code
         uses: actions/checkout@v4
 
+      - name: 🧾 Copy Laravel .env
+        run: cp server/.env.example server/.env
+
+      - name: 🧾 Copy React .env
+        run: cp client/.env.example client/.env || echo "No React .env.example found"
+
       - name: 🐳 Set up Docker Compose
         run: docker compose -f docker-compose.yml up -d --build
 
-      - name: ⏱️ Wait for Laravel to be healthy
+      - name: ⏱️ Wait for Laravel to be ready
         run: |
-          echo "Waiting for Laravel to be healthy..."
-          docker-compose exec app bash -c "until php artisan inspire > /dev/null 2>&1; do sleep 5; done"
+          echo "Waiting for Laravel to be ready..."
+          sleep 15  # Basic wait; optional: use healthchecks or retry loops
+
+      - name: 🔐 Generate Laravel key
+        run: docker-compose exec app php artisan key:generate
 
       - name: 🧼 Clear Laravel cache
         run: docker-compose exec app php artisan optimize:clear
@@ -48,11 +60,11 @@ jobs:
       - name: 🧪 Run Laravel Tests
         run: docker-compose exec app php artisan test
 
-      - name: 📦 Install Node dependencies
+      - name: 📦 Install React dependencies
         run: docker-compose exec client npm install
 
-      - name: 🏗️ Build React App
+      - name: 🏗️ Build React app
         run: docker-compose exec client npm run build
 
-      - name: 🧪 Run React Tests (skipped if not present)
-        run: docker-compose exec client npm test || echo "No React tests found"
+      - name: 🧪 Run React Tests (optional)
+        run: docker-compose exec client npm test || echo "⚠️ No React tests found"
