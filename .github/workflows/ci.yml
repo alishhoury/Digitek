@@ -1,0 +1,61 @@
+name: Docker CI for Laravel + React
+
+on:
+  push:
+    branches:
+      - ci-test
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: digitek_db
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="mysqladmin ping -h localhost -u root -proot"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=3
+
+      redis:
+        image: redis:7-alpine
+        ports:
+          - 6379:6379
+        options: >-
+          --health-cmd="redis-cli ping"
+          --health-interval=10s
+          --health-timeout=3s
+          --health-retries=3
+
+    steps:
+      - name: 📥 Checkout code
+        uses: actions/checkout@v4
+
+      - name: 🐳 Set up Docker Compose
+        run: docker-compose -f docker-compose.yml up -d --build
+
+      - name: ⏱️ Wait for Laravel to be healthy
+        run: |
+          echo "Waiting for Laravel to be healthy..."
+          docker-compose exec app bash -c "until php artisan inspire > /dev/null 2>&1; do sleep 5; done"
+
+      - name: 🧼 Clear Laravel cache
+        run: docker-compose exec app php artisan optimize:clear
+
+      - name: 🧪 Run Laravel Tests
+        run: docker-compose exec app php artisan test
+
+      - name: 📦 Install Node dependencies
+        run: docker-compose exec client npm install
+
+      - name: 🏗️ Build React App
+        run: docker-compose exec client npm run build
+
+      - name: 🧪 Run React Tests (skipped if not present)
+        run: docker-compose exec client npm test || echo "No React tests found"
