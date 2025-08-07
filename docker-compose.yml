@@ -19,14 +19,9 @@ services:
         condition: service_healthy
       redis:
         condition: service_healthy
-    command: |
-      sh -c "
-      php artisan optimize:clear
-      php artisan migrate --force
-      php artisan db:seed --force
-      php artisan queue:work --verbose --tries=3 --delay=3 &
-      php-fpm
-      "
+    # The migrations and seeding commands have been removed from the
+    # container's startup command. They are now handled in the CI workflow.
+    command: ["php-fpm"]
     environment:
       - DB_HOST=mysql
       - REDIS_HOST=redis
@@ -48,8 +43,6 @@ services:
     ports:
       - "80:80"
       - "443:443"
-    # *** THIS IS THE CRITICAL FIX: The ':ro' flag has been removed. ***
-    # This allows Nginx to see all file changes from your local machine.
     volumes:
       - ./server:/var/www
       - ./nginx/conf.d:/etc/nginx/conf.d:ro
