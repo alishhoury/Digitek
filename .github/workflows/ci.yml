@@ -61,6 +61,9 @@ jobs:
       - name: Install PHP dependencies
         run: docker compose exec app composer install --no-interaction --prefer-dist --optimize-autoloader
 
+      - name: Fix Laravel permissions
+        run: docker compose exec app chmod -R 775 storage bootstrap/cache
+
       - name: Generate APP_KEY
         run: docker compose exec app php artisan key:generate
 
