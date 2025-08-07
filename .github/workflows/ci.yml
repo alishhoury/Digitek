@@ -61,8 +61,14 @@ jobs:
       - name: Install PHP dependencies
         run: docker compose exec app composer install --no-interaction --prefer-dist --optimize-autoloader
 
-      - name: Fix Laravel permissions
-        run: docker compose exec app chmod -R 775 storage bootstrap/cache
+      - name: Fix Laravel permissions and APP_KEY
+        # This is the corrected step that addresses the permissions issue.
+        # It changes the ownership of the .env file to the www-data user inside the container
+        # before attempting to generate the key.
+        run: |
+          docker compose exec app chown www-data:www-data /var/www/.env
+          docker compose exec app chmod 664 /var/www/.env
+          docker compose exec app chmod -R 775 storage bootstrap/cache
 
       - name: Generate APP_KEY
         run: docker compose exec app php artisan key:generate
