@@ -48,19 +48,19 @@ jobs:
           sleep 15  # Basic wait; optional: use healthchecks or retry loops
 
       - name: 🔐 Generate Laravel key
-        run: docker-compose exec app php artisan key:generate
+        run: docker compose exec app php artisan key:generate
 
       - name: 🧼 Clear Laravel cache
-        run: docker-compose exec app php artisan optimize:clear
+        run: docker compose exec app php artisan optimize:clear
 
       - name: 🧪 Run Laravel Tests
-        run: docker-compose exec app php artisan test
+        run: docker compose exec app php artisan test
 
       - name: 📦 Install React dependencies
-        run: docker-compose exec client npm install
+        run: docker compose exec client npm install
 
       - name: 🏗️ Build React app
-        run: docker-compose exec client npm run build
+        run: docker compose exec client npm run build
 
       - name: 🧪 Run React Tests (optional)
-        run: docker-compose exec client npm test || echo "⚠️ No React tests found"
+        run: docker compose exec client npm test || echo "⚠️ No React tests found"
