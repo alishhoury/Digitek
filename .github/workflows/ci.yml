@@ -33,11 +33,8 @@ jobs:
       - name: 📥 Checkout code
         uses: actions/checkout@v4
 
-      - name: 🧾 Copy Laravel .env
-        run: cp server/.env.example server/.env
-
-      - name: 🧾 Copy React .env
-        run: cp client/.env.example client/.env || echo "No React .env.example found"
+      # Removed the host-level 'cp' command to avoid permission issues.
+      # The .env file will now be created inside the container.
 
       - name: 🐳 Set up Docker Compose (override Laravel command for CI)
         run: |
@@ -58,17 +55,17 @@ jobs:
             sleep 5
           done
 
+      - name: Create .env file inside container with correct permissions
+        # This step uses the www-data user to copy the .env.example to .env
+        # inside the container, ensuring the file has the correct ownership from the start.
+        run: docker compose exec --user www-data app cp .env.example .env
+
       - name: Install PHP dependencies
         run: docker compose exec app composer install --no-interaction --prefer-dist --optimize-autoloader
 
-      - name: Fix Laravel permissions and APP_KEY
-        # This is the corrected step that addresses the permissions issue.
-        # It changes the ownership of the .env file to the www-data user inside the container
-        # before attempting to generate the key.
-        run: |
-          docker compose exec app chown www-data:www-data /var/www/.env
-          docker compose exec app chmod 664 /var/www/.env
-          docker compose exec app chmod -R 775 storage bootstrap/cache
+      - name: Fix Laravel permissions
+        # The .env file no longer needs permission fixes, but storage and cache do.
+        run: docker compose exec app chmod -R 775 storage bootstrap/cache
 
       - name: Generate APP_KEY
         run: docker compose exec app php artisan key:generate
