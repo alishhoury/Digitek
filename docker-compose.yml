@@ -10,7 +10,11 @@ services:
     env_file:
       - ./server/.env
     volumes:
-      - ./server:/var/www
+      - ./server/app:/var/www/app
+      - ./server/routes:/var/www/routes
+      - ./server/resources:/var/www/resources
+      - ./server/public:/var/www/public
+      - ./server/.env:/var/www/.env
     depends_on:
       mysql:
         condition: service_healthy

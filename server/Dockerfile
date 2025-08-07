@@ -63,9 +63,6 @@ RUN chown -R www-data:www-data /var/www && \
 # Switch to non-root user
 USER www-data
 
-# Install composer dependencies
-RUN composer install --no-interaction --no-scripts --no-dev --optimize-autoloader
-
 # Expose port 9000 and start php-fpm server
 EXPOSE 9000
 CMD ["php-fpm"]

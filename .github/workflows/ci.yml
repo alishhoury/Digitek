@@ -39,13 +39,24 @@ jobs:
       - name: 🧾 Copy React .env
         run: cp client/.env.example client/.env || echo "No React .env.example found"
 
-      - name: 🐳 Set up Docker Compose
-        run: docker compose -f docker-compose.yml up -d --build
-
-      - name: ⏱️ Wait for Laravel to be ready
+      - name: 🐳 Set up Docker Compose (override Laravel command for CI)
         run: |
-          echo "Waiting for Laravel to be ready..."
-          sleep 15  # Basic wait; optional: use healthchecks or retry loops
+          docker compose -f docker-compose.yml up -d --build --quiet-pull \
+            --wait-timeout 60 \
+            --remove-orphans \
+            --detach \
+            --scale app=0 && \
+          docker compose run -d --name laravel-app app php-fpm
+
+      - name: Wait for Laravel
+        run: |
+          for i in {1..10}; do
+            if docker compose exec app php artisan --version; then
+              echo "Laravel is ready"; break
+            fi
+            echo "Waiting for Laravel... ($i)"
+            sleep 5
+          done
 
       - name: Install PHP dependencies
         run: docker compose exec app composer install --no-interaction --prefer-dist --optimize-autoloader
