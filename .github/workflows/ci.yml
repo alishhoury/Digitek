@@ -33,8 +33,12 @@ jobs:
       - name: 📥 Checkout code
         uses: actions/checkout@v4
 
-      - name: 🧾 Copy Laravel .env
-        run: cp server/.env.example server/.env
+      - name: 🧾 Create Laravel .env file with static key
+        # This is the critical change. We create a new .env file with a static APP_KEY
+        # that the test runner will always be able to find.
+        run: |
+          cp server/.env.example server/.env
+          echo "APP_KEY=base64:3fU/H025uV4a4f89d3A3qP0wT1mU7yN2xS4C5V7kO2bU=" >> server/.env
 
       - name: 🧾 Copy React .env
         run: cp client/.env.example client/.env || echo "No React .env.example found"
@@ -46,6 +50,9 @@ jobs:
             --remove-orphans \
             --detach
 
+      - name: Install PHP dependencies
+        run: docker compose exec app composer install --no-interaction --prefer-dist --optimize-autoloader
+
       - name: Wait for Laravel and DB
         run: |
           for i in {1..10}; do
@@ -56,14 +63,11 @@ jobs:
             sleep 5
           done
 
-      - name: Install PHP dependencies
-        run: docker compose exec app composer install --no-interaction --prefer-dist --optimize-autoloader
-
       - name: Fix Laravel permissions
         run: docker compose exec app chmod -R 775 storage bootstrap/cache
 
-      - name: 🧪 Generate Key, Run Migrations, and Test
-        run: docker compose exec app sh -c "php artisan key:generate && php artisan migrate --force && php artisan db:seed --force && php artisan optimize:clear && php artisan config:clear && php artisan test"
+      - name: 🧪 Run Migrations and Tests
+        run: docker compose exec app sh -c "php artisan migrate --force && php artisan db:seed --force && php artisan optimize:clear && php artisan config:clear && php artisan test"
 
       - name: 📦 Install React dependencies
         run: docker compose exec client npm install
