@@ -68,10 +68,7 @@ jobs:
           docker compose exec app php artisan db:seed --force
 
       - name: 🧪 Generate Key, Clear Cache, and Run Laravel Tests
-        # This is the key change. We now combine the key generation, cache clearing,
-        # and test commands into a single shell session to ensure the APP_KEY
-        # is available for the tests.
-        run: docker compose exec app sh -c "php artisan key:generate && php artisan optimize:clear && php artisan test"
+        run: docker compose exec app sh -c "php artisan key:generate && php artisan optimize:clear && php artisan config:clear && php artisan test"
 
       - name: 📦 Install React dependencies
         run: docker compose exec client npm install
