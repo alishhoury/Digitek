@@ -62,13 +62,8 @@ jobs:
       - name: Fix Laravel permissions
         run: docker compose exec app chmod -R 775 storage bootstrap/cache
 
-      - name: 🔄 Run Migrations and Seed Database
-        run: |
-          docker compose exec app php artisan migrate --force
-          docker compose exec app php artisan db:seed --force
-
-      - name: 🧪 Generate Key, Clear Cache, and Run Laravel Tests
-        run: docker compose exec app sh -c "php artisan key:generate && php artisan optimize:clear && php artisan config:clear && php artisan test"
+      - name: 🧪 Generate Key, Run Migrations, and Test
+        run: docker compose exec app sh -c "php artisan key:generate && php artisan migrate --force && php artisan db:seed --force && php artisan optimize:clear && php artisan config:clear && php artisan test"
 
       - name: 📦 Install React dependencies
         run: docker compose exec client npm install
