@@ -39,6 +39,13 @@ jobs:
       - name: 🧾 Copy React .env
         run: cp client/.env.example client/.env || echo "No React .env.example found"
 
+      # Fix PHP dependencies installation
+      - name: 🐘 Install PHP dependencies with Composer
+        run: |
+          docker run --rm --user $(id -u):$(id -g) \
+            -v $(pwd)/server:/app \
+            composer install --no-interaction --prefer-dist --optimize-autoloader
+
       - name: 🐳 Set up Docker Compose
         run: |
           docker compose -f docker-compose.yml up -d --build --quiet-pull \
