@@ -10,6 +10,7 @@ services:
     env_file:
       - ./server/.env
     volumes:
+      - ./server/.env:/var/www/.env
       - ./server/app:/var/www/app
       - ./server/routes:/var/www/routes
       - ./server/resources:/var/www/resources
