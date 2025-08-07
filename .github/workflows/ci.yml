@@ -63,10 +63,10 @@ jobs:
         run: docker compose exec app chmod -R 775 storage bootstrap/cache
 
       - name: 🧪 Generate Key, Run Migrations, and Test
-        # The key change is adding the '--env=.env' flag to the 'php artisan test' command.
-        # This forces the test runner to load the environment variables from the .env
-        # file, ensuring it picks up the APP_KEY.
-        run: docker compose exec app sh -c "php artisan key:generate && php artisan migrate --force && php artisan db:seed --force && php artisan optimize:clear && php artisan config:clear && php artisan test --env=.env"
+        # This is the most robust fix. By combining these commands, we ensure that
+        # the database is migrated and the APP_KEY is generated and available
+        # to the test runner in the same isolated shell session.
+        run: docker compose exec app sh -c "php artisan key:generate && php artisan migrate --force && php artisan db:seed --force && php artisan optimize:clear && php artisan config:clear && php artisan test"
 
       - name: 📦 Install React dependencies
         run: docker compose exec client npm install
