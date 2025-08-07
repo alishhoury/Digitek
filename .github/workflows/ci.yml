@@ -47,7 +47,10 @@ jobs:
           echo "Waiting for Laravel to be ready..."
           sleep 15  # Basic wait; optional: use healthchecks or retry loops
 
-      - name: 🔐 Generate Laravel key
+      - name: Install PHP dependencies
+        run: docker compose exec app composer install --no-interaction --prefer-dist --optimize-autoloader
+
+      - name: Generate APP_KEY
         run: docker compose exec app php artisan key:generate
 
       - name: 🧼 Clear Laravel cache
