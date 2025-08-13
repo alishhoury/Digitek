@@ -30,13 +30,11 @@ class OrderService {
       $user = User::find($userId);
       event(new OrderPlaced($order));
 
-      if ($user && $user->email){
-        Mail::to($user->email)->send(new OrderInvoiceMail($order));
-
-      }
+      // if ($user && $user->email){
+      //   Mail::to($user->email)->send(new OrderInvoiceMail($order));
+      // }
       return $order;
     });
-
   }
 
   public function payOrder(Order $order) {
@@ -129,10 +127,10 @@ class OrderService {
   private function attachProducts(Order $order, array $pivotData): void {
     $order->products()->attach($pivotData);
   }
-  
-  public static function updateOrderStatus(int $id, array $data){
+
+  public static function updateOrderStatus(int $id, array $data) {
     $order = Order::find($id);
-    
+
     if (!$order) {
       return null;
     }
