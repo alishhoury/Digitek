@@ -8,6 +8,7 @@ use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Http\Request;
+
 class ProductController extends Controller {
   /**
    * Display a listing of the resource.
@@ -18,18 +19,18 @@ class ProductController extends Controller {
     $cacheKey = "products:page:$page:search:$search";
 
     $products = Cache::tags(['products'])->remember($cacheKey, 60, function () use ($search) {
-        $query = Product::query();
+      $query = Product::query();
 
-        if (!empty($search)) {
-            $query->where('name', 'like', "%{$search}%")
-                  ->orWhere('description', 'like', "%{$search}%");
-        }
+      if (!empty($search)) {
+        $query->where('name', 'like', "%{$search}%")
+          ->orWhere('description', 'like', "%{$search}%");
+      }
 
-        return $query->simplePaginate(10);
+      return $query->simplePaginate(10);
     });
 
     return self::responseJSON($products);
-}
+  }
 
 
   /**
@@ -45,11 +46,6 @@ class ProductController extends Controller {
   public function show(Product $product) {
     return $this->responseJSON($product);
   }
-
-    
-
-
-  
 
 
   /**

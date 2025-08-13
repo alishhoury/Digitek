@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Notification;
 use App\Notifications\NewOrderNotification;
 use App\Events\OrderPlaced;
 use App\Events\OrderStatusUpdated;
+use Illuminate\Support\Facades\Cache;
 
 class OrderController extends Controller {
   /**
@@ -34,6 +35,8 @@ class OrderController extends Controller {
       auth('api')->id(),
       $request->validated()['products']
     );
+
+    Cache::tags(['products'])->flush();
 
 
     event(new OrderPlaced($order));
