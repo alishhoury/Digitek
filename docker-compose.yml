@@ -12,7 +12,7 @@ services:
     volumes:
       - ./server:/var/www
     depends_on:
-      mysql:
+      postgres:
         condition: service_healthy
       redis:
         condition: service_healthy
@@ -25,7 +25,7 @@ services:
       php-fpm
       "
     environment:
-      - DB_HOST=mysql
+      - DB_HOST=postgres
       - REDIS_HOST=redis
       - APP_ENV=local
     healthcheck:
@@ -70,35 +70,31 @@ services:
     networks:
       - app-network
 
-  # MySQL Database Service
-  mysql:
-    image: mysql:8.0
-    container_name: mysql-db
+  postgres:
+    image: postgres:15
+    container_name: postgres-db
     restart: unless-stopped
     ports:
-      - "3306:3306"
+      - "5432:5432"
     environment:
-      - MYSQL_DATABASE=digitek_db
-      - MYSQL_ROOT_PASSWORD=root
-      - MYSQL_INITDB_SKIP_TZINFO=1
+      - POSTGRES_DB=digitek_db
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
     volumes:
-      - mysql-data:/var/lib/mysql
-      - ./mysql/init:/docker-entrypoint-initdb.d:ro
-      - ./mysql/conf.d:/etc/mysql/conf.d:ro
-    command: >
-      --default-authentication-plugin=mysql_native_password
-      --innodb-buffer-pool-size=256M
-      --innodb-log-file-size=64M
-      --innodb-flush-method=O_DIRECT
-      --skip-name-resolve
-      --max_connections=200
+      - postgres-data:/var/lib/postgresql/data
+      - ./postgresql.conf:/etc/postgresql/postgresql.conf
+      - ./pg_hba.conf:/etc/postgresql/pg_hba.conf
+    command: postgres -c config_file=/etc/postgresql/postgresql.conf -c hba_file=/etc/postgresql/pg_hba.conf
     healthcheck:
       test:
-        ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-proot"]
-      timeout: 10s
+        [
+          "CMD-SHELL",
+          "pg_isready -U ${POSTGRES_USER:-postgres} -d ${POSTGRES_DB:-postgres} -h localhost",
+        ]
+      interval: 10s
+      timeout: 5s
       retries: 10
-      interval: 5s
-      start_period: 30s
+      start_period: 10s
     networks:
       - app-network
 
@@ -123,25 +119,6 @@ services:
       retries: 5
       interval: 5s
       start_period: 10s
-    networks:
-      - app-network
-
-  # PhpMyAdmin
-  phpmyadmin:
-    image: phpmyadmin/phpmyadmin
-    container_name: pma
-    restart: unless-stopped
-    ports:
-      - "8080:80"
-    environment:
-      - PMA_HOST=mysql
-      - PMA_PORT=3306
-      - PMA_ARBITRARY=1
-      - UPLOAD_LIMIT=64M
-      - MEMORY_LIMIT=512M
-    depends_on:
-      mysql:
-        condition: service_healthy
     networks:
       - app-network
 
@@ -177,7 +154,7 @@ networks:
         - subnet: 172.20.0.0/16
 
 volumes:
-  mysql-data:
+  postgres-data:
     driver: local
   redis-data:
     driver: local

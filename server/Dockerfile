@@ -20,16 +20,18 @@ RUN apt-get update && apt-get install -y \
     curl \
     netcat-openbsd \
     supervisor \
+    libpq-dev \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
 # Install Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-# Configure and install PHP extensions
+# Configure and install PHP extensions, add pdo_pgsql here
 RUN docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-install \
     pdo_mysql \
+    pdo_pgsql \
     mbstring \
     exif \
     pcntl \

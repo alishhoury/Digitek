@@ -42,6 +42,7 @@ const Cart = () => {
     try {
       const response = await api.post("/orders", formattedData);
       const { status, payload } = response.data;
+      console.log(payload);
 
       if (status === "success") {
         dispatch(clearCart());
